@@ -1,5 +1,5 @@
-import 'package:kindblood/core/database/contact_db/contact_db_interface.dart';
-import 'package:kindblood/features/contacts_list/domain/entities/blood_group.dart';
+import 'package:kindblood/features/contacts_list/data/datasources/contact_db_datasource.dart';
+import 'package:kindblood/core/entities/blood_group.dart';
 
 class UpdateContact {
   final ContactDataStore contactDataStore;

@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:kindblood/features/contacts_list/domain/usecases/get_contacts.dart';
 import 'package:kindblood/features/contacts_list/domain/usecases/update_contact.dart';
 import '../../../domain/entities/contact_info.dart';
-import '../../../domain/entities/blood_group.dart';
+import '../../../../../core/entities/blood_group.dart';
 part 'contact_listing_state.dart';
 
 class ContactListingCubit extends Cubit<ContactListingState> {

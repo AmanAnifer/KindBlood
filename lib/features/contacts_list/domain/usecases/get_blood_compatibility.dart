@@ -1,4 +1,4 @@
-import '../entities/blood_group.dart';
+import '../../../../core/entities/blood_group.dart';
 import '../entities/blood_compatibility_info.dart';
 
 BloodCompatibility getBloodCompatibility({

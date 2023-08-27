@@ -11,8 +11,8 @@ import 'package:get_it/get_it.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
-  sl.registerLazySingleton(
-      () => ContactListingCubit(getContacts: sl(), updateContact: sl()));
+  // sl.registerLazySingleton(
+  //     () => ContactListingCubit(getContacts: sl(), updateContact: sl()));
   sl.registerFactory(() => ContactViewCubit(launchCall: sl()));
 
   sl.registerLazySingleton(() => UpdateContact(contactDataStore: sl()));

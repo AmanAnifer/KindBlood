@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kindblood/features/contacts_list/presentation/cubit/contact_listing/contact_listing_cubit.dart';
 import '../../injection_container.dart';
 import '../widgets/listing.dart';
+import 'package:kindblood/core/routing/routes.dart';
 
 class ContactListPage extends StatelessWidget {
   const ContactListPage({super.key});
@@ -10,7 +11,8 @@ class ContactListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => sl<ContactListingCubit>(),
+      create: (context) =>
+          ContactListingCubit(getContacts: sl(), updateContact: sl()),
       child: Scaffold(
         appBar: AppBar(
           title: const Text("KindBlood"),
@@ -28,6 +30,7 @@ class ContactListPage extends StatelessWidget {
           ],
         ),
         body: const Listing(),
+        bottomNavigationBar: const CustomBottomNavigationBar(),
       ),
     );
   }

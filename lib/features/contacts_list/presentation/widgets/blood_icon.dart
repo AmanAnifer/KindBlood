@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../domain/entities/blood_compatibility_info.dart';
-import '../../domain/entities/blood_group.dart';
+import '../../../../core/entities/blood_group.dart';
 
 class BloodIcon extends StatelessWidget {
   final BloodGroup bloodGroup;

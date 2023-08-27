@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:kindblood/features/contacts_list/domain/entities/blood_group.dart';
+import 'package:kindblood/core/entities/blood_group.dart';
 import 'package:kindblood/features/contacts_list/presentation/cubit/contact_listing/contact_listing_cubit.dart';
 import 'package:kindblood/features/contacts_list/presentation/cubit/contact_view/contact_view_cubit.dart';
 import '../../injection_container.dart';
@@ -9,10 +9,12 @@ import '../widgets/location_icon.dart';
 
 class ContactViewPage extends StatefulWidget {
   final int contactIndex;
-  const ContactViewPage({
+  final ContactListingCubit _contactListingCubit;
+  ContactViewPage({
     super.key,
-    required this.contactIndex,
-  });
+    required (int, ContactListingCubit) args,
+  })  : contactIndex = args.$1,
+        _contactListingCubit = args.$2;
 
   @override
   State<ContactViewPage> createState() => _ContactViewPageState();
@@ -27,7 +29,7 @@ class _ContactViewPageState extends State<ContactViewPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: sl<ContactListingCubit>(),
+      value: widget._contactListingCubit,
       child: BlocProvider(
         create: (context) => sl<ContactViewCubit>(),
         child: Builder(

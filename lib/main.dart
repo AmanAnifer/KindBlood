@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       routeInformationProvider: Routes.router.routeInformationProvider,
       routeInformationParser: Routes.router.routeInformationParser,
       routerDelegate: Routes.router.routerDelegate,
-      title: "First Demo",
+      title: "KindBlood",
       darkTheme: ThemeData.from(
           colorScheme: ColorScheme.fromSeed(
             seedColor: Colors.red,

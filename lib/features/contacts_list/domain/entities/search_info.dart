@@ -1,4 +1,4 @@
-import 'blood_group.dart';
+import '../../../../core/entities/blood_group.dart';
 
 class SearchInfo {
   final String? locationGeohash;

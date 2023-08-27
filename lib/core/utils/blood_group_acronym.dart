@@ -1,4 +1,4 @@
-import '../../features/contacts_list/domain/entities/blood_group.dart';
+import '../entities/blood_group.dart';
 
 String getBloodGroupAcronym(BloodGroup? bloodGroup) {
   switch (bloodGroup) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kindblood/features/contacts_list/domain/entities/blood_compatibility_info.dart';
-import '../../domain/entities/blood_group.dart';
+import '../../../../core/entities/blood_group.dart';
 import 'blood_icon.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/contact_listing/contact_listing_cubit.dart';
@@ -45,7 +45,10 @@ class ContactListTile extends StatelessWidget {
             context.push(
               "/${Routes.contactViewScreen}",
               // Routes.contactViewScreen,
-              extra: index,
+              extra: (
+                index,
+                context.read<ContactListingCubit>(),
+              ),
             );
           },
         );

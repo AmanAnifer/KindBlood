@@ -1,7 +1,16 @@
-import 'package:kindblood/features/contacts_list/domain/entities/blood_group.dart';
+import 'package:kindblood/core/entities/blood_group.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'contact_db_interface.dart';
-import '../../utils/phone_number_normalise.dart';
+import '../../../../core/utils/phone_number_normalise.dart';
+
+abstract class ContactDataStore {
+  Future<void> storeInfo({
+    required String phoneNumber,
+    BloodGroup? bloodGroup,
+    String? locationGeoHash,
+  });
+  Future<BloodGroup?> getBloodGroup({required String phoneNumber});
+  Future<String?> getLocationGeoHash({required String phoneNumber});
+}
 
 class HiveContactDataStore implements ContactDataStore {
   final Box box;
