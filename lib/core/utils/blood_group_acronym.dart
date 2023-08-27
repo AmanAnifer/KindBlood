@@ -19,6 +19,8 @@ String getBloodGroupAcronym(BloodGroup? bloodGroup) {
     case BloodGroup.OPositive:
       return "O +ve";
     case BloodGroup.Other:
+      return "Other";
+    case BloodGroup.Unknown:
     case null:
       return "?";
   }

@@ -36,7 +36,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   equatable: ^2.0.5
-  fpdart: ^0.5.0
+  fpdart: ^0.6.0
   flutter_contacts: ^1.1.6
   json_annotation: ^4.8.0
   flutter_bloc: ^8.1.2
@@ -46,6 +46,9 @@ dependencies:
   hive_flutter: ^1.1.0
   conditional_parent_widget: 
     git: https://github.com/FuturisticGoo/ConditionalParentWidget.git
+    # path: /home/fgoo/Sources/Flutter_Repos/ConditionalParentWidget
+  go_router: ^7.1.1
+  url_launcher: ^6.1.11
 
 dev_dependencies:
   flutter_test:

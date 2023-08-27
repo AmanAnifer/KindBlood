@@ -7,5 +7,6 @@ enum BloodGroup {
   BNegative,
   OPositive,
   ONegative,
-  Other
+  Other,
+  Unknown
 }

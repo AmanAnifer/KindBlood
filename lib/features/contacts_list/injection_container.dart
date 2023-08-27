@@ -4,14 +4,14 @@ import 'package:kindblood/features/contacts_list/domain/repositories/contact_rep
 import 'package:kindblood/features/contacts_list/domain/usecases/get_contacts.dart';
 
 import 'presentation/cubit/contact_listing/contact_listing_cubit.dart';
-
+import 'presentation/cubit/contact_view/contact_view_cubit.dart';
 import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;
 
 Future<void> init() async {
-  sl.registerFactory(() => ContactListingCubit(getContacts: sl()));
-
+  sl.registerLazySingleton(() => ContactListingCubit(getContacts: sl()));
+  sl.registerFactory(() => ContactViewCubit(launchCall: sl()));
   sl.registerLazySingleton(() => GetContacts(contactInfoRepository: sl()));
   sl.registerLazySingleton<ContactInfoRepository>(
       () => ContactInfoRepositoryImpl(contactInfoDataSource: sl()));

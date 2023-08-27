@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:kindblood/features/contacts_list/domain/entities/blood_compatibility_info.dart';
 import '../../domain/entities/blood_group.dart';
+import 'blood_icon.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../cubit/contact_listing/contact_listing_cubit.dart';
+import 'package:go_router/go_router.dart';
+import 'package:kindblood/core/routing/routes.dart';
+import 'location_icon.dart';
 
 class ContactListTile extends StatelessWidget {
+  final int index;
   final String name;
   final String phone;
   final BloodGroup? bloodGroup;
@@ -9,6 +17,7 @@ class ContactListTile extends StatelessWidget {
 
   const ContactListTile(
       {super.key,
+      required this.index,
       required this.name,
       required this.phone,
       this.bloodGroup,
@@ -16,30 +25,31 @@ class ContactListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(name),
-      subtitle: Text(phone),
-      trailing:
-          // Text(state.contactsList[index].bloodGroup.toString()),
-          Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            size: 30,
-            Icons.water_drop,
-            // color: Colors.redAccent.shade700,
-            color: Colors.yellow.shade700,
+    return BlocBuilder<ContactListingCubit, ContactListingState>(
+      builder: (context, state) {
+        return ListTile(
+          title: Hero(
+            tag: "$phone-$name-name",
+            child: Material(
+              type: MaterialType.transparency,
+              child: Text(name),
+            ),
           ),
-          Text(
-            // getBloodGroupAcronym(
-            //   state.contactsList[index].bloodGroup,
-            // ),
-            "AB +ve",
-            style: Theme.of(context).textTheme.labelMedium,
+          subtitle: Text(phone),
+          trailing: const BloodIcon(
+            bloodCompatibility: BloodCompatibility.compatibleDifferent,
+            bloodGroup: BloodGroup.ABNegative,
           ),
-        ],
-      ),
-      leading: Text(distanceInKm?.toString() ?? "? km"),
+          leading: LocationIcon(distanceInKm: distanceInKm),
+          onTap: () {
+            context.push(
+              "/${Routes.contactViewScreen}",
+              // Routes.contactViewScreen,
+              extra: index,
+            );
+          },
+        );
+      },
     );
   }
 }

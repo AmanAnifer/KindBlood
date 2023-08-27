@@ -1,4 +1,3 @@
-import 'package:fast_contacts/fast_contacts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:kindblood/features/contacts_list/domain/usecases/get_contacts.dart';

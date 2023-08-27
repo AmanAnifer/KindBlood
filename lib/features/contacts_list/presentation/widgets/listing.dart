@@ -31,6 +31,7 @@ class Listing extends StatelessWidget {
                       // cacheExtent: 40,
                       itemBuilder: (context, index) {
                         return ContactListTile(
+                          index: index,
                           name: state.contactsList[index].name,
                           phone: state.contactsList[index].phone,
                           bloodGroup: state.contactsList[index].bloodGroup,
