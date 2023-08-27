@@ -49,7 +49,10 @@ class ContactListTile extends StatelessWidget {
               bloodGroup: displayContactInfo.bloodGroup ?? BloodGroup.Unknown,
             ),
           ),
-          leading: LocationIcon(distance: displayContactInfo.distanceFromUser),
+          leading: LocationIcon(
+              // TODO: what distance to show if its null
+              underneathText:
+                  "${displayContactInfo.distanceFromUser?.toString()}\n"),
           onTap: () {
             context.push(
               "/${Routes.contactViewScreen}",

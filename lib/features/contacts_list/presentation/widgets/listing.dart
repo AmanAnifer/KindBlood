@@ -56,6 +56,8 @@ class Listing extends StatelessWidget {
                           contactSearchMode: ContactSearchMode.offline,
                           bloodGroup:
                               context.read<FilterCubit>().state.bloodGroup,
+                          userLocation:
+                              context.read<FilterCubit>().state.userLocation,
                         ),
                         fromCache: false,
                       );

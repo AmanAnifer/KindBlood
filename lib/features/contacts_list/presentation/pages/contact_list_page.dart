@@ -57,6 +57,8 @@ class _ContactListPageState extends State<ContactListPage> {
                           contactSearchMode: ContactSearchMode.offline,
                           bloodGroup:
                               context.read<FilterCubit>().state.bloodGroup,
+                          userLocation:
+                              context.read<FilterCubit>().state.userLocation,
                         ),
                         fromCache: false,
                       );

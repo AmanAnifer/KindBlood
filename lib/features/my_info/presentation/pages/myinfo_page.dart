@@ -6,6 +6,7 @@ import '../cubit/myinfo_page_cubit.dart';
 import '../../injection_container.dart';
 import '../widgets/showing_info.dart';
 import '../widgets/editing_info.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 final _formKey = GlobalKey<FormState>();
 
@@ -47,6 +48,8 @@ class _MyInfoPageState extends State<MyInfoPage> {
                 : null,
             body: Center(child: () {
               if (localState is MyInfoPageFirstTime) {
+                // TODO: cleaner permission handling
+                Permission.locationWhenInUse.request();
                 return const Text("Melcowe to KindBlood");
               } else if (localState is MyInfoPageLoading) {
                 return const CircularProgressIndicator();

@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kindblood/core/widgets/select_blood_group.dart' as blood_select;
 import 'package:kindblood/core/widgets/select_distance_limit.dart'
     as distance_select;
+import 'package:kindblood/core/widgets/location_selection_page.dart';
 import 'package:kindblood/core/utils/blood_group_acronym.dart';
 
 class FilterWidgets extends StatefulWidget {
@@ -96,6 +97,31 @@ class _FilterWidgetsState extends State<FilterWidgets> {
             if widget isn't visible, thus showing 2 unit spaces
             */
             // const TenWidthBox(),
+            ActionChip(
+              onPressed: () async {
+                showGeneralDialog(
+                  context: context,
+                  pageBuilder: (dialogContext, animation, secondaryAnimation) {
+                    return Material(
+                      child: LocationSelection(
+                        startPosition: state.userLocation,
+                        callback: (latLong) async {
+                          if (mounted) {
+                            context.read<FilterCubit>().updateFilters(
+                                  newFilter: state.searchFilter.copyWith(
+                                    userLocation: latLong,
+                                  ),
+                                );
+                          }
+                        },
+                      ),
+                    );
+                  },
+                );
+              },
+              label: Text(
+                  "Location: ${state.userLocation.toFixedSizedString(singleLine: true)}"),
+            ),
             ActionChip(
               onPressed: () async {
                 var selected =

@@ -6,6 +6,7 @@ class FilterState extends SearchFilter {
   FilterState({
     required super.contactSearchMode,
     required super.bloodGroup,
+    required super.userLocation,
     super.maxDistance,
     super.showAnonVolunteers,
   });
@@ -14,6 +15,7 @@ class FilterState extends SearchFilter {
     return FilterState(
       contactSearchMode: searchFilter.contactSearchMode,
       bloodGroup: searchFilter.bloodGroup,
+      userLocation: searchFilter.userLocation,
       maxDistance: searchFilter.maxDistance,
       showAnonVolunteers: searchFilter.showAnonVolunteers,
     );

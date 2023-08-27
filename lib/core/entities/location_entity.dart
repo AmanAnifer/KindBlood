@@ -17,7 +17,7 @@ class LatLong {
     return "$latitude °N, $longitude °E";
   }
 
-  String toDenseString() {
-    return "${latitude.toStringAsFixed(4)} °N\n${longitude.toStringAsFixed(4)} °E";
+  String toFixedSizedString({bool singleLine = false}) {
+    return "${latitude.toStringAsFixed(4)} °N${singleLine ? ' ' : '\n'}${longitude.toStringAsFixed(4)} °E";
   }
 }

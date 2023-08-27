@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kindblood/core/entities/blood_group.dart';
 import 'package:kindblood/core/utils/blood_group_acronym.dart';
-import '../pages/location_selection_page.dart';
+import '../../../../core/widgets/location_selection_page.dart';
 import '../../../../core/entities/location_entity.dart' as le;
 
 class EditingInfoInputControllers {

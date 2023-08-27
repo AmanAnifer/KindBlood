@@ -11,6 +11,7 @@ class FilterCubit extends Cubit<FilterState> {
           FilterState(
             contactSearchMode: ContactSearchMode.offline,
             bloodGroup: myInfo.bloodGroup,
+            userLocation: myInfo.locationCoordinates,
           ),
         );
 

@@ -101,6 +101,10 @@ class _ContactViewPageState extends State<ContactViewPage> {
                                         .read<FilterCubit>()
                                         .state
                                         .bloodGroup,
+                                    userLocation: context
+                                        .read<FilterCubit>()
+                                        .state
+                                        .userLocation,
                                   ),
                                   fromCache: false,
                                 );
@@ -150,8 +154,10 @@ class _ContactViewPageState extends State<ContactViewPage> {
                           ),
                           LocationIcon(
                             isLargeIcon: true,
-                            distance:
-                                widget.displayContactInfo.distanceFromUser,
+                            // TODO: what distance to show if its null
+                            underneathText: widget
+                                .displayContactInfo.distanceFromUser
+                                .toString(),
                             // callback:
                             //     localContactViewState is ContactViewEdit
                             //         ? () {}

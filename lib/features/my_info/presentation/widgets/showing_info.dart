@@ -32,7 +32,8 @@ class _ShowingInfoState extends State<ShowingInfo> {
               ),
               LocationIcon(
                 isLargeIcon: true,
-                locationText: widget.myInfo.locationCoordinates.toDenseString(),
+                underneathText:
+                    widget.myInfo.locationCoordinates.toFixedSizedString(),
               ),
             ],
           ),

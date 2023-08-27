@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:kindblood/core/entities/length_units.dart';
 
 class LocationIcon extends StatelessWidget {
-  final LengthUnit? distance;
-  final String? locationText;
+  final String? underneathText;
   final bool isLargeIcon;
   const LocationIcon({
     super.key,
-    this.distance,
     this.isLargeIcon = false,
-    this.locationText,
+    this.underneathText,
   });
 
   @override
@@ -22,7 +19,7 @@ class LocationIcon extends StatelessWidget {
           size: isLargeIcon ? 60 : 0,
         ),
         Text(
-          "${distance ?? locationText ?? '?'}${isLargeIcon ? ' ' : '\n'}${(locationText == null) ? 'km' : ''}",
+          underneathText ?? '?',
           textAlign: TextAlign.center,
           style: isLargeIcon
               ? Theme.of(context).textTheme.titleLarge
