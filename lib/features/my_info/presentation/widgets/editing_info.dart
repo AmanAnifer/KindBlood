@@ -1,22 +1,22 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kindblood/core/entities/blood_group.dart';
-import 'package:kindblood/core/entities/myinfo_entity.dart';
 import 'package:kindblood/core/utils/blood_group_acronym.dart';
-import '../cubit/myinfo_page_cubit.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import '../pages/location_selection_page.dart';
+import '../../../../core/entities/location_entity.dart' as le;
 
 class EditingInfoInputControllers {
   final TextEditingController nameController;
   final TextEditingController phoneController;
   final TextEditingController locationController;
   BloodGroup? bloodGroup;
+  le.LatLong? latLong;
   EditingInfoInputControllers({
     required this.nameController,
     required this.phoneController,
     required this.locationController,
     this.bloodGroup,
+    this.latLong,
   });
 }
 
@@ -147,16 +147,38 @@ class _EditingInfoState extends State<EditingInfo> {
                         decoration: InputDecoration(
                           hintText: "Getting your location...",
                           suffixIcon: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              showGeneralDialog(
+                                context: context,
+                                pageBuilder:
+                                    (context, animation, secondaryAnimation) {
+                                  return Material(
+                                    child: LocationSelection(
+                                      callback: (latLong) {
+                                        widget
+                                            .editingInputControllers
+                                            .locationController
+                                            .text = latLong.toString();
+                                        widget.editingInputControllers.latLong =
+                                            latLong;
+                                      },
+                                    ),
+                                  );
+                                },
+                              );
+                            },
                             icon: const Icon(Icons.add_location),
                           ),
                           label: const Text("Location coordinates"),
                           border: const OutlineInputBorder(),
                         ),
                         validator: (value) {
-                          if (kDebugMode || kProfileMode) {
-                            return null;
-                          } else if (value == null || value.isEmpty) {
+                          // if (kDebugMode || kProfileMode) {
+                          //   return null;
+                          // } else if (value == null || value.isEmpty) {
+                          //   return "Location is required";
+                          // }
+                          if (widget.editingInputControllers.latLong == null) {
                             return "Location is required";
                           }
 

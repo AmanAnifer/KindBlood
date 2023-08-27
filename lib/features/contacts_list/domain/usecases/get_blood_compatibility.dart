@@ -9,7 +9,7 @@ BloodCompatibility getBloodCompatibility({
       bloodCanReceiveCompatibilityMap[receiver]!;
   if (currentReceiverCompatibilityMap.contains(donor)) {
     if (receiver == donor) {
-      return const Compatible();
+      return const CompatibleSame();
     } else {
       return const CompatibleButDifferent();
     }

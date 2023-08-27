@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fpdart/fpdart.dart' as fpdart;
 import 'package:go_router/go_router.dart';
 import 'package:kindblood/core/entities/myinfo_entity.dart';
-import 'package:kindblood/core/errors/failure.dart';
+import 'package:kindblood/core/injection_container.dart' as core_di;
 import 'package:kindblood/features/contacts_list/presentation/cubit/contact_listing/contact_listing_cubit.dart';
 import '../cubit/filter_widgets/filter_cubit.dart';
 import '../../injection_container.dart';
@@ -24,12 +23,11 @@ class _ContactListPageState extends State<ContactListPage> {
   @override
   void initState() {
     super.initState();
-    final fpdart.Either<NoExistingMyInfoFailure, MyInfo> myInfoOrFailure = sl();
-    myInfoOrFailure.fold(
+    final core_di.EitherMyInfoOrFailure eitherMyInfoOrFailure = sl();
+    eitherMyInfoOrFailure.fold(
       (l) => context.go(routes.Routes.myInfoScreen),
       (r) => myInfo = r,
     );
-    // Cuz if myInfo isn't ready then it shouldn't show this screen
   }
 
   @override
@@ -56,9 +54,11 @@ class _ContactListPageState extends State<ContactListPage> {
                 onPressed: () {
                   context.read<ContactListingCubit>().populateContacts(
                         searchFilter: SearchFilter(
-                            contactSearchMode: ContactSearchMode.offline,
-                            bloodGroup:
-                                context.read<FilterCubit>().state.bloodGroup),
+                          contactSearchMode: ContactSearchMode.offline,
+                          bloodGroup:
+                              context.read<FilterCubit>().state.bloodGroup,
+                        ),
+                        fromCache: false,
                       );
                 },
               );

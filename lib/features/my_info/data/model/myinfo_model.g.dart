@@ -6,11 +6,11 @@ part of 'myinfo_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-MyInfoModel _$MyInfoModelFromJson(Map<String, dynamic> json) => MyInfoModel(
+MyInfoModel _$MyInfoModelFromJson(Map json) => MyInfoModel(
       name: json['name'] as String,
       phoneNumber: json['phoneNumber'] as String,
       bloodGroup: $enumDecode(_$BloodGroupEnumMap, json['bloodGroup']),
-      locationGeohash: json['locationGeohash'] as String,
+      locationCoordinates: LatLong.fromJson(json['locationCoordinates'] as Map),
       lastDonateDate: json['lastDonateDate'] == null
           ? null
           : DateTime.parse(json['lastDonateDate'] as String),
@@ -20,7 +20,7 @@ Map<String, dynamic> _$MyInfoModelToJson(MyInfoModel instance) =>
     <String, dynamic>{
       'name': instance.name,
       'phoneNumber': instance.phoneNumber,
-      'locationGeohash': instance.locationGeohash,
+      'locationCoordinates': instance.locationCoordinates.toJson(),
       'bloodGroup': _$BloodGroupEnumMap[instance.bloodGroup]!,
       'lastDonateDate': instance.lastDonateDate?.toIso8601String(),
     };

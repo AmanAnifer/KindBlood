@@ -1,21 +1,28 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kindblood/core/platform/launch_call_interface.dart';
 import '../../../../../core/entities/blood_group.dart';
+import 'package:kindblood/core/entities/location_entity.dart';
+
 part 'contact_view_state.dart';
 
 class ContactViewCubit extends Cubit<ContactViewState> {
   final LaunchCall launchCall;
-  ContactViewCubit({
-    required this.launchCall,
-  }) : super(ContactViewReadOnly());
+  ContactViewCubit(
+      {required this.launchCall,
+      required BloodGroup bloodGroup,
+      LatLong? locationCoordinates})
+      : super(ContactViewReadOnly(
+          currentBloodGroup: bloodGroup,
+          currentLocationCoordinates: locationCoordinates,
+        ));
 
   void editDetail({
     required BloodGroup editedBloodGroup,
-    String? editedLocationGeoHash,
+    LatLong? editedLocationCoordinates,
   }) {
     emit(ContactViewEdit(
-      editedBloodGroup: editedBloodGroup,
-      editedlocationGeoHash: editedLocationGeoHash,
+      currentBloodGroup: editedBloodGroup,
+      currentLocationCoordinates: editedLocationCoordinates,
     ));
   }
 
@@ -27,7 +34,10 @@ class ContactViewCubit extends Cubit<ContactViewState> {
     //     bloodGroup: localState.editedBloodGroup,
     //     locationGeoHash: localState.editedlocationGeoHash,
     //   );
-    emit(ContactViewReadOnly());
+    emit(ContactViewReadOnly(
+      currentBloodGroup: state.currentBloodGroup,
+      currentLocationCoordinates: state.currentLocationCoordinates,
+    ));
     // }
   }
 

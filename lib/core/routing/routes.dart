@@ -39,7 +39,7 @@ class Routes {
                     path: contactViewScreen,
                     builder: (context, state) {
                       var args = state.extra as (
-                        int,
+                        DisplayContactInfo,
                         ContactListingCubit,
                         FilterCubit
                       );

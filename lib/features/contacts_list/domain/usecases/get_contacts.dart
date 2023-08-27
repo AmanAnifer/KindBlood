@@ -15,12 +15,21 @@ class GetContacts {
   });
 
   Future<Either<Failure, List<ContactInfo>>> getAllContacts() async {
-    return contactInfoRepository.getAllContacts();
+    return contactInfoRepository.getAllContacts(fromCache: true);
   }
 
   Future<Either<Failure, List<ContactInfo>>> getSearchResultContacts(
-      {required SearchInfo searchInfo}) async {
-    var allContacts = await contactInfoRepository.getAllContacts();
+      {required SearchInfo searchInfo, required bool fromCache}) async {
+    /*
+    It will first honour fromCache flag but if its giving failure then
+    it will try to get directly without cache 
+    */
+    var allContacts =
+        await contactInfoRepository.getAllContacts(fromCache: fromCache);
+    if (allContacts.isLeft()) {
+      allContacts =
+          await contactInfoRepository.getAllContacts(fromCache: false);
+    }
     return allContacts.fold(
       (l) => Either.left(l),
       (r) {

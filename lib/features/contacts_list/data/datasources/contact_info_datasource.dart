@@ -24,7 +24,7 @@ class ContactInfoDataSourceImpl implements ContactInfoDataSource {
             phone: contact.phones.first.number,
             bloodGroup: await dataStore.getBloodGroup(
                 phoneNumber: contact.phones.first.number),
-            locationGeohash: await dataStore.getLocationGeoHash(
+            locationCoordinates: await dataStore.getLocationCoordinates(
                 phoneNumber: contact.phones.first.number),
           ),
         );

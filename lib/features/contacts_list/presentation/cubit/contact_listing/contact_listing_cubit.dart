@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:kindblood/core/entities/location_entity.dart';
 import 'package:kindblood/core/entities/myinfo_entity.dart';
+import 'package:kindblood/core/entities/blood_compatibility_info.dart' as bci;
 import 'package:kindblood/features/contacts_list/domain/entities/search_info.dart';
 import 'package:kindblood/features/contacts_list/domain/usecases/get_contacts.dart';
 import 'package:kindblood/features/contacts_list/domain/usecases/update_contact.dart';
@@ -8,8 +10,8 @@ import '../../../domain/entities/contact_info.dart';
 import '../../../../../core/entities/blood_group.dart';
 import '../../../domain/entities/search_filters.dart';
 import 'package:kindblood/core/entities/length_units.dart';
-import 'package:kindblood/core/errors/failure.dart';
-import 'package:fpdart/fpdart.dart';
+import '../../../domain/usecases/calculate_distance.dart';
+import '../../../domain/usecases/get_blood_compatibility.dart';
 part 'contact_listing_state.dart';
 
 class ContactListingCubit extends Cubit<ContactListingState> {
@@ -22,24 +24,33 @@ class ContactListingCubit extends Cubit<ContactListingState> {
     required this.myInfo,
   }) : super(ContactListingInitial());
 
-  void populateContacts({required SearchFilter searchFilter}) async {
+  void populateContacts(
+      {required SearchFilter searchFilter, bool fromCache = true}) async {
     switch (searchFilter.contactSearchMode) {
       case ContactSearchMode.offline:
-        populateContactsOffline(searchFilter: searchFilter);
+        populateContactsOffline(
+          searchFilter: searchFilter,
+          fromCache: fromCache,
+        );
         break;
       case ContactSearchMode.online:
-        populateContactsOnline(searchFilter: searchFilter);
+        populateContactsOnline(
+          searchFilter: searchFilter,
+          fromCache: fromCache,
+        );
         break;
     }
   }
 
-  void populateContactsOffline({required SearchFilter searchFilter}) async {
+  void populateContactsOffline(
+      {required SearchFilter searchFilter, required bool fromCache}) async {
     emit(ContactListingLoading());
     final retrievedContacts = await getContacts.getSearchResultContacts(
         searchInfo: OfflineSearchInfo(
-      bloodGroup: searchFilter.bloodGroup,
-      maxDistance: searchFilter.maxDistance,
-    ));
+          bloodGroup: searchFilter.bloodGroup,
+          maxDistance: searchFilter.maxDistance,
+        ),
+        fromCache: fromCache);
     retrievedContacts.fold(
       (failure) {
         emit(ContactListingError());
@@ -47,30 +58,64 @@ class ContactListingCubit extends Cubit<ContactListingState> {
       (contactsList) {
         emit(
           ContactListingSuccess(
-            contactsList: contactsList
-                .map(
-                  (e) => DisplayContactInfo.fromContactInfo(contactInfo: e),
-                )
-                .toList(),
+            contactsList: contactsList.map(
+              (e) {
+                LengthUnit? distance;
+                bci.BloodCompatibility? bloodCompatibility;
+                if (e.locationCoordinates != null) {
+                  distance = getDistanceBetweenTwoLatLongs(
+                    from: myInfo.locationCoordinates,
+                    to: e.locationCoordinates!,
+                  );
+                }
+                if (e.bloodGroup != null) {
+                  bloodCompatibility = getBloodCompatibility(
+                    receiver: searchFilter.bloodGroup,
+                    donor: e.bloodGroup!,
+                  );
+                }
+
+                return DisplayContactInfo.fromContactInfo(
+                  contactInfo: e,
+                  distanceFromUser: distance,
+                  bloodCompatibility: bloodCompatibility,
+                );
+              },
+            ).toList(),
           ),
         );
       },
     );
   }
 
-  void populateContactsOnline({required SearchFilter searchFilter}) async {
+  void populateContactsOnline(
+      {required SearchFilter searchFilter, required bool fromCache}) async {
     emit(ContactListingLoading());
     emit(const ContactListingSuccess(contactsList: []));
+  }
+
+  DisplayContactInfo? getContactByPhoneNumber({required String phone}) {
+    var localState = state;
+    if (localState is ContactListingSuccess) {
+      try {
+        return localState.contactsList
+            .firstWhere((element) => element.phone == phone);
+      } on (StateError,) {
+        return null;
+      }
+    } else {
+      return null;
+    }
   }
 
   void updateContactInfo(
       {required String phoneNumber,
       BloodGroup? bloodGroup,
-      String? locationGeoHash}) {
+      LatLong? locationCoordinates}) {
     updateContact.updateContact(
       phoneNumber: phoneNumber,
       bloodGroup: bloodGroup,
-      locationGeoHash: locationGeoHash,
+      locationCoordinates: locationCoordinates,
     );
   }
 }

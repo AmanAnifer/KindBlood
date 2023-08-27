@@ -1,18 +1,19 @@
 import 'blood_group.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'location_entity.dart';
 part 'myinfo_entity.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true, anyMap: true)
 class MyInfo {
   final String name;
   final String phoneNumber;
-  final String locationGeohash;
+  final LatLong locationCoordinates;
   final BloodGroup bloodGroup;
   final DateTime? lastDonateDate;
   MyInfo({
     required this.name,
     required this.phoneNumber,
-    required this.locationGeohash,
+    required this.locationCoordinates,
     required this.bloodGroup,
     this.lastDonateDate,
   });

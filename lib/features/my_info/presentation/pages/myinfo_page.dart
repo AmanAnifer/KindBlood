@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kindblood/core/entities/blood_group.dart';
 import 'package:kindblood/core/entities/myinfo_entity.dart';
 import 'package:kindblood/core/routing/routes.dart';
 import '../cubit/myinfo_page_cubit.dart';
@@ -61,7 +60,8 @@ class _MyInfoPageState extends State<MyInfoPage> {
                 phoneController = TextEditingController(
                     text: localState.previousMyInfo?.phoneNumber);
                 locationController = TextEditingController(
-                    text: localState.previousMyInfo?.locationGeohash);
+                    text: localState.previousMyInfo?.locationCoordinates
+                        .toString());
                 editingInputControllers = EditingInfoInputControllers(
                   nameController: nameController,
                   phoneController: phoneController,
@@ -93,16 +93,18 @@ class _MyInfoPageState extends State<MyInfoPage> {
                   child: const Icon(Icons.save),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      // TODO: Get actual location and blood group
                       context.read<MyInfoPageCubit>().updateMyInfo(
                             myInfo: MyInfo(
                               name: editingInputControllers.nameController.text,
                               phoneNumber:
                                   editingInputControllers.phoneController.text,
-                              locationGeohash: editingInputControllers
-                                  .locationController.text,
-                              bloodGroup: editingInputControllers
-                                  .bloodGroup!, // Wont reach here unless bloodGroup is validated not null so no problem
+                              locationCoordinates:
+                                  editingInputControllers.latLong!,
+                              bloodGroup: editingInputControllers.bloodGroup!,
+                              /*
+                              Won't reach here unless bloodGroup and locationCoordinates 
+                              are validated as not null so no problem with null check
+                              */
                             ),
                           );
                     }

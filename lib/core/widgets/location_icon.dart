@@ -3,13 +3,13 @@ import 'package:kindblood/core/entities/length_units.dart';
 
 class LocationIcon extends StatelessWidget {
   final LengthUnit? distance;
-  final String? locationGeohash;
+  final String? locationText;
   final bool isLargeIcon;
   const LocationIcon({
     super.key,
     this.distance,
     this.isLargeIcon = false,
-    this.locationGeohash,
+    this.locationText,
   });
 
   @override
@@ -22,7 +22,7 @@ class LocationIcon extends StatelessWidget {
           size: isLargeIcon ? 60 : 0,
         ),
         Text(
-          "${distance ?? locationGeohash ?? '?'}${isLargeIcon ? ' ' : '\n'}${(locationGeohash == null) ? 'km' : ''}",
+          "${distance ?? locationText ?? '?'}${isLargeIcon ? ' ' : '\n'}${(locationText == null) ? 'km' : ''}",
           textAlign: TextAlign.center,
           style: isLargeIcon
               ? Theme.of(context).textTheme.titleLarge

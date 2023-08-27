@@ -1,27 +1,28 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'myinfo_entity.dart';
+part of 'contact_info_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-MyInfo _$MyInfoFromJson(Map json) => MyInfo(
+ContactInfoModel _$ContactInfoModelFromJson(Map<String, dynamic> json) =>
+    ContactInfoModel(
       name: json['name'] as String,
-      phoneNumber: json['phoneNumber'] as String,
-      locationCoordinates: LatLong.fromJson(json['locationCoordinates'] as Map),
-      bloodGroup: $enumDecode(_$BloodGroupEnumMap, json['bloodGroup']),
-      lastDonateDate: json['lastDonateDate'] == null
+      phone: json['phone'] as String,
+      bloodGroup: $enumDecodeNullable(_$BloodGroupEnumMap, json['bloodGroup']),
+      locationCoordinates: json['locationCoordinates'] == null
           ? null
-          : DateTime.parse(json['lastDonateDate'] as String),
+          : LatLong.fromJson(
+              json['locationCoordinates'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$MyInfoToJson(MyInfo instance) => <String, dynamic>{
+Map<String, dynamic> _$ContactInfoModelToJson(ContactInfoModel instance) =>
+    <String, dynamic>{
       'name': instance.name,
-      'phoneNumber': instance.phoneNumber,
-      'locationCoordinates': instance.locationCoordinates.toJson(),
-      'bloodGroup': _$BloodGroupEnumMap[instance.bloodGroup]!,
-      'lastDonateDate': instance.lastDonateDate?.toIso8601String(),
+      'phone': instance.phone,
+      'locationCoordinates': instance.locationCoordinates,
+      'bloodGroup': _$BloodGroupEnumMap[instance.bloodGroup],
     };
 
 const _$BloodGroupEnumMap = {

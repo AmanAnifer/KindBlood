@@ -8,3 +8,5 @@ class Failure extends Equatable {
 class PermissionDeniedFailure extends Failure {}
 
 class NoExistingMyInfoFailure extends Failure {}
+
+class NoCachedContactsFailure extends Failure {}

@@ -1,11 +1,22 @@
 part of 'contact_view_cubit.dart';
 
-abstract class ContactViewState {}
+abstract class ContactViewState {
+  final BloodGroup currentBloodGroup;
+  final LatLong? currentLocationCoordinates;
+  ContactViewState({
+    required this.currentBloodGroup,
+    this.currentLocationCoordinates,
+  });
+}
 
-class ContactViewReadOnly implements ContactViewState {}
+class ContactViewReadOnly extends ContactViewState {
+  ContactViewReadOnly({
+    required super.currentBloodGroup,
+    super.currentLocationCoordinates,
+  });
+}
 
-class ContactViewEdit implements ContactViewState {
-  final BloodGroup editedBloodGroup;
-  final String? editedlocationGeoHash;
-  ContactViewEdit({required this.editedBloodGroup, this.editedlocationGeoHash});
+class ContactViewEdit extends ContactViewState {
+  ContactViewEdit(
+      {required super.currentBloodGroup, super.currentLocationCoordinates});
 }

@@ -1,5 +1,6 @@
 import 'package:kindblood/features/contacts_list/data/datasources/contact_db_datasource.dart';
 import 'package:kindblood/core/entities/blood_group.dart';
+import 'package:kindblood/core/entities/location_entity.dart';
 
 class UpdateContact {
   final ContactDataStore contactDataStore;
@@ -8,10 +9,10 @@ class UpdateContact {
   void updateContact(
       {required String phoneNumber,
       BloodGroup? bloodGroup,
-      String? locationGeoHash}) {
+      LatLong? locationCoordinates}) {
     contactDataStore.storeInfo(
         phoneNumber: phoneNumber,
         bloodGroup: bloodGroup,
-        locationGeoHash: locationGeoHash);
+        locationCoordinates: locationCoordinates);
   }
 }

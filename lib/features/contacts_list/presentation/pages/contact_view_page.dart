@@ -11,13 +11,13 @@ import '../../../../core/widgets/location_icon.dart';
 import '../../domain/entities/search_filters.dart';
 
 class ContactViewPage extends StatefulWidget {
-  final int contactIndex;
+  final DisplayContactInfo displayContactInfo;
   final ContactListingCubit _contactListingCubit;
   final FilterCubit _filterCubit;
   ContactViewPage({
     super.key,
-    required (int, ContactListingCubit, FilterCubit) args,
-  })  : contactIndex = args.$1,
+    required (DisplayContactInfo, ContactListingCubit, FilterCubit) args,
+  })  : displayContactInfo = args.$1,
         _contactListingCubit = args.$2,
         _filterCubit = args.$3;
 
@@ -39,7 +39,11 @@ class _ContactViewPageState extends State<ContactViewPage> {
         BlocProvider.value(value: widget._filterCubit),
       ],
       child: BlocProvider(
-        create: (context) => sl<ContactViewCubit>(),
+        create: (context) => ContactViewCubit(
+            launchCall: sl(),
+            bloodGroup:
+                widget.displayContactInfo.bloodGroup ?? BloodGroup.Unknown,
+            locationCoordinates: widget.displayContactInfo.locationCoordinates),
         child: Builder(
           builder: (context) {
             var localContactViewState = context.watch<ContactViewCubit>().state;
@@ -47,17 +51,12 @@ class _ContactViewPageState extends State<ContactViewPage> {
                 context.watch<ContactListingCubit>().state;
 
             if (localContactListingState is ContactListingSuccess) {
-              var name = localContactListingState
-                  .contactsList[widget.contactIndex].name;
-              var phone = localContactListingState
-                  .contactsList[widget.contactIndex].phone;
-              var bloodGroup = localContactListingState
-                      .contactsList[widget.contactIndex].bloodGroup ??
-                  BloodGroup.Unknown;
-              var distanceFromUser = localContactListingState
-                  .contactsList[widget.contactIndex].distanceFromUser;
-              var locationGeoHash = localContactListingState
-                  .contactsList[widget.contactIndex].locationGeohash;
+              var name = widget.displayContactInfo.name;
+              var phone = widget.displayContactInfo.phone;
+              // var bloodGroup =
+              //     widget.displayContactInfo.bloodGroup ?? BloodGroup.Unknown;
+              // var distanceFromUser = widget.displayContactInfo.distanceFromUser;
+              // var locationGeoHash = widget.displayContactInfo.locationGeohash;
               return Material(
                 child: Scaffold(
                   appBar: AppBar(
@@ -75,8 +74,11 @@ class _ContactViewPageState extends State<ContactViewPage> {
                         onPressed: () {
                           if (localContactViewState is ContactViewReadOnly) {
                             context.read<ContactViewCubit>().editDetail(
-                                  editedBloodGroup: bloodGroup,
-                                  editedLocationGeoHash: locationGeoHash,
+                                  editedBloodGroup:
+                                      localContactViewState.currentBloodGroup,
+                                  editedLocationCoordinates:
+                                      localContactViewState
+                                          .currentLocationCoordinates,
                                 );
                           } else if (localContactViewState is ContactViewEdit) {
                             context
@@ -84,9 +86,9 @@ class _ContactViewPageState extends State<ContactViewPage> {
                                 .updateContactInfo(
                                   phoneNumber: phone,
                                   bloodGroup:
-                                      localContactViewState.editedBloodGroup,
-                                  locationGeoHash: localContactViewState
-                                      .editedlocationGeoHash,
+                                      localContactViewState.currentBloodGroup,
+                                  locationCoordinates: localContactViewState
+                                      .currentLocationCoordinates,
                                 );
                             context.read<ContactViewCubit>().endEdit();
                             context
@@ -100,6 +102,7 @@ class _ContactViewPageState extends State<ContactViewPage> {
                                         .state
                                         .bloodGroup,
                                   ),
+                                  fromCache: false,
                                 );
                           }
                         },
@@ -129,25 +132,26 @@ class _ContactViewPageState extends State<ContactViewPage> {
                                       context
                                           .read<ContactViewCubit>()
                                           .editDetail(
-                                            editedBloodGroup:
-                                                selected ?? bloodGroup,
+                                            editedBloodGroup: selected ??
+                                                localContactViewState
+                                                    .currentBloodGroup,
                                           );
                                     }
                                   }
                                 : null,
+                            // TODO: check if compatibility color changes when edited
                             child: BloodIcon(
                               isLargeIcon: true,
                               bloodGroup:
-                                  (localContactViewState is ContactViewEdit)
-                                      ? localContactViewState.editedBloodGroup
-                                      : bloodGroup,
+                                  localContactViewState.currentBloodGroup,
+                              bloodCompatibility:
+                                  widget.displayContactInfo.bloodCompatibility,
                             ),
                           ),
                           LocationIcon(
                             isLargeIcon: true,
-                            distance: localContactListingState
-                                .contactsList[widget.contactIndex]
-                                .distanceFromUser,
+                            distance:
+                                widget.displayContactInfo.distanceFromUser,
                             // callback:
                             //     localContactViewState is ContactViewEdit
                             //         ? () {}

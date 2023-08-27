@@ -2,23 +2,27 @@ part of 'contact_listing_cubit.dart';
 
 class DisplayContactInfo extends ContactInfo {
   final LengthUnit? distanceFromUser;
+  final bci.BloodCompatibility? bloodCompatibility;
   DisplayContactInfo({
     required super.name,
     required super.phone,
     super.bloodGroup,
-    super.locationGeohash,
+    this.bloodCompatibility,
+    super.locationCoordinates,
     this.distanceFromUser,
   });
   factory DisplayContactInfo.fromContactInfo({
     required ContactInfo contactInfo,
     LengthUnit? distanceFromUser,
+    bci.BloodCompatibility? bloodCompatibility,
   }) {
     return DisplayContactInfo(
       name: contactInfo.name,
       phone: contactInfo.phone,
       bloodGroup: contactInfo.bloodGroup,
-      locationGeohash: contactInfo.locationGeohash,
+      locationCoordinates: contactInfo.locationCoordinates,
       distanceFromUser: distanceFromUser,
+      bloodCompatibility: bloodCompatibility,
     );
   }
 }

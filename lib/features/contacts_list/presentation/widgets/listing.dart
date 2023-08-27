@@ -39,11 +39,7 @@ class Listing extends StatelessWidget {
                       // cacheExtent: 40,
                       itemBuilder: (context, index) {
                         return ContactListTile(
-                          index: index,
-                          name: state.contactsList[index].name,
-                          phone: state.contactsList[index].phone,
-                          bloodGroup: state.contactsList[index].bloodGroup,
-                          distance: state.contactsList[index].distanceFromUser,
+                          displayContactInfo: state.contactsList[index],
                         );
                       },
                       itemCount:
@@ -61,6 +57,7 @@ class Listing extends StatelessWidget {
                           bloodGroup:
                               context.read<FilterCubit>().state.bloodGroup,
                         ),
+                        fromCache: false,
                       );
                   return const CircularProgressIndicator();
                   // return ElevatedButton(

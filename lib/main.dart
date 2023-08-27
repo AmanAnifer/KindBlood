@@ -24,11 +24,12 @@ class MyApp extends StatelessWidget {
       routerDelegate: Routes.router.routerDelegate,
       title: "KindBlood",
       darkTheme: ThemeData.from(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.green,
-            brightness: Brightness.dark,
-          ),
-          useMaterial3: true),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.green,
+          brightness: Brightness.dark,
+        ),
+        useMaterial3: true,
+      ),
       themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,
       // home: const ContactListPage(),

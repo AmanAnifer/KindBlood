@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:kindblood/core/widgets/blood_icon.dart';
 import 'package:kindblood/core/widgets/location_icon.dart';
 import 'package:kindblood/core/entities/myinfo_entity.dart';
-import 'package:kindblood/core/entities/blood_group.dart';
 
 class ShowingInfo extends StatefulWidget {
   final MyInfo myInfo;
@@ -25,6 +24,7 @@ class _ShowingInfoState extends State<ShowingInfo> {
           const Spacer(flex: 1),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               BloodIcon(
                 isLargeIcon: true,
@@ -32,7 +32,7 @@ class _ShowingInfoState extends State<ShowingInfo> {
               ),
               LocationIcon(
                 isLargeIcon: true,
-                locationGeohash: widget.myInfo.locationGeohash,
+                locationText: widget.myInfo.locationCoordinates.toDenseString(),
               ),
             ],
           ),

@@ -19,7 +19,7 @@ class HiveMyInfoDBDatasource implements MyInfoDBDatasource {
       throw NoExistingMyInfoException();
     } else {
       var castedMyInfo = Map<String, dynamic>.from(myInfo);
-      return MyInfoModel.fromJson(json: castedMyInfo);
+      return MyInfoModel.fromJson(castedMyInfo);
     }
   }
 

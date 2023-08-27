@@ -10,9 +10,9 @@ class BloodIcon extends StatelessWidget {
   const BloodIcon({
     super.key,
     this.bloodGroup,
-    bloodCompatibility,
+    bci.BloodCompatibility? bloodCompatibility,
     this.isLargeIcon = false,
-  }) : bloodCompatibility = const bci.Incompatible();
+  }) : bloodCompatibility = bloodCompatibility ?? const bci.Incompatible();
 
   Color get getBloodCompatibilityColor {
     switch (bloodCompatibility) {
