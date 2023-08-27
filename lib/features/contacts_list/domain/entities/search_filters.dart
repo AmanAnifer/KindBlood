@@ -9,14 +9,14 @@ class SearchFilter {
   final ContactSearchMode contactSearchMode;
   final BloodGroup bloodGroup;
   final LatLong userLocation;
-  final LengthUnit? maxDistance;
+  final LengthUnit maxDistance;
   final bool? showAnonVolunteers;
   final BloodCompatibility? bloodCompatibility;
   SearchFilter(
       {required this.contactSearchMode,
       required this.bloodGroup,
       required this.userLocation,
-      this.maxDistance,
+      required this.maxDistance,
       this.showAnonVolunteers,
       this.bloodCompatibility});
   SearchFilter copyWith({

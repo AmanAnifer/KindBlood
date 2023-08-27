@@ -2,16 +2,17 @@ import 'package:kindblood/core/entities/blood_compatibility_info.dart' as bci;
 
 import '../../../../core/entities/blood_group.dart';
 import 'package:kindblood/core/entities/length_units.dart';
+import 'package:kindblood/core/entities/location_entity.dart' as le;
 
 abstract class SearchInfo {
-  final String? locationGeohash;
   final BloodGroup bloodGroup;
-  final LengthUnit? maxDistance;
+  final le.LatLong userLocation;
+  final LengthUnit maxDistance;
   final bci.BloodCompatibility bloodCompatibility;
   SearchInfo({
-    this.locationGeohash,
     required this.bloodGroup,
-    this.maxDistance,
+    required this.userLocation,
+    required this.maxDistance,
     this.bloodCompatibility = const bci.Compatible(),
   });
 }
@@ -19,8 +20,8 @@ abstract class SearchInfo {
 class OfflineSearchInfo extends SearchInfo {
   OfflineSearchInfo({
     required super.bloodGroup,
-    super.locationGeohash,
-    super.maxDistance,
+    required super.userLocation,
+    required super.maxDistance,
   });
 }
 
@@ -28,8 +29,8 @@ class OnlineSearchinfo extends SearchInfo {
   bool? showAnonVolunteers;
   OnlineSearchinfo({
     required super.bloodGroup,
-    super.locationGeohash,
-    super.maxDistance,
+    required super.userLocation,
+    required super.maxDistance,
     this.showAnonVolunteers,
   });
 }

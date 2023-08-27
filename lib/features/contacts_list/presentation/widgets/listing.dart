@@ -52,13 +52,8 @@ class Listing extends StatelessWidget {
               return Builder(
                 builder: (context) {
                   context.read<ContactListingCubit>().populateContacts(
-                        searchFilter: SearchFilter(
-                          contactSearchMode: ContactSearchMode.offline,
-                          bloodGroup:
-                              context.read<FilterCubit>().state.bloodGroup,
-                          userLocation:
-                              context.read<FilterCubit>().state.userLocation,
-                        ),
+                        searchFilter:
+                            context.read<FilterCubit>().state.searchFilter,
                         fromCache: false,
                       );
                   return const CircularProgressIndicator();

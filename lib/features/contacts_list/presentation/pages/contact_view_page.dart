@@ -94,18 +94,10 @@ class _ContactViewPageState extends State<ContactViewPage> {
                             context
                                 .read<ContactListingCubit>()
                                 .populateContacts(
-                                  searchFilter: SearchFilter(
-                                    contactSearchMode:
-                                        ContactSearchMode.offline,
-                                    bloodGroup: context
-                                        .read<FilterCubit>()
-                                        .state
-                                        .bloodGroup,
-                                    userLocation: context
-                                        .read<FilterCubit>()
-                                        .state
-                                        .userLocation,
-                                  ),
+                                  searchFilter: context
+                                      .read<FilterCubit>()
+                                      .state
+                                      .searchFilter,
                                   fromCache: false,
                                 );
                           }
@@ -126,9 +118,41 @@ class _ContactViewPageState extends State<ContactViewPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          InkWell(
-                            borderRadius: BorderRadius.circular(24),
-                            onTap: localContactViewState is ContactViewEdit
+                          // InkWell(
+                          //   borderRadius: BorderRadius.circular(16),
+                          //   onTap: localContactViewState is ContactViewEdit
+                          //       ? () async {
+                          //           var selected = await blood_select
+                          //               .bloodTypeSelectDialogBuilder(context);
+                          //           if (mounted) {
+                          //             context
+                          //                 .read<ContactViewCubit>()
+                          //                 .editDetail(
+                          //                   editedBloodGroup: selected ??
+                          //                       localContactViewState
+                          //                           .currentBloodGroup,
+                          //                 );
+                          //           }
+                          //         }
+                          //       : null,
+                          //   // TODO: check if compatibility color changes when edited
+                          //   child: BloodIcon(
+                          //     isLargeIcon: true,
+                          //     bloodGroup:
+                          //         localContactViewState.currentBloodGroup,
+                          //     bloodCompatibility:
+                          //         widget.displayContactInfo.bloodCompatibility,
+                          //   ),
+                          // ),
+                          IconButton(
+                            icon: BloodIcon(
+                              isLargeIcon: true,
+                              bloodGroup:
+                                  localContactViewState.currentBloodGroup,
+                              bloodCompatibility:
+                                  widget.displayContactInfo.bloodCompatibility,
+                            ),
+                            onPressed: localContactViewState is ContactViewEdit
                                 ? () async {
                                     var selected = await blood_select
                                         .bloodTypeSelectDialogBuilder(context);
@@ -143,25 +167,23 @@ class _ContactViewPageState extends State<ContactViewPage> {
                                     }
                                   }
                                 : null,
-                            // TODO: check if compatibility color changes when edited
-                            child: BloodIcon(
-                              isLargeIcon: true,
-                              bloodGroup:
-                                  localContactViewState.currentBloodGroup,
-                              bloodCompatibility:
-                                  widget.displayContactInfo.bloodCompatibility,
-                            ),
                           ),
-                          LocationIcon(
-                            isLargeIcon: true,
-                            // TODO: what distance to show if its null
-                            underneathText: widget
-                                .displayContactInfo.distanceFromUser
-                                .toString(),
-                            // callback:
-                            //     localContactViewState is ContactViewEdit
-                            //         ? () {}
-                            //         : null,
+                          InkWell(
+                            borderRadius: BorderRadius.circular(16),
+                            onTap: localContactViewState is ContactViewEdit
+                                ? () async {}
+                                : null,
+                            child: LocationIcon(
+                              isLargeIcon: true,
+                              underneathText: widget
+                                      .displayContactInfo.locationCoordinates
+                                      ?.toFixedSizedString() ??
+                                  "Unknown",
+                              // callback:
+                              //     localContactViewState is ContactViewEdit
+                              //         ? () {}
+                              //         : null,
+                            ),
                           ),
                         ],
                       ),
@@ -179,6 +201,12 @@ class _ContactViewPageState extends State<ContactViewPage> {
                       Text(
                         phone,
                         style: Theme.of(context).textTheme.headlineMedium,
+                      ),
+                      Text(
+                        widget.displayContactInfo.distanceFromUser == null
+                            ? "Unknown distance from here"
+                            : "About ${widget.displayContactInfo.distanceFromUser.toString()} from here",
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
                       const Spacer(flex: 1),
                       Visibility(

@@ -137,8 +137,7 @@ class _FilterWidgetsState extends State<FilterWidgets> {
                       );
                 }
               },
-              label: Text(
-                  "Within: ${state.maxDistance?.toString() ?? 'no limit'}"),
+              label: Text("Within: ${state.maxDistance.toString()}"),
             ),
             // const TenWidthBox(),
             ChoiceChip(

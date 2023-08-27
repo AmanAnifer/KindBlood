@@ -47,6 +47,7 @@ class ContactListingCubit extends Cubit<ContactListingState> {
     emit(ContactListingLoading());
     final retrievedContacts = await getContacts.getSearchResultContacts(
         searchInfo: OfflineSearchInfo(
+          userLocation: searchFilter.userLocation,
           bloodGroup: searchFilter.bloodGroup,
           maxDistance: searchFilter.maxDistance,
         ),

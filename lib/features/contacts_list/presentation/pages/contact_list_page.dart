@@ -53,13 +53,16 @@ class _ContactListPageState extends State<ContactListPage> {
                 ),
                 onPressed: () {
                   context.read<ContactListingCubit>().populateContacts(
-                        searchFilter: SearchFilter(
-                          contactSearchMode: ContactSearchMode.offline,
-                          bloodGroup:
-                              context.read<FilterCubit>().state.bloodGroup,
-                          userLocation:
-                              context.read<FilterCubit>().state.userLocation,
-                        ),
+                        searchFilter:
+                            context.read<FilterCubit>().state.searchFilter,
+                        // SearchFilter(
+                        //   contactSearchMode: ContactSearchMode.offline,
+                        //   bloodGroup:
+                        //       context.read<FilterCubit>().state.bloodGroup,
+                        //   userLocation:
+                        //       context.read<FilterCubit>().state.userLocation,
+
+                        // ),
                         fromCache: false,
                       );
                 },

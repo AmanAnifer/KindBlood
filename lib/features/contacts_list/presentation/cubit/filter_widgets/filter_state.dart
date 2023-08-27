@@ -7,7 +7,7 @@ class FilterState extends SearchFilter {
     required super.contactSearchMode,
     required super.bloodGroup,
     required super.userLocation,
-    super.maxDistance,
+    required super.maxDistance,
     super.showAnonVolunteers,
   });
 

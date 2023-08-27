@@ -1,4 +1,5 @@
 import 'package:kindblood/core/entities/blood_compatibility_info.dart' as bci;
+import 'package:kindblood/core/entities/length_units.dart';
 
 import '../entities/contact_info.dart';
 import '../entities/search_info.dart';
@@ -7,6 +8,7 @@ import 'package:fpdart/fpdart.dart';
 import '../../../../core/errors/failure.dart';
 import 'get_blood_compatibility.dart';
 import 'package:kindblood/core/entities/blood_group.dart';
+import 'calculate_distance.dart';
 
 class GetContacts {
   final ContactInfoRepository contactInfoRepository;
@@ -33,17 +35,40 @@ class GetContacts {
     return allContacts.fold(
       (l) => Either.left(l),
       (r) {
-        if (searchInfo.bloodGroup == BloodGroup.Unknown) {
-          return Either.right(r);
-        }
         List<ContactInfo> filteredContacts = [];
-        for (var contact in r) {
-          if (getBloodCompatibility(
-            receiver: searchInfo.bloodGroup,
-            donor: contact.bloodGroup ?? BloodGroup.Unknown,
-          ) is bci.Compatible) {
-            filteredContacts.add(contact);
+        if (searchInfo.bloodGroup == BloodGroup.Unknown) {
+          filteredContacts = r;
+        } else {
+          for (var contact in r) {
+            if (getBloodCompatibility(
+              receiver: searchInfo.bloodGroup,
+              donor: contact.bloodGroup ?? BloodGroup.Unknown,
+            ) is bci.Compatible) {
+              filteredContacts.add(contact);
+            }
           }
+        }
+        //?
+        if (searchInfo.maxDistance is! InfiniteMeter) {
+          filteredContacts = filteredContacts.filter((contact) {
+            final contactLocation = contact.locationCoordinates;
+            if (contactLocation == null) {
+              return false;
+            } else {
+              final distance = getDistanceBetweenTwoLatLongs(
+                  from: searchInfo.userLocation, to: contactLocation);
+              return (distance.lengthInMeters >
+                      searchInfo.maxDistance.lengthInMeters)
+                  ? false
+                  : true;
+              // if (distance.lengthInMeters >
+              //     searchInfo.maxDistance.lengthInMeters) {
+              //   return false;
+              // } else {
+              //   return true;
+              // }
+            }
+          }).toList();
         }
         return Either.right(filteredContacts);
       },

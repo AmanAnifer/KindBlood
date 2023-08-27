@@ -1,3 +1,4 @@
+import 'package:kindblood/core/entities/length_units.dart';
 import 'package:kindblood/features/contacts_list/domain/entities/search_filters.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kindblood/core/entities/myinfo_entity.dart';
@@ -12,6 +13,7 @@ class FilterCubit extends Cubit<FilterState> {
             contactSearchMode: ContactSearchMode.offline,
             bloodGroup: myInfo.bloodGroup,
             userLocation: myInfo.locationCoordinates,
+            maxDistance: const InfiniteMeter(),
           ),
         );
 
