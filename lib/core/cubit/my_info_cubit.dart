@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fpdart/fpdart.dart';
 import '../entities/myinfo_entity.dart';
 import 'package:equatable/equatable.dart';
 part 'my_info_states.dart';

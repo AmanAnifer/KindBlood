@@ -35,7 +35,14 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: true,
         ),
-        themeMode: ThemeMode.dark,
+        theme: ThemeData.from(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.green,
+            // brightness: Brightness.dark,
+          ),
+          useMaterial3: true,
+        ),
+        themeMode: ThemeMode.system,
         debugShowCheckedModeBanner: false,
         // home: const ContactListPage(),
       ),

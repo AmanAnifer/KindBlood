@@ -33,10 +33,10 @@ class _FilterWidgetsState extends State<FilterWidgets> {
             }
           },
           child: ConditionalParentWidget(
-            condition: true,
+            condition: false,
             parentBuilder: (child) {
               return Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(0.0),
                 child: Wrap(
                   spacing: 10,
                   children: child,
@@ -47,7 +47,7 @@ class _FilterWidgetsState extends State<FilterWidgets> {
               return SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: addSpacingBetween(child),
+                  children: addSpacing(child),
                 ),
               );
             },
@@ -163,13 +163,18 @@ class _FilterWidgetsState extends State<FilterWidgets> {
   }
 }
 
-List<Widget> addSpacingBetween(List<Widget> children) {
+List<Widget> addSpacing(List<Widget> children) {
   /* 
   When showing the chips in SingleChildScrollView and Row, the Row's 
   mainAxisAlignment.spaceBetween doesn't work since it has no width constraints,
   so instead, add SizedBox between elements
   */
   List<Widget> spacedElements = [];
+  // spacedElements.add(
+  //   const SizedBox(
+  //     width: 10,
+  //   ),
+  // );
   for (var e in children) {
     spacedElements.add(e);
     spacedElements.add(

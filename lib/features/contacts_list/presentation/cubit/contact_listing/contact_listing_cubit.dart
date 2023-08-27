@@ -14,42 +14,53 @@ import '../../../domain/entities/search_filters.dart';
 import '../../../../../core/entities/length_units.dart';
 import '../../../domain/usecases/calculate_distance.dart';
 import '../../../domain/usecases/get_blood_compatibility.dart';
+import '../../../domain/entities/search_sorting.dart';
+
 part 'contact_listing_state.dart';
 
 class ContactListingCubit extends Cubit<ContactListingState> {
-  final GetOfflineContacts getContacts;
+  final GetOfflineContacts getOfflineContacts;
   final UpdateOfflineContact updateContact;
   final GetOnlineContacts getOnlineContacts;
   final MyInfo myInfo;
   ContactListingCubit({
-    required this.getContacts,
+    required this.getOfflineContacts,
     required this.updateContact,
     required this.getOnlineContacts,
     required this.myInfo,
   }) : super(ContactListingInitial());
 
-  void populateContacts(
-      {required SearchFilter searchFilter, bool fromCache = true}) async {
+  void populateContacts({
+    required SearchFilter searchFilter,
+    required SortBy sortBy,
+    bool fromCache = true,
+  }) async {
+    // sortBy = SortBy(sortByColumn: SortByColumn.bloodGroup);
     switch (searchFilter.contactSearchMode) {
       case ContactSearchMode.offline:
         populateContactsOffline(
           searchFilter: searchFilter,
+          sortBy: sortBy,
           fromCache: fromCache,
         );
         break;
       case ContactSearchMode.online:
         populateContactsOnline(
           searchFilter: searchFilter,
+          sortBy: sortBy,
           fromCache: fromCache,
         );
         break;
     }
   }
 
-  void populateContactsOffline(
-      {required SearchFilter searchFilter, required bool fromCache}) async {
+  void populateContactsOffline({
+    required SearchFilter searchFilter,
+    required SortBy sortBy,
+    required bool fromCache,
+  }) async {
     emit(ContactListingLoading());
-    final retrievedContacts = await getContacts.getSearchResultContacts(
+    final retrievedContacts = await getOfflineContacts.getSearchResultContacts(
         searchInfo: OfflineSearchInfo(
           userLocation: searchFilter.userLocation,
           bloodGroup: searchFilter.bloodGroup,
@@ -88,7 +99,45 @@ class ContactListingCubit extends Cubit<ContactListingState> {
                   bloodCompatibility: bloodCompatibility,
                 );
               },
-            ).toList(),
+            ).toList()
+              ..sort(
+                (a, b) {
+                  int compareNum;
+                  switch (sortBy.sortByColumn) {
+                    case SortByColumn.distance:
+                      if (a.distanceFromUser != null &&
+                          b.distanceFromUser != null) {
+                        compareNum = a.distanceFromUser!.lengthInMeters
+                            .compareTo(b.distanceFromUser!.lengthInMeters);
+                      } else {
+                        if (a.distanceFromUser == null) {
+                          compareNum = 1;
+                        } else if (b.distanceFromUser == null) {
+                          compareNum = -1;
+                        } else {
+                          compareNum = 0;
+                        }
+                      }
+                    case SortByColumn.bloodGroup:
+                      if (a.bloodCompatibility == b.bloodCompatibility) {
+                        compareNum = 0;
+                      } else if (a.bloodCompatibility is bci.CompatibleSame) {
+                        compareNum = -1;
+                      } else if (b.bloodCompatibility is bci.CompatibleSame) {
+                        compareNum = 1;
+                      } else if (a.bloodCompatibility
+                          is bci.CompatibleButDifferent) {
+                        compareNum = -1;
+                      } else if (b.bloodCompatibility
+                          is bci.CompatibleButDifferent) {
+                        compareNum = 1;
+                      } else {
+                        compareNum = 0;
+                      }
+                  }
+                  return (sortBy.order == Order.best ? 1 : -1) * compareNum;
+                },
+              ),
           ),
         );
       },
@@ -96,7 +145,9 @@ class ContactListingCubit extends Cubit<ContactListingState> {
   }
 
   void populateContactsOnline(
-      {required SearchFilter searchFilter, required bool fromCache}) async {
+      {required SearchFilter searchFilter,
+      required SortBy sortBy,
+      required bool fromCache}) async {
     emit(ContactListingLoading());
     final retrievedContacts = await getOnlineContacts.getSearchResultContacts(
         searchInfo: OnlineSearchInfo(

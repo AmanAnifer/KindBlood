@@ -1,16 +1,11 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:kindblood/core/cubit/my_info_cubit.dart';
+import 'package:kindblood/features/contacts_list/presentation/cubit/sort_widgets/sort_cubit.dart';
 import '../../features/contacts_list/presentation/cubit/contact_listing/contact_listing_cubit.dart';
 import '../../features/contacts_list/presentation/cubit/filter_widgets/filter_cubit.dart';
 import 'package:go_router/go_router.dart';
 import '../../features/contacts_list/presentation/pages/pages_barrel.dart';
 import '../../features/settings/presentation/pages/settings_page.dart';
 import '../../features/my_info/presentation/pages/myinfo_page.dart';
-import 'package:flutter/material.dart';
-import '../injection_container.dart';
-import 'dart:async';
-import 'package:flutter_bloc/flutter_bloc.dart';
 part "bottom_navigation.dart";
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -117,7 +112,8 @@ class Routes {
                       var args = state.extra as (
                         DisplayContactInfo,
                         ContactListingCubit,
-                        FilterCubit
+                        FilterCubit,
+                        SortCubit,
                       );
                       return ContactViewPage(args: args);
                     },

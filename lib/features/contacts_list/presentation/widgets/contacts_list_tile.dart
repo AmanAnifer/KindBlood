@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kindblood/features/contacts_list/presentation/cubit/sort_widgets/sort_cubit.dart';
 import '../../../../core/entities/blood_group.dart';
 import '../../../../core/widgets/blood_icon.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -53,7 +54,7 @@ class ContactListTile extends StatelessWidget {
             ),
           ),
           leading: SizedBox(
-            width: 50,
+            width: 60,
             child: LocationIcon(
               underneathText: displayContactInfo.distanceFromUser == null
                   ? "?"
@@ -70,6 +71,7 @@ class ContactListTile extends StatelessWidget {
                 displayContactInfo,
                 context.read<ContactListingCubit>(),
                 context.read<FilterCubit>(),
+                context.read<SortCubit>(),
               ),
             );
           },

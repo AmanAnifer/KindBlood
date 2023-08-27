@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
+import 'package:kindblood/features/contacts_list/presentation/cubit/sort_widgets/sort_cubit.dart';
 import '../../../../core/cubit/my_info_cubit.dart';
 import '../cubit/contact_listing/contact_listing_cubit.dart';
 import '../cubit/filter_widgets/filter_cubit.dart';
 import '../../injection_container.dart';
 import '../widgets/listing.dart';
-import '../../../../core/routing/routes.dart' as routes;
 
 class ContactListPage extends StatefulWidget {
   const ContactListPage({super.key});
@@ -41,7 +40,7 @@ class ContactListPageState extends State<ContactListPage> {
             providers: [
               BlocProvider(
                 create: (context) => ContactListingCubit(
-                  getContacts: sl(),
+                  getOfflineContacts: sl(),
                   updateContact: sl(),
                   getOnlineContacts: sl(),
                   myInfo: state.myInfo,
@@ -49,6 +48,9 @@ class ContactListPageState extends State<ContactListPage> {
               ),
               BlocProvider(
                 create: (context) => FilterCubit(myInfo: state.myInfo),
+              ),
+              BlocProvider(
+                create: (context) => SortCubit(),
               ),
             ],
             child: Scaffold(
@@ -67,6 +69,8 @@ class ContactListPageState extends State<ContactListPage> {
                                     .read<FilterCubit>()
                                     .state
                                     .searchFilter,
+                                // TODO: correct sort state
+                                sortBy: context.read<SortCubit>().state.sortBy,
                                 // SearchFilter(
                                 //   contactSearchMode: ContactSearchMode.offline,
                                 //   bloodGroup:
