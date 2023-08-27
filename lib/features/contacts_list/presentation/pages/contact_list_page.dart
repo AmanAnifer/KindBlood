@@ -9,15 +9,13 @@ import '../widgets/listing.dart';
 import '../../../../core/routing/routes.dart' as routes;
 
 class ContactListPage extends StatefulWidget {
-  const ContactListPage({
-    super.key,
-  });
-
+  const ContactListPage({super.key});
+  // const ContactListPage() : super(key: key);
   @override
-  State<ContactListPage> createState() => _ContactListPageState();
+  State<ContactListPage> createState() => ContactListPageState();
 }
 
-class _ContactListPageState extends State<ContactListPage> {
+class ContactListPageState extends State<ContactListPage> {
   @override
   void initState() {
     super.initState();
@@ -29,24 +27,27 @@ class _ContactListPageState extends State<ContactListPage> {
     // );
   }
 
+  void updateMyInfo() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MyInfoCubit, MyInfoState>(
       builder: (context, state) {
-        final localMyInfoState = state;
-        if (localMyInfoState is MyInfoExists) {
+        // final localMyInfoState = state;
+        if (state is MyInfoExists) {
           return MultiBlocProvider(
             providers: [
               BlocProvider(
                 create: (context) => ContactListingCubit(
                   getContacts: sl(),
                   updateContact: sl(),
-                  myInfo: localMyInfoState.myInfo,
+                  myInfo: state.myInfo,
                 ),
               ),
               BlocProvider(
-                create: (context) =>
-                    FilterCubit(myInfo: localMyInfoState.myInfo),
+                create: (context) => FilterCubit(myInfo: state.myInfo),
               ),
             ],
             child: Scaffold(
@@ -82,12 +83,11 @@ class _ContactListPageState extends State<ContactListPage> {
                 ],
               ),
               body: const Listing(),
-              bottomNavigationBar: const routes.CustomBottomNavigationBar(),
+              // bottomNavigationBar: routes.CustomNavBar(),
             ),
           );
         } else {
-          context.go(routes.Routes.myInfoScreen);
-          return const CircularProgressIndicator();
+          return const Center(child: Text("Please setup your info first"));
         }
       },
     );

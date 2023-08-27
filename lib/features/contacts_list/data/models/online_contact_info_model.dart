@@ -2,21 +2,22 @@ import '../../domain/entities/contact_info.dart';
 import '../../../../core/entities/location_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 import '../../../../core/entities/blood_group.dart';
-part 'offline_contact_info_model.g.dart';
+part 'online_contact_info_model.g.dart';
 
 @JsonSerializable(explicitToJson: true, anyMap: true)
-class OfflineContactInfoModel extends OfflineContactInfo {
-  const OfflineContactInfoModel({
+class OnlineContactInfoModel extends OnlineContactInfo {
+  const OnlineContactInfoModel({
     required super.id,
     super.name,
     super.phone,
     super.bloodGroup,
     super.locationCoordinates,
+    super.isAnonVolunteer,
   });
 
-  factory OfflineContactInfoModel.fromContactInfo(
+  factory OnlineContactInfoModel.fromContactInfo(
           {required ContactInfo contactInfo}) =>
-      OfflineContactInfoModel(
+      OnlineContactInfoModel(
         id: contactInfo.id,
         name: contactInfo.name,
         phone: contactInfo.phone,
@@ -24,8 +25,8 @@ class OfflineContactInfoModel extends OfflineContactInfo {
         locationCoordinates: contactInfo.locationCoordinates,
       );
 
-  factory OfflineContactInfoModel.fromJson(Map<String, dynamic> json) =>
-      _$OfflineContactInfoModelFromJson(json);
+  factory OnlineContactInfoModel.fromJson(Map<String, dynamic> json) =>
+      _$OnlineContactInfoModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$OfflineContactInfoModelToJson(this);
+  Map<String, dynamic> toJson() => _$OnlineContactInfoModelToJson(this);
 }

@@ -51,6 +51,7 @@ dependencies:
   url_launcher: ^6.1.11
   location_picker_flutter_map: ^1.2.1
   get_it_mixin: ^4.2.0
+  http: ^0.13.6
 
 
 dev_dependencies:

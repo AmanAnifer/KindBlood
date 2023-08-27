@@ -21,12 +21,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => MyInfoCubit(myInfo: getMyInfo()),
+    return BlocProvider<MyInfoCubit>(
+      create: (context) => core_di.sl(),
       child: MaterialApp.router(
-        routeInformationProvider: Routes.router.routeInformationProvider,
-        routeInformationParser: Routes.router.routeInformationParser,
-        routerDelegate: Routes.router.routerDelegate,
+        // routeInformationProvider: Routes.router.routeInformationProvider,
+        // routeInformationParser: Routes.router.routeInformationParser,
+        // routerDelegate: Routes.router.routerDelegate,
+        routerConfig: Routes.router,
         title: "KindBlood",
         darkTheme: ThemeData.from(
           colorScheme: ColorScheme.fromSeed(
@@ -41,14 +42,4 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
-}
-
-MyInfo? getMyInfo() {
-  MyInfo? myInfo;
-  try {
-    myInfo = core_di.sl();
-  } catch (error) {
-    myInfo = null;
-  }
-  return myInfo;
 }

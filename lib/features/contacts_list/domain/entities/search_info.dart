@@ -25,9 +25,9 @@ class OfflineSearchInfo extends SearchInfo {
   });
 }
 
-class OnlineSearchinfo extends SearchInfo {
+class OnlineSearchInfo extends SearchInfo {
   bool? showAnonVolunteers;
-  OnlineSearchinfo({
+  OnlineSearchInfo({
     required super.bloodGroup,
     required super.userLocation,
     required super.maxDistance,

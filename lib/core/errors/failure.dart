@@ -10,3 +10,5 @@ class PermissionDeniedFailure extends Failure {}
 class NoExistingMyInfoFailure extends Failure {}
 
 class NoCachedContactsFailure extends Failure {}
+
+class NetworkFailure extends Failure {}

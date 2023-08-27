@@ -20,4 +20,14 @@ class FilterCubit extends Cubit<FilterState> {
   void updateFilters({required SearchFilter newFilter}) {
     emit(FilterState.fromSearchFilter(searchFilter: newFilter));
   }
+
+  void updateFiltersWithNewMyInfo({required MyInfo myInfo}) {
+    emit(FilterState(
+      contactSearchMode: state.contactSearchMode,
+      bloodGroup: myInfo.bloodGroup,
+      userLocation: myInfo.locationCoordinates,
+      maxDistance: state.maxDistance,
+      showAnonVolunteers: state.showAnonVolunteers,
+    ));
+  }
 }

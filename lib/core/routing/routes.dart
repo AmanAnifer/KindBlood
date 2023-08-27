@@ -1,3 +1,6 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:kindblood/core/cubit/my_info_cubit.dart';
 import '../../features/contacts_list/presentation/cubit/contact_listing/contact_listing_cubit.dart';
 import '../../features/contacts_list/presentation/cubit/filter_widgets/filter_cubit.dart';
 import 'package:go_router/go_router.dart';
@@ -5,27 +8,30 @@ import '../../features/contacts_list/presentation/pages/pages_barrel.dart';
 import '../../features/settings/presentation/pages/settings_page.dart';
 import '../../features/my_info/presentation/pages/myinfo_page.dart';
 import 'package:flutter/material.dart';
+import '../injection_container.dart';
 import 'dart:async';
+import 'package:flutter_bloc/flutter_bloc.dart';
 part "bottom_navigation.dart";
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
-// For refreshListenable in GoRouter, but can't get it to work correctly so..
-class GoRouterRefreshStream extends ChangeNotifier {
-  late final StreamSubscription<dynamic> _subscription;
+// class GoRouterRefreshStream extends ChangeNotifier {
+//   GoRouterRefreshStream(Stream<dynamic> stream) {
+//     notifyListeners();
+//     subscription = stream.asBroadcastStream().listen((dynamic _) {
+//       notifyListeners();
+//     });
+//   }
 
-  GoRouterRefreshStream(Stream<dynamic> stream) {
-    notifyListeners();
-    _subscription = stream.asBroadcastStream().listen((_) => notifyListeners());
-  }
+//   late final StreamSubscription<dynamic> subscription;
 
-  @override
-  void dispose() {
-    _subscription.cancel();
-    super.dispose();
-  }
-}
+//   @override
+//   void dispose() {
+//     subscription.cancel();
+//     super.dispose();
+//   }
+// }
 
 class Routes {
   static const String listingScreen = "/";
@@ -38,101 +44,108 @@ class Routes {
   static final GoRouter _router = GoRouter(
     initialLocation: myInfoScreen,
     navigatorKey: _rootNavigatorKey,
+    // refreshListenable: GoRouterRefreshStream(sl<MyInfoCubit>().stream),
     routes: [
-      ShellRoute(
-        navigatorKey: _shellNavigatorKey,
-        builder: (context, state, child) {
-          return child;
+      // ShellRoute(
+      //   navigatorKey: _shellNavigatorKey,
+      //   builder: (context, state, child) {
+      //     return child;
+      //   },
+      //   routes: [
+      //     GoRoute(
+      //       parentNavigatorKey: _shellNavigatorKey,
+      //       path: listingScreen,
+      //       builder: (context, state) => ContactListPage(),
+      //       pageBuilder: (context, state) =>
+      //           NoTransitionPage<void>(child: ContactListPage()),
+      //       routes: [
+      //         GoRoute(
+      //           parentNavigatorKey: _shellNavigatorKey,
+      //           path: contactViewScreen,
+      //           builder: (context, state) {
+      //             var args = state.extra as (
+      //               DisplayContactInfo,
+      //               ContactListingCubit,
+      //               FilterCubit
+      //             );
+      //             return ContactViewPage(args: args);
+      //           },
+      //         ),
+      //       ],
+      //     ),
+      //     GoRoute(
+      //       parentNavigatorKey: _shellNavigatorKey,
+      //       path: settingsScreen,
+      //       builder: (context, state) => const SettingsPage(),
+      //       pageBuilder: (context, state) =>
+      //           const NoTransitionPage<void>(child: SettingsPage()),
+      //     ),
+      //     GoRoute(
+      //       parentNavigatorKey: _shellNavigatorKey,
+      //       path: myInfoScreen,
+      //       builder: (context, state) => const MyInfoPage(),
+      //       pageBuilder: (context, state) =>
+      //           const NoTransitionPage(child: MyInfoPage()),
+      //     ),
+      //   ],
+      // )
+
+      StatefulShellRoute.indexedStack(
+        // navigatorContainerBuilder: (context, navigationShell, children) =>
+        //     _IndexedStackedRouteBranchContainer(
+        //   currentIndex: navigationShell.currentIndex,
+        //   children: children,
+        // ),
+        builder: (context, state, navigationShell) {
+          return CustomScaffoldWithNavBar(navigationShell: navigationShell);
         },
-        routes: [
-          GoRoute(
-            parentNavigatorKey: _shellNavigatorKey,
-            path: listingScreen,
-            builder: (context, state) => const ContactListPage(),
-            pageBuilder: (context, state) =>
-                const NoTransitionPage<void>(child: ContactListPage()),
+        // builder: (context, children, navigationShell,) {
+        //   return children;
+        // },
+
+        branches: [
+          StatefulShellBranch(
+            navigatorKey: GlobalKey<NavigatorState>(),
             routes: [
               GoRoute(
-                parentNavigatorKey: _shellNavigatorKey,
-                path: contactViewScreen,
-                builder: (context, state) {
-                  var args = state.extra as (
-                    DisplayContactInfo,
-                    ContactListingCubit,
-                    FilterCubit
-                  );
-                  return ContactViewPage(args: args);
-                },
+                path: listingScreen,
+                builder: (context, state) => const ContactListPage(),
+                routes: [
+                  GoRoute(
+                    path: contactViewScreen,
+                    builder: (context, state) {
+                      var args = state.extra as (
+                        DisplayContactInfo,
+                        ContactListingCubit,
+                        FilterCubit
+                      );
+                      return ContactViewPage(args: args);
+                    },
+                  ),
+                ],
               ),
             ],
           ),
-          GoRoute(
-            parentNavigatorKey: _shellNavigatorKey,
-            path: settingsScreen,
-            builder: (context, state) => const SettingsPage(),
-            pageBuilder: (context, state) =>
-                const NoTransitionPage<void>(child: SettingsPage()),
+          StatefulShellBranch(
+            navigatorKey: GlobalKey<NavigatorState>(),
+            routes: [
+              GoRoute(
+                path: myInfoScreen,
+                builder: (context, state) => const MyInfoPage(),
+              ),
+            ],
           ),
-          GoRoute(
-            parentNavigatorKey: _shellNavigatorKey,
-            path: myInfoScreen,
-            builder: (context, state) => const MyInfoPage(),
-            pageBuilder: (context, state) =>
-                const NoTransitionPage(child: MyInfoPage()),
+          StatefulShellBranch(
+            navigatorKey: GlobalKey<NavigatorState>(),
+            routes: [
+              GoRoute(
+                path: settingsScreen,
+                builder: (context, state) => const SettingsPage(),
+              ),
+            ],
           ),
         ],
-      )
-
-      // StatefulShellRoute.indexedStack(
-      //   builder: (context, state, navigationShell) {
-      //     return navigationShell;
-      //   },
-      //   // navigatorContainerBuilder: (context, navigationShell, children)  {
-      //   //   return child;
-      //   // },
-      //   branches: [
-      //     StatefulShellBranch(
-      //       navigatorKey: GlobalKey<NavigatorState>(),
-      //       routes: [
-      //         GoRoute(
-      //           path: listingScreen,
-      //           builder: (context, state) => const ContactListPage(),
-      //           routes: [
-      //             GoRoute(
-      //               path: contactViewScreen,
-      //               builder: (context, state) {
-      //                 var args = state.extra as (
-      //                   DisplayContactInfo,
-      //                   ContactListingCubit,
-      //                   FilterCubit
-      //                 );
-      //                 return ContactViewPage(args: args);
-      //               },
-      //             ),
-      //           ],
-      //         ),
-      //       ],
-      //     ),
-      //     StatefulShellBranch(
-      //       navigatorKey: GlobalKey<NavigatorState>(),
-      //       routes: [
-      //         GoRoute(
-      //           path: settingsScreen,
-      //           builder: (context, state) => const SettingsPage(),
-      //         ),
-      //       ],
-      //     ),
-      //     StatefulShellBranch(
-      //       navigatorKey: GlobalKey<NavigatorState>(),
-      //       routes: [
-      //         GoRoute(
-      //           path: myInfoScreen,
-      //           builder: (context, state) => const MyInfoPage(),
-      //         ),
-      //       ],
-      //     ),
-      //   ],
-      // ),
+      ),
 
       // GoRoute(
       //   path: permissionsScreen,
@@ -161,3 +174,39 @@ class Routes {
 
   static GoRouter get router => _router;
 }
+
+// class _IndexedStackedRouteBranchContainer extends StatelessWidget {
+//   const _IndexedStackedRouteBranchContainer(
+//       {required this.currentIndex, required this.children});
+
+//   final int currentIndex;
+
+//   final List<Widget> children;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Stack(
+//       children: children.mapWithIndex((widget, index) {
+//         if (index == currentIndex) {
+//           return widget;
+//         } else {
+//           return Visibility.maintain(
+//             visible: false,
+//             child: widget,
+//           );
+//         }
+//       }).toList(),
+//     );
+//   }
+
+//   Widget _buildRouteBranchContainer(
+//       BuildContext context, bool isActive, Widget child) {
+//     return Offstage(
+//       offstage: !isActive,
+//       child: TickerMode(
+//         enabled: isActive,
+//         child: child,
+//       ),
+//     );
+//   }
+// }

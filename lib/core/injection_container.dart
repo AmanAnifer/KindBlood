@@ -1,9 +1,20 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:get_it/get_it.dart';
+import 'package:kindblood/core/cubit/my_info_cubit.dart';
 import 'platform/launch_call_interface.dart';
 import 'platform/launch_call_impl.dart';
 import 'string_constants.dart';
 import 'entities/myinfo_entity.dart';
+
+MyInfo? getMyInfo() {
+  MyInfo? myInfo;
+  try {
+    myInfo = sl();
+  } catch (error) {
+    myInfo = null;
+  }
+  return myInfo;
+}
 
 final sl = GetIt.instance;
 // typedef EitherMyInfoOrFailure = Either<NoExistingMyInfoFailure, MyInfo>;
@@ -17,7 +28,7 @@ Future<void> init() async {
     final castedMyInfo = Map<String, dynamic>.from(myInfoJson);
     sl.registerSingleton<MyInfo>(MyInfo.fromJson(castedMyInfo));
   }
-
+  sl.registerSingleton<MyInfoCubit>(MyInfoCubit(myInfo: getMyInfo()));
   // sl.registerFactory<EitherMyInfoOrFailure>(
   //   () {
   //     var myInfoJson = box.get(myInfoDBKey);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../core/entities/myinfo_entity.dart';
 import '../../../../core/routing/routes.dart';
 import '../cubit/myinfo_page_cubit.dart';
@@ -120,10 +121,12 @@ class _MyInfoPageState extends State<MyInfoPage> {
                 );
               }
             }(),
-            bottomNavigationBar: (localState is MyInfoPageFirstTime ||
-                    localState is MyInfoPageEdit)
-                ? null
-                : const CustomBottomNavigationBar(),
+            // bottomNavigationBar: (localState is MyInfoPageFirstTime ||
+            //         localState is MyInfoPageEdit)
+            //     ? null
+            //     : CustomScaffoldWithNavBar(
+            //         navigationShell:
+            //            ),
           );
         },
       ),

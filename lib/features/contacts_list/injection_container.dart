@@ -21,7 +21,7 @@ Future<void> init() async {
       OfflineContactInfoRepositoryImpl(
           contactInfoDataSource: sl(), contactInfoCacheSource: sl()));
   sl.registerLazySingleton<OfflineContactInfoDataSource>(
-      () => ContactInfoDataSourceImpl(dataStore: sl()));
+      () => OfflineContactInfoDataSourceImpl(dataStore: sl()));
   sl.registerLazySingleton<OfflineContactInfoCacheSource>(
       () => HiveOfflineContactInfoCacheSource(box: sl()));
   sl.registerLazySingleton<OfflineContactDataStore>(

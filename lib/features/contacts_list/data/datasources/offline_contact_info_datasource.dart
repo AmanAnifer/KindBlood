@@ -8,9 +8,9 @@ abstract class OfflineContactInfoDataSource {
   Future<List<OfflineContactInfoModel>> getAllContacts();
 }
 
-class ContactInfoDataSourceImpl implements OfflineContactInfoDataSource {
+class OfflineContactInfoDataSourceImpl implements OfflineContactInfoDataSource {
   final OfflineContactDataStore dataStore;
-  ContactInfoDataSourceImpl({required this.dataStore});
+  OfflineContactInfoDataSourceImpl({required this.dataStore});
   @override
   Future<List<OfflineContactInfoModel>> getAllContacts() async {
     var contactsPermission = await Permission.contacts.request();

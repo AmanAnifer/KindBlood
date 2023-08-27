@@ -16,9 +16,9 @@ class HiveOfflineContactInfoCacheSource
   HiveOfflineContactInfoCacheSource({required this.box});
   @override
   Future<List<OfflineContactInfoModel>> getCachedContacts() async {
-    if (box.containsKey(contactCacheKey)) {
+    if (box.containsKey(offlineContactCacheKey)) {
       List<Map<String, dynamic>> cachedContactsJsonList =
-          (box.get(contactCacheKey) as List<dynamic>)
+          (box.get(offlineContactCacheKey) as List<dynamic>)
               .map((e) => Map<String, dynamic>.from(e))
               .toList();
 
@@ -33,6 +33,7 @@ class HiveOfflineContactInfoCacheSource
   @override
   Future<void> cacheContacts(
       {required List<OfflineContactInfoModel> contactsList}) async {
-    box.put(contactCacheKey, contactsList.map((e) => e.toJson()).toList());
+    box.put(
+        offlineContactCacheKey, contactsList.map((e) => e.toJson()).toList());
   }
 }

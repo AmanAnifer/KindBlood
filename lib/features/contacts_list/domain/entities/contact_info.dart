@@ -44,11 +44,12 @@ class OnlineContactInfo extends ContactInfo {
   final LatLong? locationCoordinates;
   @override
   final BloodGroup? bloodGroup;
-  const OnlineContactInfo({
-    required this.id,
-    this.name,
-    this.phone,
-    this.locationCoordinates,
-    this.bloodGroup,
-  });
+  final bool? isAnonVolunteer;
+  const OnlineContactInfo(
+      {required this.id,
+      this.name,
+      this.phone,
+      this.locationCoordinates,
+      this.bloodGroup,
+      this.isAnonVolunteer});
 }
