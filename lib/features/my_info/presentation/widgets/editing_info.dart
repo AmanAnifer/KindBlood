@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../../../core/entities/blood_group.dart';
+import 'package:kindblood_common/core_entities.dart' hide LatLong;
 import '../../../../core/utils/blood_group_acronym.dart';
 import '../../../../core/widgets/location_selection_page.dart';
-import '../../../../core/entities/location_entity.dart' as le;
+import 'package:kindblood_common/core_entities.dart' as le;
 
 class EditingInfoInputControllers {
   final TextEditingController nameController;

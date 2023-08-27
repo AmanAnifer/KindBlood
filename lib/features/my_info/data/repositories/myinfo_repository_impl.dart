@@ -5,8 +5,7 @@ import 'package:kindblood/features/my_info/data/datasource/myinfo_upload_datasou
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/errors/failure.dart';
 import '../model/myinfo_model.dart';
-
-import '../../../../core/entities/myinfo_entity.dart';
+import 'package:kindblood_common/core_entities.dart';
 
 import '../datasource/myinfo_db_datasource.dart';
 import '../../domain/repositories/myinfo_repository.dart';

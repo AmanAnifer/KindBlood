@@ -1,5 +1,5 @@
-import '../../../../core/entities/blood_group.dart';
-import '../../../../core/entities/blood_compatibility_info.dart';
+// import '../../../../core/entities/blood_group.dart';
+import 'package:kindblood_common/core_entities.dart';
 
 BloodCompatibility getBloodCompatibility({
   required BloodGroup receiver,

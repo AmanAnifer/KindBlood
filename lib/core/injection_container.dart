@@ -4,7 +4,7 @@ import 'package:kindblood/core/cubit/my_info_cubit.dart';
 import 'platform/launch_call_interface.dart';
 import 'platform/launch_call_impl.dart';
 import 'string_constants.dart' as strings;
-import 'entities/myinfo_entity.dart';
+import 'package:kindblood_common/core_entities.dart';
 import 'entities/app_settings.dart';
 import 'package:http/http.dart' as http;
 

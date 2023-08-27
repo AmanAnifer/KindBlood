@@ -1,7 +1,6 @@
 import '../../domain/entities/contact_info.dart';
-import '../../../../core/entities/location_entity.dart';
+import 'package:kindblood_common/core_entities.dart';
 import 'package:json_annotation/json_annotation.dart';
-import '../../../../core/entities/blood_group.dart';
 part 'offline_contact_info_model.g.dart';
 
 @JsonSerializable(explicitToJson: true, anyMap: true)

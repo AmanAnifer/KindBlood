@@ -2,16 +2,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:kindblood/core/errors/failure.dart';
 import 'package:kindblood/features/contacts_list/domain/usecases/get_online_contacts.dart';
-import '../../../../../core/entities/location_entity.dart';
-import '../../../../../core/entities/myinfo_entity.dart';
-import '../../../../../core/entities/blood_compatibility_info.dart' as bci;
+import 'package:kindblood_common/core_entities.dart';
 import '../../../domain/entities/search_info.dart';
 import '../../../domain/usecases/get_offline_contacts.dart';
 import '../../../domain/usecases/update_offline_contact.dart';
 import '../../../domain/entities/contact_info.dart';
-import '../../../../../core/entities/blood_group.dart';
 import '../../../domain/entities/search_filters.dart';
-import '../../../../../core/entities/length_units.dart';
 import '../../../domain/usecases/calculate_distance.dart';
 import '../../../domain/usecases/get_blood_compatibility.dart';
 import '../../../domain/entities/search_sorting.dart';
@@ -79,7 +75,7 @@ class ContactListingCubit extends Cubit<ContactListingState> {
             contactsList: contactsList.map(
               (e) {
                 LengthUnit? distance;
-                bci.BloodCompatibility? bloodCompatibility;
+                BloodCompatibility? bloodCompatibility;
                 if (e.locationCoordinates != null) {
                   distance = getDistanceBetweenTwoLatLongs(
                     from: searchFilter.userLocation,
@@ -121,15 +117,15 @@ class ContactListingCubit extends Cubit<ContactListingState> {
                     case SortByColumn.bloodGroup:
                       if (a.bloodCompatibility == b.bloodCompatibility) {
                         compareNum = 0;
-                      } else if (a.bloodCompatibility is bci.CompatibleSame) {
+                      } else if (a.bloodCompatibility is CompatibleSame) {
                         compareNum = -1;
-                      } else if (b.bloodCompatibility is bci.CompatibleSame) {
+                      } else if (b.bloodCompatibility is CompatibleSame) {
                         compareNum = 1;
                       } else if (a.bloodCompatibility
-                          is bci.CompatibleButDifferent) {
+                          is CompatibleButDifferent) {
                         compareNum = -1;
                       } else if (b.bloodCompatibility
-                          is bci.CompatibleButDifferent) {
+                          is CompatibleButDifferent) {
                         compareNum = 1;
                       } else {
                         compareNum = 0;
@@ -173,7 +169,7 @@ class ContactListingCubit extends Cubit<ContactListingState> {
             contactsList: contactsList.map(
               (e) {
                 LengthUnit? distance;
-                bci.BloodCompatibility? bloodCompatibility;
+                BloodCompatibility? bloodCompatibility;
                 if (e.locationCoordinates != null) {
                   distance = getDistanceBetweenTwoLatLongs(
                     from: searchFilter.userLocation,

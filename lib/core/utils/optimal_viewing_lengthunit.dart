@@ -1,4 +1,4 @@
-import '../entities/length_units.dart';
+import 'package:kindblood_common/core_entities.dart';
 
 LengthUnit getOptimalViewingLengthUnit({required LengthUnit distance}) {
   if (distance.lengthInMeters > 1000) {

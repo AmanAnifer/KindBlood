@@ -1,5 +1,5 @@
-import '../../../../core/entities/blood_compatibility_info.dart' as bci;
-import '../../../../core/entities/length_units.dart';
+import 'package:kindblood_common/core_entities.dart';
+// import '../../../../core/entities/length_units.dart';
 
 import '../entities/contact_info.dart';
 import '../entities/search_info.dart';
@@ -7,7 +7,7 @@ import '../repositories/offline_contact_repository.dart';
 import 'package:fpdart/fpdart.dart';
 import '../../../../core/errors/failure.dart';
 import 'get_blood_compatibility.dart';
-import '../../../../core/entities/blood_group.dart';
+// import '../../../../core/entities/blood_group.dart';
 import 'calculate_distance.dart';
 
 class GetOfflineContacts {
@@ -45,7 +45,7 @@ class GetOfflineContacts {
             if (getBloodCompatibility(
               receiver: searchInfo.bloodGroup,
               donor: contact.bloodGroup ?? BloodGroup.Unknown,
-            ) is bci.Compatible) {
+            ) is Compatible) {
               filteredContacts.add(contact);
             }
           }

@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../entities/myinfo_entity.dart';
+import 'package:kindblood_common/core_entities.dart';
 import 'package:equatable/equatable.dart';
 part 'my_info_states.dart';
 

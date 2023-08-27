@@ -1,4 +1,4 @@
-import '../entities/blood_group.dart';
+import 'package:kindblood_common/core_entities.dart';
 
 String? getBloodGroupAcronym(BloodGroup? bloodGroup) {
   switch (bloodGroup) {

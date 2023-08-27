@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../core/entities/myinfo_entity.dart';
+import 'package:kindblood_common/core_entities.dart';
 import '../../domain/usecases/myinfo_usecase.dart';
 part 'myinfo_page_states.dart';
 

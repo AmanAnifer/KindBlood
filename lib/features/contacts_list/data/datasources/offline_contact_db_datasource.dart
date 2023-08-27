@@ -1,7 +1,6 @@
-import '../../../../core/entities/blood_group.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import '../../../../core/string_constants.dart';
-import '../../../../core/entities/location_entity.dart';
+import 'package:kindblood_common/core_entities.dart';
 
 abstract class OfflineContactDataStore {
   Future<void> storeInfo({

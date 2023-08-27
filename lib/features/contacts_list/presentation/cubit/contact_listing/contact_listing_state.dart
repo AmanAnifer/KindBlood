@@ -2,7 +2,7 @@ part of 'contact_listing_cubit.dart';
 
 class DisplayContactInfo extends OfflineContactInfo {
   final LengthUnit? distanceFromUser;
-  final bci.BloodCompatibility? bloodCompatibility;
+  final BloodCompatibility? bloodCompatibility;
   const DisplayContactInfo({
     required super.id,
     super.name,
@@ -15,7 +15,7 @@ class DisplayContactInfo extends OfflineContactInfo {
   factory DisplayContactInfo.fromContactInfo({
     required ContactInfo contactInfo,
     LengthUnit? distanceFromUser,
-    bci.BloodCompatibility? bloodCompatibility,
+    BloodCompatibility? bloodCompatibility,
   }) {
     return DisplayContactInfo(
       id: contactInfo.id,

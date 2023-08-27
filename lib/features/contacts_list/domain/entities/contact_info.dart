@@ -1,5 +1,4 @@
-import '../../../../core/entities/blood_group.dart';
-import '../../../../core/entities/location_entity.dart';
+import 'package:kindblood_common/core_entities.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class ContactInfo extends Equatable {

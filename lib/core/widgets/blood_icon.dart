@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
-import '../entities/blood_compatibility_info.dart' as bci;
-import '../entities/blood_group.dart';
+import 'package:kindblood_common/core_entities.dart';
 import '../utils/blood_group_acronym.dart';
 
 class BloodIcon extends StatelessWidget {
   final BloodGroup? bloodGroup;
-  final bci.BloodCompatibility bloodCompatibility;
+  final BloodCompatibility bloodCompatibility;
   final bool isLargeIcon;
   const BloodIcon({
     super.key,
     this.bloodGroup,
-    bci.BloodCompatibility? bloodCompatibility,
+    BloodCompatibility? bloodCompatibility,
     this.isLargeIcon = false,
-  }) : bloodCompatibility = bloodCompatibility ?? const bci.Incompatible();
+  }) : bloodCompatibility = bloodCompatibility ?? const Incompatible();
 
   Color get getBloodCompatibilityColor {
     switch (bloodCompatibility) {
-      case bci.CompatibleSame():
+      case CompatibleSame():
         return Colors.yellow.shade700;
-      case bci.CompatibleButDifferent():
-      case bci.Compatible():
+      case CompatibleButDifferent():
+      case Compatible():
         return Colors.red.shade700;
-      case bci.Incompatible():
+      case Incompatible():
         return Colors.grey;
     }
   }

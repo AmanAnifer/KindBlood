@@ -1,6 +1,5 @@
 import '../../data/datasources/offline_contact_db_datasource.dart';
-import '../../../../core/entities/blood_group.dart';
-import '../../../../core/entities/location_entity.dart';
+import 'package:kindblood_common/core_entities.dart';
 
 class UpdateOfflineContact {
   final OfflineContactDataStore contactDataStore;
