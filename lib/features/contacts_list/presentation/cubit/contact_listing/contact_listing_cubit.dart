@@ -4,8 +4,8 @@ import '../../../../../core/entities/location_entity.dart';
 import '../../../../../core/entities/myinfo_entity.dart';
 import '../../../../../core/entities/blood_compatibility_info.dart' as bci;
 import '../../../domain/entities/search_info.dart';
-import '../../../domain/usecases/get_contacts.dart';
-import '../../../domain/usecases/update_contact.dart';
+import '../../../domain/usecases/get_offline_contacts.dart';
+import '../../../domain/usecases/update_offline_contact.dart';
 import '../../../domain/entities/contact_info.dart';
 import '../../../../../core/entities/blood_group.dart';
 import '../../../domain/entities/search_filters.dart';
@@ -110,11 +110,11 @@ class ContactListingCubit extends Cubit<ContactListingState> {
   }
 
   void updateContactInfo(
-      {required String phoneNumber,
+      {required String id,
       BloodGroup? bloodGroup,
       LatLong? locationCoordinates}) {
     updateContact.updateContact(
-      phoneNumber: phoneNumber,
+      id: id,
       bloodGroup: bloodGroup,
       locationCoordinates: locationCoordinates,
     );

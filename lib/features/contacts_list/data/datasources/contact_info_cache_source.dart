@@ -1,19 +1,20 @@
-import '../models/contact_info_model.dart';
+import '../models/offline_contact_info_model.dart';
 import '../../../../core/string_constants.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import '../../../../core/errors/exceptions.dart';
 
 abstract class ContactInfoCacheSource {
-  Future<List<ContactInfoModel>> getCachedContacts();
+  Future<List<OfflineContactInfoModel>> getCachedContacts();
 
-  Future<void> cacheContacts({required List<ContactInfoModel> contactsList});
+  Future<void> cacheContacts(
+      {required List<OfflineContactInfoModel> contactsList});
 }
 
 class HiveContactInfoCacheSource implements ContactInfoCacheSource {
   final Box box;
   HiveContactInfoCacheSource({required this.box});
   @override
-  Future<List<ContactInfoModel>> getCachedContacts() async {
+  Future<List<OfflineContactInfoModel>> getCachedContacts() async {
     if (box.containsKey(contactCacheKey)) {
       List<Map<String, dynamic>> cachedContactsJsonList =
           (box.get(contactCacheKey) as List<dynamic>)
@@ -21,7 +22,7 @@ class HiveContactInfoCacheSource implements ContactInfoCacheSource {
               .toList();
 
       return cachedContactsJsonList
-          .map((e) => ContactInfoModel.fromJson(e))
+          .map((e) => OfflineContactInfoModel.fromJson(e))
           .toList();
     } else {
       throw NoCachedContactsException();
@@ -30,7 +31,7 @@ class HiveContactInfoCacheSource implements ContactInfoCacheSource {
 
   @override
   Future<void> cacheContacts(
-      {required List<ContactInfoModel> contactsList}) async {
+      {required List<OfflineContactInfoModel> contactsList}) async {
     box.put(contactCacheKey, contactsList.map((e) => e.toJson()).toList());
   }
 }

@@ -1,22 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'contact_info_model.dart';
+part of 'offline_contact_info_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-ContactInfoModel _$ContactInfoModelFromJson(Map json) => ContactInfoModel(
-      name: json['name'] as String,
-      phone: json['phone'] as String,
+OfflineContactInfoModel _$OfflineContactInfoModelFromJson(Map json) =>
+    OfflineContactInfoModel(
+      id: json['id'] as String,
+      name: json['name'] as String?,
+      phone: json['phone'] as String?,
       bloodGroup: $enumDecodeNullable(_$BloodGroupEnumMap, json['bloodGroup']),
       locationCoordinates: json['locationCoordinates'] == null
           ? null
           : LatLong.fromJson(json['locationCoordinates'] as Map),
     );
 
-Map<String, dynamic> _$ContactInfoModelToJson(ContactInfoModel instance) =>
+Map<String, dynamic> _$OfflineContactInfoModelToJson(
+        OfflineContactInfoModel instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'name': instance.name,
       'phone': instance.phone,
       'locationCoordinates': instance.locationCoordinates?.toJson(),

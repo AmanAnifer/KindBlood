@@ -16,11 +16,11 @@ class GetContacts {
     required this.contactInfoRepository,
   });
 
-  Future<Either<Failure, List<ContactInfo>>> getAllContacts() async {
+  Future<Either<Failure, List<OfflineContactInfo>>> getAllContacts() async {
     return contactInfoRepository.getAllContacts(fromCache: true);
   }
 
-  Future<Either<Failure, List<ContactInfo>>> getSearchResultContacts(
+  Future<Either<Failure, List<OfflineContactInfo>>> getSearchResultContacts(
       {required SearchInfo searchInfo, required bool fromCache}) async {
     /*
     It will first honour fromCache flag but if its giving failure then
@@ -35,7 +35,7 @@ class GetContacts {
     return allContacts.fold(
       (l) => Either.left(l),
       (r) {
-        List<ContactInfo> filteredContacts = [];
+        List<OfflineContactInfo> filteredContacts = [];
 
         // Bloodgroup filtering
         if (searchInfo.bloodGroup == BloodGroup.Unknown) {

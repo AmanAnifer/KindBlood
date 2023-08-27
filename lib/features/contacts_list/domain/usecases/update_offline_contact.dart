@@ -7,11 +7,11 @@ class UpdateContact {
   UpdateContact({required this.contactDataStore});
 
   void updateContact(
-      {required String phoneNumber,
+      {required String id,
       BloodGroup? bloodGroup,
       LatLong? locationCoordinates}) {
     contactDataStore.storeInfo(
-        phoneNumber: phoneNumber,
+        id: id,
         bloodGroup: bloodGroup,
         locationCoordinates: locationCoordinates);
   }

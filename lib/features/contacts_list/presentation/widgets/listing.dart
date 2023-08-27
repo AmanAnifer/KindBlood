@@ -35,6 +35,7 @@ class Listing extends StatelessWidget {
                   Expanded(
                     flex: 10,
                     child: ListView.builder(
+                      key: const PageStorageKey("contact_listing_key"),
                       // cacheExtent: 40,
                       itemBuilder: (context, index) {
                         return ContactListTile(

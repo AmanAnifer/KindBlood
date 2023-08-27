@@ -35,14 +35,16 @@ class ContactListTile extends StatelessWidget {
     return BlocBuilder<ContactListingCubit, ContactListingState>(
       builder: (context, state) {
         return ListTile(
+          key: PageStorageKey(displayContactInfo.id),
           title: Hero(
-            tag: "${displayContactInfo.phone}-${displayContactInfo.name}-name",
+            tag: displayContactInfo.id,
             child: Material(
               type: MaterialType.transparency,
-              child: Text(displayContactInfo.name),
+              //TODO : unkonwn name
+              child: Text(displayContactInfo.name ?? ""),
             ),
           ),
-          subtitle: Text(displayContactInfo.phone),
+          subtitle: Text(displayContactInfo.phone ?? ""),
           trailing: SizedBox(
             width: 50,
             child: BloodIcon(

@@ -51,7 +51,6 @@ class _EditingInfoState extends State<EditingInfo> {
 
   @override
   Widget build(BuildContext context) {
-    // // TODO: it doesnt look like contacts page updates when myInfo is updated
     return SafeArea(
       minimum: const EdgeInsets.all(16),
       child: Column(

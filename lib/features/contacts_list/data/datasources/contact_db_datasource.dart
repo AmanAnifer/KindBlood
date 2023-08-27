@@ -6,12 +6,12 @@ import '../../../../core/entities/location_entity.dart';
 
 abstract class ContactDataStore {
   Future<void> storeInfo({
-    required String phoneNumber,
+    required String id,
     BloodGroup? bloodGroup,
     LatLong? locationCoordinates,
   });
-  Future<BloodGroup?> getBloodGroup({required String phoneNumber});
-  Future<LatLong?> getLocationCoordinates({required String phoneNumber});
+  Future<BloodGroup?> getBloodGroup({required String id});
+  Future<LatLong?> getLocationCoordinates({required String id});
 }
 
 class HiveContactDataStore implements ContactDataStore {
@@ -27,12 +27,12 @@ class HiveContactDataStore implements ContactDataStore {
 
   @override
   Future<void> storeInfo({
-    required String phoneNumber,
+    required String id,
     BloodGroup? bloodGroup,
     LatLong? locationCoordinates,
   }) async {
     Map<dynamic, dynamic> existingData = box.get(contactExtraInfo);
-    existingData[getNormalisedPhoneNumber(phoneNumber: phoneNumber)] = {
+    existingData[id] = {
       "bloodGroup": bloodGroup?.name,
       "locationCoordinates": locationCoordinates?.toJson(),
     };
@@ -40,21 +40,18 @@ class HiveContactDataStore implements ContactDataStore {
   }
 
   @override
-  Future<BloodGroup?> getBloodGroup({required String phoneNumber}) async {
+  Future<BloodGroup?> getBloodGroup({required String id}) async {
     await existsCheck();
-    String? bloodGroupName = box.get(contactExtraInfo)[
-        getNormalisedPhoneNumber(phoneNumber: phoneNumber)]?["bloodGroup"];
+    String? bloodGroupName = box.get(contactExtraInfo)[id]?["bloodGroup"];
     return bloodGroupName != null
         ? BloodGroup.values.byName(bloodGroupName)
         : null;
   }
 
   @override
-  Future<LatLong?> getLocationCoordinates({required String phoneNumber}) async {
+  Future<LatLong?> getLocationCoordinates({required String id}) async {
     await existsCheck();
-    var json = box.get(contactExtraInfo)[
-            getNormalisedPhoneNumber(phoneNumber: phoneNumber)]
-        ?["locationCoordinates"];
+    var json = box.get(contactExtraInfo)[id]?["locationCoordinates"];
     LatLong? locationCoordinates;
     if (json != null) {
       locationCoordinates = LatLong.fromJson(json);

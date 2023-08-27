@@ -52,6 +52,7 @@ class _ContactViewPageState extends State<ContactViewPage> {
                 context.watch<ContactListingCubit>().state;
 
             if (localContactListingState is ContactListingSuccess) {
+              var contactId = widget.displayContactInfo.id;
               var name = widget.displayContactInfo.name;
               var phone = widget.displayContactInfo.phone;
               // var bloodGroup =
@@ -85,7 +86,8 @@ class _ContactViewPageState extends State<ContactViewPage> {
                             context
                                 .read<ContactListingCubit>()
                                 .updateContactInfo(
-                                  phoneNumber: phone,
+                                  // TODO: Phone number unknown
+                                  id: contactId,
                                   bloodGroup:
                                       localContactViewState.currentBloodGroup,
                                   locationCoordinates: localContactViewState
@@ -187,17 +189,18 @@ class _ContactViewPageState extends State<ContactViewPage> {
                       ),
                       const Spacer(flex: 1),
                       Hero(
-                        tag: "$phone-$name-name",
+                        tag: contactId,
                         child: Material(
                           type: MaterialType.transparency,
                           child: Text(
-                            name,
+                            name ?? "",
                             style: Theme.of(context).textTheme.headlineLarge,
                           ),
                         ),
                       ),
                       Text(
-                        phone,
+                        // TODO: unknown number
+                        phone ?? "",
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
                       Text(
@@ -215,7 +218,11 @@ class _ContactViewPageState extends State<ContactViewPage> {
                         child: IconButton.filled(
                           // iconSize: 40,
                           onPressed: () {
-                            context.read<ContactViewCubit>().callNumber(phone);
+                            if (phone != null) {
+                              context
+                                  .read<ContactViewCubit>()
+                                  .callNumber(phone);
+                            }
                           },
                           icon: const Icon(
                             Icons.phone,

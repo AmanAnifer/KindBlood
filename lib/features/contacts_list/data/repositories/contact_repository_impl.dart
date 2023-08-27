@@ -1,5 +1,5 @@
 import '../../../../core/errors/exceptions.dart';
-import '../models/contact_info_model.dart';
+import '../models/offline_contact_info_model.dart';
 import '../../domain/entities/contact_info.dart';
 import '../../../../core/errors/failure.dart';
 import 'package:fpdart/fpdart.dart';
@@ -16,17 +16,18 @@ class ContactInfoRepositoryImpl implements ContactInfoRepository {
   });
 
   @override
-  Future<Either<Failure, List<ContactInfo>>> getAllContacts(
+  Future<Either<Failure, List<OfflineContactInfo>>> getAllContacts(
       {required bool fromCache}) async {
     try {
-      final List<ContactInfo> allContacts;
+      final List<OfflineContactInfo> allContacts;
       if (fromCache) {
         allContacts = await contactInfoCacheSource.getCachedContacts();
       } else {
         allContacts = await contactInfoDataSource.getAllContacts();
         contactInfoCacheSource.cacheContacts(
           contactsList: allContacts
-              .map((e) => ContactInfoModel.fromContactInfo(contactInfo: e))
+              .map((e) =>
+                  OfflineContactInfoModel.fromContactInfo(contactInfo: e))
               .toList(),
         );
       }
