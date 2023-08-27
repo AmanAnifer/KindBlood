@@ -1,4 +1,6 @@
-abstract class LengthUnit {
+import 'package:equatable/equatable.dart';
+
+abstract class LengthUnit with EquatableMixin {
   final double value;
   String get unitSuffixInSI;
   double get lengthInMeters;
@@ -6,8 +8,11 @@ abstract class LengthUnit {
 
   @override
   String toString() {
-    return "${value.toInt()}$unitSuffixInSI";
+    return "${value.toInt()} $unitSuffixInSI";
   }
+
+  @override
+  List<Object?> get props => [lengthInMeters];
 }
 
 class Meter extends LengthUnit {

@@ -4,9 +4,11 @@ class FixedValuesSlider<T> extends StatefulWidget {
   final List<T> fixedValues;
   late final String Function(T selectedFixedValue)? displayStringBuilder;
   final void Function(T value)? onChanged;
+  final T? initialValue;
   FixedValuesSlider({
     super.key,
     required this.fixedValues,
+    this.initialValue,
     String Function(T selectedFixedValue)? displayStringBuilder,
     this.onChanged,
   }) {
@@ -26,13 +28,18 @@ class _FixedValuesSliderState<T> extends State<FixedValuesSlider<T>> {
   @override
   void initState() {
     super.initState();
-    selectedFixedValue = widget.fixedValues[0];
+    final initialValue = widget.initialValue;
+    if (initialValue != null && widget.fixedValues.contains(initialValue)) {
+      selectedFixedValue = initialValue;
+    } else {
+      selectedFixedValue = widget.fixedValues[0];
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Slider(
-      value: this.value,
+      value: widget.fixedValues.indexOf(selectedFixedValue).toDouble(),
       min: 0,
       max: widget.fixedValues.length.toDouble() - 1,
       divisions: widget.fixedValues.length - 1,

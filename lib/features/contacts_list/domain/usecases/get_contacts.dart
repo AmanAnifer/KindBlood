@@ -36,6 +36,8 @@ class GetContacts {
       (l) => Either.left(l),
       (r) {
         List<ContactInfo> filteredContacts = [];
+
+        // Bloodgroup filtering
         if (searchInfo.bloodGroup == BloodGroup.Unknown) {
           filteredContacts = r;
         } else {
@@ -48,28 +50,35 @@ class GetContacts {
             }
           }
         }
-        //?
-        if (searchInfo.maxDistance is! InfiniteMeter) {
-          filteredContacts = filteredContacts.filter((contact) {
-            final contactLocation = contact.locationCoordinates;
-            if (contactLocation == null) {
-              return false;
+
+        // Max distance filtering
+        filteredContacts = filteredContacts.filter((contact) {
+          final contactLocation = contact.locationCoordinates;
+          if (contactLocation == null) {
+            if (searchInfo.maxDistance is InfiniteMeter) {
+              // If 'within' is no limit then we want to return everything
+              return true;
             } else {
-              final distance = getDistanceBetweenTwoLatLongs(
-                  from: searchInfo.userLocation, to: contactLocation);
-              return (distance.lengthInMeters >
-                      searchInfo.maxDistance.lengthInMeters)
-                  ? false
-                  : true;
-              // if (distance.lengthInMeters >
-              //     searchInfo.maxDistance.lengthInMeters) {
-              //   return false;
-              // } else {
-              //   return true;
-              // }
+              return false;
             }
-          }).toList();
-        }
+          } else {
+            final distance = getDistanceBetweenTwoLatLongs(
+                from: searchInfo.userLocation, to: contactLocation);
+            return (distance.lengthInMeters >
+                        searchInfo.maxDistance.lengthInMeters &&
+                    searchInfo.maxDistance is! InfiniteMeter)
+                // If 'within' is no limit then we want to return everything
+                ? false
+                : true;
+            // if (distance.lengthInMeters >
+            //     searchInfo.maxDistance.lengthInMeters) {
+            //   return false;
+            // } else {
+            //   return true;
+            // }
+          }
+        }).toList();
+
         return Either.right(filteredContacts);
       },
     );

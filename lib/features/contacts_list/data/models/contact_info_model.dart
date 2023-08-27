@@ -4,7 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:kindblood/core/entities/blood_group.dart';
 part 'contact_info_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true, anyMap: true)
 class ContactInfoModel extends ContactInfo {
   ContactInfoModel({
     required super.name,

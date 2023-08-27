@@ -17,12 +17,13 @@ class ContactViewCubit extends Cubit<ContactViewState> {
         ));
 
   void editDetail({
-    required BloodGroup editedBloodGroup,
+    BloodGroup? editedBloodGroup,
     LatLong? editedLocationCoordinates,
   }) {
     emit(ContactViewEdit(
-      currentBloodGroup: editedBloodGroup,
-      currentLocationCoordinates: editedLocationCoordinates,
+      currentBloodGroup: editedBloodGroup ?? state.currentBloodGroup,
+      currentLocationCoordinates:
+          editedLocationCoordinates ?? state.currentLocationCoordinates,
     ));
   }
 

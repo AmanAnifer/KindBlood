@@ -8,7 +8,8 @@ import '../../injection_container.dart';
 import '../../../../core/widgets/blood_icon.dart';
 import '../../../../core/widgets/select_blood_group.dart' as blood_select;
 import '../../../../core/widgets/location_icon.dart';
-import '../../domain/entities/search_filters.dart';
+import 'package:kindblood/core/utils/optimal_viewing_lengthunit.dart';
+import 'package:kindblood/core/widgets/location_selection_page.dart';
 
 class ContactViewPage extends StatefulWidget {
   final DisplayContactInfo displayContactInfo;
@@ -116,34 +117,9 @@ class _ContactViewPageState extends State<ContactViewPage> {
                     children: [
                       const Spacer(flex: 1),
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          // InkWell(
-                          //   borderRadius: BorderRadius.circular(16),
-                          //   onTap: localContactViewState is ContactViewEdit
-                          //       ? () async {
-                          //           var selected = await blood_select
-                          //               .bloodTypeSelectDialogBuilder(context);
-                          //           if (mounted) {
-                          //             context
-                          //                 .read<ContactViewCubit>()
-                          //                 .editDetail(
-                          //                   editedBloodGroup: selected ??
-                          //                       localContactViewState
-                          //                           .currentBloodGroup,
-                          //                 );
-                          //           }
-                          //         }
-                          //       : null,
-                          //   // TODO: check if compatibility color changes when edited
-                          //   child: BloodIcon(
-                          //     isLargeIcon: true,
-                          //     bloodGroup:
-                          //         localContactViewState.currentBloodGroup,
-                          //     bloodCompatibility:
-                          //         widget.displayContactInfo.bloodCompatibility,
-                          //   ),
-                          // ),
                           IconButton(
                             icon: BloodIcon(
                               isLargeIcon: true,
@@ -168,15 +144,37 @@ class _ContactViewPageState extends State<ContactViewPage> {
                                   }
                                 : null,
                           ),
-                          InkWell(
-                            borderRadius: BorderRadius.circular(16),
-                            onTap: localContactViewState is ContactViewEdit
-                                ? () async {}
+                          IconButton(
+                            onPressed: localContactViewState is ContactViewEdit
+                                ? () async {
+                                    showGeneralDialog(
+                                      context: context,
+                                      pageBuilder: (dialogContext, animation,
+                                          secondaryAnimation) {
+                                        return Material(
+                                          child: LocationSelection(
+                                            startPosition: localContactViewState
+                                                .currentLocationCoordinates,
+                                            callback: (latLong) async {
+                                              if (mounted) {
+                                                context
+                                                    .read<ContactViewCubit>()
+                                                    .editDetail(
+                                                      editedLocationCoordinates:
+                                                          latLong,
+                                                    );
+                                              }
+                                            },
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  }
                                 : null,
-                            child: LocationIcon(
+                            icon: LocationIcon(
                               isLargeIcon: true,
-                              underneathText: widget
-                                      .displayContactInfo.locationCoordinates
+                              underneathText: localContactViewState
+                                      .currentLocationCoordinates
                                       ?.toFixedSizedString() ??
                                   "Unknown",
                               // callback:
@@ -205,7 +203,7 @@ class _ContactViewPageState extends State<ContactViewPage> {
                       Text(
                         widget.displayContactInfo.distanceFromUser == null
                             ? "Unknown distance from here"
-                            : "About ${widget.displayContactInfo.distanceFromUser.toString()} from here",
+                            : "About ${getOptimalViewingLengthUnit(distance: widget.displayContactInfo.distanceFromUser!)} from here",
                         style: Theme.of(context).textTheme.headlineSmall,
                       ),
                       const Spacer(flex: 1),

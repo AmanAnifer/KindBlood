@@ -65,7 +65,7 @@ class ContactListingCubit extends Cubit<ContactListingState> {
                 bci.BloodCompatibility? bloodCompatibility;
                 if (e.locationCoordinates != null) {
                   distance = getDistanceBetweenTwoLatLongs(
-                    from: myInfo.locationCoordinates,
+                    from: searchFilter.userLocation,
                     to: e.locationCoordinates!,
                   );
                 }

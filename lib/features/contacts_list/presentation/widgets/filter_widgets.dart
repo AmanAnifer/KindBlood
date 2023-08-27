@@ -126,8 +126,8 @@ class _FilterWidgetsState extends State<FilterWidgets> {
               onPressed: () async {
                 var selected =
                     await distance_select.showDistanceLimitSelectorDialog(
-                  context,
-                  state.maxDistance,
+                  context: context,
+                  previousDistanceLimit: state.maxDistance,
                 );
                 if (mounted && selected != null) {
                   context.read<FilterCubit>().updateFilters(

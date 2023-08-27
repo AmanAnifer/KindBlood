@@ -51,6 +51,7 @@ class _EditingInfoState extends State<EditingInfo> {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: it doesnt look like contacts page updates when myInfo is updated
     return SafeArea(
       minimum: const EdgeInsets.all(16),
       child: Column(
@@ -154,6 +155,8 @@ class _EditingInfoState extends State<EditingInfo> {
                                     (context, animation, secondaryAnimation) {
                                   return Material(
                                     child: LocationSelection(
+                                      startPosition: widget
+                                          .editingInputControllers.latLong,
                                       callback: (latLong) {
                                         widget
                                             .editingInputControllers

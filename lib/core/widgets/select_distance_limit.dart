@@ -3,7 +3,7 @@ import 'fixed_slider.dart';
 import '../entities/length_units.dart';
 
 Future<LengthUnit?> showDistanceLimitSelectorDialog(
-    BuildContext context, LengthUnit? previousDistanceLimit) async {
+    {required BuildContext context, LengthUnit? previousDistanceLimit}) async {
   // var textController = TextEditingController(text: "");
   LengthUnit? selectedDistanceLimit = previousDistanceLimit;
   return await showDialog<LengthUnit>(
@@ -22,6 +22,7 @@ Future<LengthUnit?> showDistanceLimitSelectorDialog(
                     // displayStringBuilder: (length) {
                     //   return length.toString();
                     // },
+                    initialValue: previousDistanceLimit,
                     onChanged: (value) {
                       selectedDistanceLimit = value;
                       // textController.text = value.toString();

@@ -6,22 +6,20 @@ part of 'contact_info_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ContactInfoModel _$ContactInfoModelFromJson(Map<String, dynamic> json) =>
-    ContactInfoModel(
+ContactInfoModel _$ContactInfoModelFromJson(Map json) => ContactInfoModel(
       name: json['name'] as String,
       phone: json['phone'] as String,
       bloodGroup: $enumDecodeNullable(_$BloodGroupEnumMap, json['bloodGroup']),
       locationCoordinates: json['locationCoordinates'] == null
           ? null
-          : LatLong.fromJson(
-              json['locationCoordinates'] as Map<String, dynamic>),
+          : LatLong.fromJson(json['locationCoordinates'] as Map),
     );
 
 Map<String, dynamic> _$ContactInfoModelToJson(ContactInfoModel instance) =>
     <String, dynamic>{
       'name': instance.name,
       'phone': instance.phone,
-      'locationCoordinates': instance.locationCoordinates,
+      'locationCoordinates': instance.locationCoordinates?.toJson(),
       'bloodGroup': _$BloodGroupEnumMap[instance.bloodGroup],
     };
 

@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:kindblood/core/routing/routes.dart';
 import '../../../../core/widgets/location_icon.dart';
 import '../cubit/filter_widgets/filter_cubit.dart';
+import 'package:kindblood/core/utils/optimal_viewing_lengthunit.dart';
 
 class ContactListTile extends StatelessWidget {
   // final int index;
@@ -49,10 +50,16 @@ class ContactListTile extends StatelessWidget {
               bloodGroup: displayContactInfo.bloodGroup ?? BloodGroup.Unknown,
             ),
           ),
-          leading: LocationIcon(
-              // TODO: what distance to show if its null
-              underneathText:
-                  "${displayContactInfo.distanceFromUser?.toString()}\n"),
+          leading: SizedBox(
+            width: 50,
+            child: LocationIcon(
+              underneathText: displayContactInfo.distanceFromUser == null
+                  ? "?"
+                  : getOptimalViewingLengthUnit(
+                          distance: displayContactInfo.distanceFromUser!)
+                      .toString(),
+            ),
+          ),
           onTap: () {
             context.push(
               "/${Routes.contactViewScreen}",

@@ -26,14 +26,15 @@ class HiveContactDataStore implements ContactDataStore {
   }
 
   @override
-  Future<void> storeInfo(
-      {required String phoneNumber,
-      BloodGroup? bloodGroup,
-      LatLong? locationCoordinates}) async {
+  Future<void> storeInfo({
+    required String phoneNumber,
+    BloodGroup? bloodGroup,
+    LatLong? locationCoordinates,
+  }) async {
     Map<dynamic, dynamic> existingData = box.get(contactExtraInfo);
     existingData[getNormalisedPhoneNumber(phoneNumber: phoneNumber)] = {
       "bloodGroup": bloodGroup?.name,
-      "locationCoordinates": locationCoordinates,
+      "locationCoordinates": locationCoordinates?.toJson(),
     };
     box.put(contactExtraInfo, existingData);
   }
@@ -51,9 +52,13 @@ class HiveContactDataStore implements ContactDataStore {
   @override
   Future<LatLong?> getLocationCoordinates({required String phoneNumber}) async {
     await existsCheck();
-    LatLong? locationCoordinates = box.get(contactExtraInfo)[
+    var json = box.get(contactExtraInfo)[
             getNormalisedPhoneNumber(phoneNumber: phoneNumber)]
         ?["locationCoordinates"];
+    LatLong? locationCoordinates;
+    if (json != null) {
+      locationCoordinates = LatLong.fromJson(json);
+    }
     return locationCoordinates;
   }
 }

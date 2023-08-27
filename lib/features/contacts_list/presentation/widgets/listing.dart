@@ -54,7 +54,6 @@ class Listing extends StatelessWidget {
                   context.read<ContactListingCubit>().populateContacts(
                         searchFilter:
                             context.read<FilterCubit>().state.searchFilter,
-                        fromCache: false,
                       );
                   return const CircularProgressIndicator();
                   // return ElevatedButton(

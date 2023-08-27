@@ -7,6 +7,7 @@ import '../../injection_container.dart';
 import '../widgets/showing_info.dart';
 import '../widgets/editing_info.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:kindblood/core/cubit/my_info_cubit.dart';
 
 final _formKey = GlobalKey<FormState>();
 
@@ -70,6 +71,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
                   phoneController: phoneController,
                   locationController: locationController,
                   bloodGroup: localState.previousMyInfo?.bloodGroup,
+                  latLong: localState.previousMyInfo?.locationCoordinates,
                 );
                 return EditingInfo(
                   formKey: _formKey,
@@ -96,19 +98,22 @@ class _MyInfoPageState extends State<MyInfoPage> {
                   child: const Icon(Icons.save),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      context.read<MyInfoPageCubit>().updateMyInfo(
-                            myInfo: MyInfo(
-                              name: editingInputControllers.nameController.text,
-                              phoneNumber:
-                                  editingInputControllers.phoneController.text,
-                              locationCoordinates:
-                                  editingInputControllers.latLong!,
-                              bloodGroup: editingInputControllers.bloodGroup!,
-                              /*
+                      final myInfo = MyInfo(
+                        name: editingInputControllers.nameController.text,
+                        phoneNumber:
+                            editingInputControllers.phoneController.text,
+                        locationCoordinates: editingInputControllers.latLong!,
+                        bloodGroup: editingInputControllers.bloodGroup!,
+                        /*
                               Won't reach here unless bloodGroup and locationCoordinates 
                               are validated as not null so no problem with null check
                               */
-                            ),
+                      );
+                      context
+                          .read<MyInfoPageCubit>()
+                          .updateMyInfo(myInfo: myInfo);
+                      context.read<MyInfoCubit>().updateMyInfo(
+                            myInfo: myInfo,
                           );
                     }
                   },

@@ -16,7 +16,9 @@ class HiveContactInfoCacheSource implements ContactInfoCacheSource {
   Future<List<ContactInfoModel>> getCachedContacts() async {
     if (box.containsKey(contactCacheKey)) {
       List<Map<String, dynamic>> cachedContactsJsonList =
-          box.get(contactCacheKey);
+          (box.get(contactCacheKey) as List<dynamic>)
+              .map((e) => Map<String, dynamic>.from(e))
+              .toList();
 
       return cachedContactsJsonList
           .map((e) => ContactInfoModel.fromJson(e))
