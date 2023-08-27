@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'fixed_slider.dart';
+
 import '../entities/length_units.dart';
+import 'fixed_slider.dart';
 
 Future<LengthUnit?> showDistanceLimitSelectorDialog(
     {required BuildContext context, LengthUnit? previousDistanceLimit}) async {
@@ -44,7 +45,7 @@ Future<LengthUnit?> showDistanceLimitSelectorDialog(
                         5,
                         (index) => KiloMeter(value: 60 + index * 10),
                       ),
-                      InfiniteMeter(),
+                      const InfiniteMeter(),
                       // ...List.generate(
                       //   50,
                       //   (index) => index - 100,

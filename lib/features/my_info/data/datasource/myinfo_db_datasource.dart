@@ -1,7 +1,7 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import '../model/myinfo_model.dart';
-import 'package:kindblood/core/errors/exceptions.dart';
-import 'package:kindblood/core/string_constants.dart';
+import '../../../../core/errors/exceptions.dart';
+import '../../../../core/string_constants.dart';
 
 abstract class MyInfoDBDatasource {
   void saveMyInfo({required MyInfoModel myInfo});

@@ -1,6 +1,6 @@
-import 'package:kindblood/features/contacts_list/data/datasources/contact_db_datasource.dart';
-import 'package:kindblood/core/entities/blood_group.dart';
-import 'package:kindblood/core/entities/location_entity.dart';
+import '../../data/datasources/contact_db_datasource.dart';
+import '../../../../core/entities/blood_group.dart';
+import '../../../../core/entities/location_entity.dart';
 
 class UpdateContact {
   final ContactDataStore contactDataStore;

@@ -4,10 +4,10 @@ import '../../../../core/widgets/blood_icon.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/contact_listing/contact_listing_cubit.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kindblood/core/routing/routes.dart';
+import '../../../../core/routing/routes.dart';
 import '../../../../core/widgets/location_icon.dart';
 import '../cubit/filter_widgets/filter_cubit.dart';
-import 'package:kindblood/core/utils/optimal_viewing_lengthunit.dart';
+import '../../../../core/utils/optimal_viewing_lengthunit.dart';
 
 class ContactListTile extends StatelessWidget {
   // final int index;

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:conditional_parent_widget/conditional_parent_widget.dart';
-import 'package:kindblood/features/contacts_list/domain/entities/search_filters.dart';
+import '../../domain/entities/search_filters.dart';
 import '../cubit/filter_widgets/filter_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kindblood/core/widgets/select_blood_group.dart' as blood_select;
+import '../../../../core/widgets/select_blood_group.dart' as blood_select;
 import 'package:kindblood/core/widgets/select_distance_limit.dart'
     as distance_select;
 import 'package:kindblood/core/widgets/location_selection_page.dart';

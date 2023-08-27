@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'core/injection_container.dart' as core_di;
 import 'features/contacts_list/injection_container.dart' as contacts_list_di;
 import 'features/my_info/injection_container.dart' as myinfo_di;
-import './core/routing/routes.dart';
+import 'core/routing/routes.dart';
 import 'core/cubit/my_info_cubit.dart';
 import 'core/entities/myinfo_entity.dart';
 

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kindblood/core/widgets/blood_icon.dart';
-import 'package:kindblood/core/widgets/location_icon.dart';
-import 'package:kindblood/core/entities/myinfo_entity.dart';
+
+import '../../../../core/entities/myinfo_entity.dart';
+import '../../../../core/widgets/blood_icon.dart';
+import '../../../../core/widgets/location_icon.dart';
 
 class ShowingInfo extends StatefulWidget {
   final MyInfo myInfo;

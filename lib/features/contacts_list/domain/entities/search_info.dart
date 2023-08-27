@@ -1,8 +1,8 @@
-import 'package:kindblood/core/entities/blood_compatibility_info.dart' as bci;
+import '../../../../core/entities/blood_compatibility_info.dart' as bci;
 
 import '../../../../core/entities/blood_group.dart';
-import 'package:kindblood/core/entities/length_units.dart';
-import 'package:kindblood/core/entities/location_entity.dart' as le;
+import '../../../../core/entities/length_units.dart';
+import '../../../../core/entities/location_entity.dart' as le;
 
 abstract class SearchInfo {
   final BloodGroup bloodGroup;

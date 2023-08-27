@@ -1,7 +1,8 @@
-import '../../../../core/entities/myinfo_entity.dart';
-import '../repositories/myinfo_repository.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:kindblood/core/errors/failure.dart';
+
+import '../../../../core/entities/myinfo_entity.dart';
+import '../../../../core/errors/failure.dart';
+import '../repositories/myinfo_repository.dart';
 
 class MyInfoUsecase {
   final MyInfoRepository myInfoRepository;

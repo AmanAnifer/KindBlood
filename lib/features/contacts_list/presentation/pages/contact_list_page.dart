@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kindblood/core/cubit/my_info_cubit.dart';
-import 'package:kindblood/core/entities/myinfo_entity.dart';
-import 'package:kindblood/core/injection_container.dart' as core_di;
-import 'package:kindblood/features/contacts_list/presentation/cubit/contact_listing/contact_listing_cubit.dart';
+import '../../../../core/cubit/my_info_cubit.dart';
+import '../cubit/contact_listing/contact_listing_cubit.dart';
 import '../cubit/filter_widgets/filter_cubit.dart';
 import '../../injection_container.dart';
 import '../widgets/listing.dart';
-import 'package:kindblood/core/routing/routes.dart' as routes;
-import '../../domain/entities/search_filters.dart';
+import '../../../../core/routing/routes.dart' as routes;
 
 class ContactListPage extends StatefulWidget {
   const ContactListPage({

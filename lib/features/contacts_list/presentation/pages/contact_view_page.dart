@@ -1,15 +1,15 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:kindblood/core/entities/blood_group.dart';
-import 'package:kindblood/features/contacts_list/presentation/cubit/contact_listing/contact_listing_cubit.dart';
-import 'package:kindblood/features/contacts_list/presentation/cubit/contact_view/contact_view_cubit.dart';
+import '../../../../core/entities/blood_group.dart';
+import '../cubit/contact_listing/contact_listing_cubit.dart';
+import '../cubit/contact_view/contact_view_cubit.dart';
 import '../cubit/filter_widgets/filter_cubit.dart';
 import '../../injection_container.dart';
 import '../../../../core/widgets/blood_icon.dart';
 import '../../../../core/widgets/select_blood_group.dart' as blood_select;
 import '../../../../core/widgets/location_icon.dart';
-import 'package:kindblood/core/utils/optimal_viewing_lengthunit.dart';
-import 'package:kindblood/core/widgets/location_selection_page.dart';
+import '../../../../core/utils/optimal_viewing_lengthunit.dart';
+import '../../../../core/widgets/location_selection_page.dart';
 
 class ContactViewPage extends StatefulWidget {
   final DisplayContactInfo displayContactInfo;

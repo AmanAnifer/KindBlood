@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:kindblood/core/entities/blood_group.dart';
-import 'package:kindblood/core/utils/blood_group_acronym.dart';
+import '../../../../core/entities/blood_group.dart';
+import '../../../../core/utils/blood_group_acronym.dart';
 import '../../../../core/widgets/location_selection_page.dart';
 import '../../../../core/entities/location_entity.dart' as le;
 
@@ -51,7 +51,7 @@ class _EditingInfoState extends State<EditingInfo> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: it doesnt look like contacts page updates when myInfo is updated
+    // // TODO: it doesnt look like contacts page updates when myInfo is updated
     return SafeArea(
       minimum: const EdgeInsets.all(16),
       child: Column(

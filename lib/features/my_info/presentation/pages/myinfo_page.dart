@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kindblood/core/entities/myinfo_entity.dart';
-import 'package:kindblood/core/routing/routes.dart';
+import '../../../../core/entities/myinfo_entity.dart';
+import '../../../../core/routing/routes.dart';
 import '../cubit/myinfo_page_cubit.dart';
 import '../../injection_container.dart';
 import '../widgets/showing_info.dart';
 import '../widgets/editing_info.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:kindblood/core/cubit/my_info_cubit.dart';
+import '../../../../core/cubit/my_info_cubit.dart';
 
 final _formKey = GlobalKey<FormState>();
 

@@ -1,7 +1,7 @@
 import 'package:fpdart/fpdart.dart';
 
-import 'package:kindblood/core/errors/exceptions.dart';
-import 'package:kindblood/core/errors/failure.dart';
+import '../../../../core/errors/exceptions.dart';
+import '../../../../core/errors/failure.dart';
 import '../model/myinfo_model.dart';
 
 import '../../../../core/entities/myinfo_entity.dart';

@@ -1,7 +1,7 @@
-import 'package:kindblood/core/errors/exceptions.dart';
-import 'package:kindblood/features/contacts_list/data/models/contact_info_model.dart';
-import 'package:kindblood/features/contacts_list/domain/entities/contact_info.dart';
-import 'package:kindblood/core/errors/failure.dart';
+import '../../../../core/errors/exceptions.dart';
+import '../models/contact_info_model.dart';
+import '../../domain/entities/contact_info.dart';
+import '../../../../core/errors/failure.dart';
 import 'package:fpdart/fpdart.dart';
 import '../datasources/contact_info_datasource.dart';
 import '../datasources/contact_info_cache_source.dart';

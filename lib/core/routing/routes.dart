@@ -1,14 +1,11 @@
-import 'package:kindblood/core/entities/myinfo_entity.dart';
-import 'package:kindblood/features/contacts_list/presentation/cubit/contact_listing/contact_listing_cubit.dart';
-import 'package:kindblood/features/contacts_list/presentation/cubit/filter_widgets/filter_cubit.dart';
+import '../../features/contacts_list/presentation/cubit/contact_listing/contact_listing_cubit.dart';
+import '../../features/contacts_list/presentation/cubit/filter_widgets/filter_cubit.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kindblood/features/contacts_list/presentation/pages/pages_barrel.dart';
-import 'package:kindblood/features/settings/presentation/pages/settings_page.dart';
-import 'package:kindblood/features/my_info/presentation/pages/myinfo_page.dart';
+import '../../features/contacts_list/presentation/pages/pages_barrel.dart';
+import '../../features/settings/presentation/pages/settings_page.dart';
+import '../../features/my_info/presentation/pages/myinfo_page.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-import '../cubit/my_info_cubit.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 part "bottom_navigation.dart";
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();

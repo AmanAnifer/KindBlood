@@ -1,7 +1,7 @@
-import 'package:kindblood/core/entities/length_units.dart';
-import 'package:kindblood/features/contacts_list/domain/entities/search_filters.dart';
+import '../../../../../core/entities/length_units.dart';
+import '../../../domain/entities/search_filters.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kindblood/core/entities/myinfo_entity.dart';
+import '../../../../../core/entities/myinfo_entity.dart';
 
 part 'filter_state.dart';
 

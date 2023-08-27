@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kindblood/core/routing/routes.dart';
+import '../../../../core/routing/routes.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});

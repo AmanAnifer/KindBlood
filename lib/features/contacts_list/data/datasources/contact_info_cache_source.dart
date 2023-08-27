@@ -1,7 +1,7 @@
 import '../models/contact_info_model.dart';
-import 'package:kindblood/core/string_constants.dart';
+import '../../../../core/string_constants.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:kindblood/core/errors/exceptions.dart';
+import '../../../../core/errors/exceptions.dart';
 
 abstract class ContactInfoCacheSource {
   Future<List<ContactInfoModel>> getCachedContacts();

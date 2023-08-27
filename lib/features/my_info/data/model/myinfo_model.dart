@@ -1,12 +1,12 @@
 import '../../../../core/entities/myinfo_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:kindblood/core/entities/blood_group.dart';
-import 'package:kindblood/core/entities/location_entity.dart';
+import '../../../../core/entities/blood_group.dart';
+import '../../../../core/entities/location_entity.dart';
 part 'myinfo_model.g.dart';
 
 @JsonSerializable(explicitToJson: true, anyMap: true)
 class MyInfoModel extends MyInfo {
-  MyInfoModel({
+  const MyInfoModel({
     required super.name,
     required super.phoneNumber,
     required super.bloodGroup,

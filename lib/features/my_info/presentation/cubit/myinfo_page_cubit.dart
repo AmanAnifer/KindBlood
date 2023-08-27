@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kindblood/core/entities/myinfo_entity.dart';
+
+import '../../../../core/entities/myinfo_entity.dart';
 import '../../domain/usecases/myinfo_usecase.dart';
+
 part 'myinfo_page_states.dart';
 
 class MyInfoPageCubit extends Cubit<MyInfoPageState> {

@@ -1,7 +1,9 @@
-import 'blood_group.dart';
-import 'package:json_annotation/json_annotation.dart';
-import 'location_entity.dart';
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+import 'blood_group.dart';
+import 'location_entity.dart';
+
 part 'myinfo_entity.g.dart';
 
 @JsonSerializable(explicitToJson: true, anyMap: true)

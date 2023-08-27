@@ -1,5 +1,5 @@
 import '../../../../core/entities/blood_group.dart';
-import 'package:kindblood/core/entities/location_entity.dart';
+import '../../../../core/entities/location_entity.dart';
 
 class ContactInfo {
   final String name;

@@ -1,6 +1,6 @@
 import 'dart:math' as math;
-import 'package:kindblood/core/entities/length_units.dart';
-import 'package:kindblood/core/entities/location_entity.dart';
+import '../../../../core/entities/length_units.dart';
+import '../../../../core/entities/location_entity.dart';
 
 // From stackoverflow
 double _getDistanceFromLatLongInMeters(lat1, lon1, lat2, lon2) {

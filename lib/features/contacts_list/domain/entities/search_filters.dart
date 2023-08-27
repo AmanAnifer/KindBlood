@@ -1,7 +1,7 @@
-import 'package:kindblood/core/entities/blood_compatibility_info.dart';
-import 'package:kindblood/core/entities/blood_group.dart';
-import 'package:kindblood/core/entities/length_units.dart';
-import 'package:kindblood/core/entities/location_entity.dart';
+import '../../../../core/entities/blood_compatibility_info.dart';
+import '../../../../core/entities/blood_group.dart';
+import '../../../../core/entities/length_units.dart';
+import '../../../../core/entities/location_entity.dart';
 
 enum ContactSearchMode { offline, online }
 
