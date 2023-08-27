@@ -1,10 +1,10 @@
-import '../../data/datasources/contact_db_datasource.dart';
+import '../../data/datasources/offline_contact_db_datasource.dart';
 import '../../../../core/entities/blood_group.dart';
 import '../../../../core/entities/location_entity.dart';
 
-class UpdateContact {
-  final ContactDataStore contactDataStore;
-  UpdateContact({required this.contactDataStore});
+class UpdateOfflineContact {
+  final OfflineContactDataStore contactDataStore;
+  UpdateOfflineContact({required this.contactDataStore});
 
   void updateContact(
       {required String id,

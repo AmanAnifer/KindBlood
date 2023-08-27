@@ -15,8 +15,8 @@ import '../../../domain/usecases/get_blood_compatibility.dart';
 part 'contact_listing_state.dart';
 
 class ContactListingCubit extends Cubit<ContactListingState> {
-  final GetContacts getContacts;
-  final UpdateContact updateContact;
+  final GetOfflineContacts getContacts;
+  final UpdateOfflineContact updateContact;
   final MyInfo myInfo;
   ContactListingCubit({
     required this.getContacts,

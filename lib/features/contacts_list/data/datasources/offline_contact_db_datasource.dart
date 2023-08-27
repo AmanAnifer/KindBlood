@@ -1,10 +1,9 @@
 import '../../../../core/entities/blood_group.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import '../../../../core/utils/phone_number_normalise.dart';
 import '../../../../core/string_constants.dart';
 import '../../../../core/entities/location_entity.dart';
 
-abstract class ContactDataStore {
+abstract class OfflineContactDataStore {
   Future<void> storeInfo({
     required String id,
     BloodGroup? bloodGroup,
@@ -14,10 +13,10 @@ abstract class ContactDataStore {
   Future<LatLong?> getLocationCoordinates({required String id});
 }
 
-class HiveContactDataStore implements ContactDataStore {
+class HiveOfflineContactDataStore implements OfflineContactDataStore {
   final Box box;
 
-  HiveContactDataStore({required this.box});
+  HiveOfflineContactDataStore({required this.box});
 
   Future<void> existsCheck() async {
     if (!box.containsKey(contactExtraInfo)) {

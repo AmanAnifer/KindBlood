@@ -3,14 +3,14 @@ import '../models/offline_contact_info_model.dart';
 import '../../domain/entities/contact_info.dart';
 import '../../../../core/errors/failure.dart';
 import 'package:fpdart/fpdart.dart';
-import '../datasources/contact_info_datasource.dart';
-import '../datasources/contact_info_cache_source.dart';
-import '../../domain/repositories/contact_repository.dart';
+import '../datasources/offline_contact_info_datasource.dart';
+import '../datasources/offline_contact_info_cache_source.dart';
+import '../../domain/repositories/offline_contact_repository.dart';
 
-class ContactInfoRepositoryImpl implements ContactInfoRepository {
-  final ContactInfoDataSource contactInfoDataSource;
-  final ContactInfoCacheSource contactInfoCacheSource;
-  ContactInfoRepositoryImpl({
+class OfflineContactInfoRepositoryImpl implements OfflineContactInfoRepository {
+  final OfflineContactInfoDataSource contactInfoDataSource;
+  final OfflineContactInfoCacheSource contactInfoCacheSource;
+  OfflineContactInfoRepositoryImpl({
     required this.contactInfoDataSource,
     required this.contactInfoCacheSource,
   });

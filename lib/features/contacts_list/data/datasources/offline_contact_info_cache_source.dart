@@ -3,16 +3,17 @@ import '../../../../core/string_constants.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import '../../../../core/errors/exceptions.dart';
 
-abstract class ContactInfoCacheSource {
+abstract class OfflineContactInfoCacheSource {
   Future<List<OfflineContactInfoModel>> getCachedContacts();
 
   Future<void> cacheContacts(
       {required List<OfflineContactInfoModel> contactsList});
 }
 
-class HiveContactInfoCacheSource implements ContactInfoCacheSource {
+class HiveOfflineContactInfoCacheSource
+    implements OfflineContactInfoCacheSource {
   final Box box;
-  HiveContactInfoCacheSource({required this.box});
+  HiveOfflineContactInfoCacheSource({required this.box});
   @override
   Future<List<OfflineContactInfoModel>> getCachedContacts() async {
     if (box.containsKey(contactCacheKey)) {

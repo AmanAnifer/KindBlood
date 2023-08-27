@@ -1,10 +1,10 @@
-import 'data/datasources/contact_info_datasource.dart';
-import 'data/repositories/contact_repository_impl.dart';
-import 'domain/repositories/contact_repository.dart';
+import 'data/datasources/offline_contact_info_datasource.dart';
+import 'data/repositories/offline_contact_repository_impl.dart';
+import 'domain/repositories/offline_contact_repository.dart';
 import 'domain/usecases/get_offline_contacts.dart';
 import 'domain/usecases/update_offline_contact.dart';
-import 'data/datasources/contact_db_datasource.dart';
-import 'data/datasources/contact_info_cache_source.dart';
+import 'data/datasources/offline_contact_db_datasource.dart';
+import 'data/datasources/offline_contact_info_cache_source.dart';
 import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;
@@ -14,15 +14,16 @@ Future<void> init() async {
   //     () => ContactListingCubit(getContacts: sl(), updateContact: sl()));
   // sl.registerFactory(() => ContactViewCubit(launchCall: sl()));
 
-  sl.registerLazySingleton(() => UpdateContact(contactDataStore: sl()));
-  sl.registerLazySingleton(() => GetContacts(contactInfoRepository: sl()));
-  sl.registerLazySingleton<ContactInfoRepository>(() =>
-      ContactInfoRepositoryImpl(
+  sl.registerLazySingleton(() => UpdateOfflineContact(contactDataStore: sl()));
+  sl.registerLazySingleton(
+      () => GetOfflineContacts(contactInfoRepository: sl()));
+  sl.registerLazySingleton<OfflineContactInfoRepository>(() =>
+      OfflineContactInfoRepositoryImpl(
           contactInfoDataSource: sl(), contactInfoCacheSource: sl()));
-  sl.registerLazySingleton<ContactInfoDataSource>(
+  sl.registerLazySingleton<OfflineContactInfoDataSource>(
       () => ContactInfoDataSourceImpl(dataStore: sl()));
-  sl.registerLazySingleton<ContactInfoCacheSource>(
-      () => HiveContactInfoCacheSource(box: sl()));
-  sl.registerLazySingleton<ContactDataStore>(
-      () => HiveContactDataStore(box: sl()));
+  sl.registerLazySingleton<OfflineContactInfoCacheSource>(
+      () => HiveOfflineContactInfoCacheSource(box: sl()));
+  sl.registerLazySingleton<OfflineContactDataStore>(
+      () => HiveOfflineContactDataStore(box: sl()));
 }
