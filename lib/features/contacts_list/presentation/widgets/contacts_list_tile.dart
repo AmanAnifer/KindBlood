@@ -36,9 +36,9 @@ class ContactListTile extends StatelessWidget {
             ),
           ),
           subtitle: Text(phone),
-          trailing: const BloodIcon(
+          trailing: BloodIcon(
             bloodCompatibility: BloodCompatibility.compatibleDifferent,
-            bloodGroup: BloodGroup.ABNegative,
+            bloodGroup: bloodGroup ?? BloodGroup.Unknown,
           ),
           leading: LocationIcon(distanceInKm: distanceInKm),
           onTap: () {

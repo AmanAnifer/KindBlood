@@ -6,6 +6,6 @@ class ContactViewReadOnly implements ContactViewState {}
 
 class ContactViewEdit implements ContactViewState {
   final BloodGroup editedBloodGroup;
-  final double? editedDistanceInKm;
-  ContactViewEdit({required this.editedBloodGroup, this.editedDistanceInKm});
+  final String? editedlocationGeoHash;
+  ContactViewEdit({required this.editedBloodGroup, this.editedlocationGeoHash});
 }

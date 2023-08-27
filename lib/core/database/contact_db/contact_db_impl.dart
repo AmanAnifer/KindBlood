@@ -1,6 +1,7 @@
 import 'package:kindblood/features/contacts_list/domain/entities/blood_group.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'contact_db_interface.dart';
+import '../../utils/phone_number_normalise.dart';
 
 class HiveContactDataStore implements ContactDataStore {
   final Box box;
@@ -18,8 +19,8 @@ class HiveContactDataStore implements ContactDataStore {
       {required String phoneNumber,
       BloodGroup? bloodGroup,
       String? locationGeoHash}) async {
-    Map<String, dynamic> existingData = box.get(contactExtraInfo);
-    existingData[phoneNumber] = {
+    Map<dynamic, dynamic> existingData = box.get(contactExtraInfo);
+    existingData[getNormalisedPhoneNumber(phoneNumber: phoneNumber)] = {
       "bloodGroup": bloodGroup?.name,
       "locationGeoHash": locationGeoHash,
     };
@@ -29,8 +30,8 @@ class HiveContactDataStore implements ContactDataStore {
   @override
   Future<BloodGroup?> getBloodGroup({required String phoneNumber}) async {
     await existsCheck();
-    String? bloodGroupName =
-        box.get(contactExtraInfo)[phoneNumber]?["bloodGroup"];
+    String? bloodGroupName = box.get(contactExtraInfo)[
+        getNormalisedPhoneNumber(phoneNumber: phoneNumber)]?["bloodGroup"];
     return bloodGroupName != null
         ? BloodGroup.values.byName(bloodGroupName)
         : null;
@@ -39,8 +40,8 @@ class HiveContactDataStore implements ContactDataStore {
   @override
   Future<String?> getLocationGeoHash({required String phoneNumber}) async {
     await existsCheck();
-    String? locationGeoHash =
-        box.get(contactExtraInfo)[phoneNumber]?["locationGeoHash"];
+    String? locationGeoHash = box.get(contactExtraInfo)[
+        getNormalisedPhoneNumber(phoneNumber: phoneNumber)]?["locationGeoHash"];
     return locationGeoHash;
   }
 }

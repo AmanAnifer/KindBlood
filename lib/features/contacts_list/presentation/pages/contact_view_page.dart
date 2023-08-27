@@ -46,6 +46,8 @@ class _ContactViewPageState extends State<ContactViewPage> {
                   BloodGroup.Unknown;
               var distanceInKm = localContactListingState
                   .contactsList[widget.contactIndex].distanceInKm;
+              var locationGeoHash = localContactListingState
+                  .contactsList[widget.contactIndex].locationGeohash;
               return Material(
                 child: Scaffold(
                   appBar: AppBar(
@@ -64,10 +66,22 @@ class _ContactViewPageState extends State<ContactViewPage> {
                           if (localContactViewState is ContactViewReadOnly) {
                             context.read<ContactViewCubit>().editDetail(
                                   editedBloodGroup: bloodGroup,
-                                  editedDistanceInKm: distanceInKm,
+                                  editedLocationGeoHash: locationGeoHash,
                                 );
-                          } else {
+                          } else if (localContactViewState is ContactViewEdit) {
+                            context
+                                .read<ContactListingCubit>()
+                                .updateContactInfo(
+                                  phoneNumber: phone,
+                                  bloodGroup:
+                                      localContactViewState.editedBloodGroup,
+                                  locationGeoHash: localContactViewState
+                                      .editedlocationGeoHash,
+                                );
                             context.read<ContactViewCubit>().endEdit();
+                            context
+                                .read<ContactListingCubit>()
+                                .populateContacts();
                           }
                         },
                         icon: Icon(
@@ -163,9 +177,10 @@ class _ContactViewPageState extends State<ContactViewPage> {
                 ),
               );
             } else {
-              return ErrorWidget.withDetails(
-                message: localContactListingState.toString(),
-              );
+              return const CircularProgressIndicator();
+              // return ErrorWidget.withDetails(
+              //   message: localContactListingState.toString(),
+              // );
             }
           },
         ),
