@@ -1,0 +1,1 @@
+class PermissionDeniedException implements Exception {}

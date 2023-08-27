@@ -16,7 +16,6 @@ class GetContacts {
 
   Future<Either<Failure, List<ContactInfo>>> getSearchResultContacts(
       {required SearchInfo searchInfo}) async {
-    return contactInfoRepository.getSearchResultContacts(
-        searchInfo: searchInfo);
+    return contactInfoRepository.getAllContacts();
   }
 }

@@ -4,3 +4,5 @@ class Failure extends Equatable {
   @override
   List<Object?> get props => [];
 }
+
+class PermissionDeniedFailure extends Failure {}
