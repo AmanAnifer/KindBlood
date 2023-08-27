@@ -1,4 +1,3 @@
-import '../../domain/entities/contact_info.dart';
 import 'package:kindblood_common/core_entities.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'online_contact_info_model.g.dart';

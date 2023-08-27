@@ -2,8 +2,8 @@ import '../models/online_contact_info_model.dart';
 import '../../../../core/string_constants.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import '../../../../core/errors/exceptions.dart';
-import '../../domain/entities/search_info.dart';
 import 'package:crypto/crypto.dart';
+import 'package:kindblood_common/core_entities.dart';
 import 'dart:convert';
 
 abstract class OnlineContactInfoCacheSource {

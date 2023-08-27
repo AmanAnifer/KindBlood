@@ -1,5 +1,5 @@
-import '../entities/search_info.dart';
-import '../entities/contact_info.dart';
+import 'package:kindblood_common/core_entities.dart';
+
 import 'package:fpdart/fpdart.dart';
 import '../../../../core/errors/failure.dart';
 

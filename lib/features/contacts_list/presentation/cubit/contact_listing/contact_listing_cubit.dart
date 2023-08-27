@@ -3,14 +3,10 @@ import 'package:equatable/equatable.dart';
 import 'package:kindblood/core/errors/failure.dart';
 import 'package:kindblood/features/contacts_list/domain/usecases/get_online_contacts.dart';
 import 'package:kindblood_common/core_entities.dart';
-import '../../../domain/entities/search_info.dart';
 import '../../../domain/usecases/get_offline_contacts.dart';
 import '../../../domain/usecases/update_offline_contact.dart';
-import '../../../domain/entities/contact_info.dart';
-import '../../../domain/entities/search_filters.dart';
 import '../../../domain/usecases/calculate_distance.dart';
 import '../../../domain/usecases/get_blood_compatibility.dart';
-import '../../../domain/entities/search_sorting.dart';
 
 part 'contact_listing_state.dart';
 

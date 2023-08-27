@@ -1,12 +1,11 @@
 import '../../../../core/errors/exceptions.dart';
 // import '../models/online_contact_info_model.dart';
-import '../../domain/entities/contact_info.dart';
 import '../../../../core/errors/failure.dart';
 import 'package:fpdart/fpdart.dart';
 import '../datasources/online_contact_info_datasource.dart';
 import '../datasources/online_contact_info_cache_source.dart';
 import '../../domain/repositories/online_contact_repository.dart';
-import '../../domain/entities/search_info.dart';
+import 'package:kindblood_common/core_entities.dart';
 
 class OnlineContactInfoRepositoryImpl implements OnlineContactInfoRepository {
   final OnlineContactInfoDataSource contactInfoDataSource;

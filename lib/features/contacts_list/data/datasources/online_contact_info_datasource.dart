@@ -5,7 +5,7 @@ import 'package:kindblood/core/entities/app_settings.dart';
 import '../models/online_contact_info_model.dart';
 import '../../../../core/errors/exceptions.dart';
 import 'package:http/http.dart' as http;
-import '../../domain/entities/search_info.dart';
+import 'package:kindblood_common/core_entities.dart';
 import 'dart:convert' as convert;
 
 typedef OnlineContactResponse = Future<List<OnlineContactInfoModel>>;

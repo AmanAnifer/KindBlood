@@ -1,5 +1,4 @@
 import 'package:kindblood_common/core_entities.dart';
-import '../../../domain/entities/search_filters.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'filter_state.dart';

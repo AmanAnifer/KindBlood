@@ -1,8 +1,5 @@
 import 'package:kindblood_common/core_entities.dart';
 // import '../../../../core/entities/length_units.dart';
-
-import '../entities/contact_info.dart';
-import '../entities/search_info.dart';
 import '../repositories/offline_contact_repository.dart';
 import 'package:fpdart/fpdart.dart';
 import '../../../../core/errors/failure.dart';

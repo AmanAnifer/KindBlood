@@ -1,6 +1,4 @@
-
-import '../entities/contact_info.dart';
-import '../entities/search_info.dart';
+import 'package:kindblood_common/core_entities.dart';
 import '../repositories/online_contact_repository.dart';
 import 'package:fpdart/fpdart.dart';
 import '../../../../core/errors/failure.dart';

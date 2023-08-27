@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:conditional_parent_widget/conditional_parent_widget.dart';
 import 'package:kindblood/core/cubit/my_info_cubit.dart';
-import '../../domain/entities/search_filters.dart';
+import 'package:kindblood_common/core_entities.dart';
+
 import '../cubit/filter_widgets/filter_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/widgets/select_blood_group.dart' as blood_select;

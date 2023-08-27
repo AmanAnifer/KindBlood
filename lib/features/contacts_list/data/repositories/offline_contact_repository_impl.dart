@@ -1,6 +1,6 @@
 import '../../../../core/errors/exceptions.dart';
 import '../models/offline_contact_info_model.dart';
-import '../../domain/entities/contact_info.dart';
+import 'package:kindblood_common/core_entities.dart';
 import '../../../../core/errors/failure.dart';
 import 'package:fpdart/fpdart.dart';
 import '../datasources/offline_contact_info_datasource.dart';
