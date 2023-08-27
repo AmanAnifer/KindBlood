@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kindblood/features/contacts_list/presentation/cubit/contact_listing/contact_listing_cubit.dart';
 import './filter_widgets.dart';
 import './contacts_list_tile.dart';
+import '../../domain/entities/search_filters.dart';
+import '../cubit/filter_widgets/filter_cubit.dart';
 
 class Listing extends StatelessWidget {
   const Listing({
@@ -12,6 +14,12 @@ class Listing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
+        child: BlocListener<FilterCubit, FilterState>(
+      listener: (context, state) {
+        context.read<ContactListingCubit>().populateContacts(
+              searchFilter: state.searchFilter,
+            );
+      },
       child: BlocBuilder<ContactListingCubit, ContactListingState>(
         builder: (context, state) {
           switch (state.runtimeType) {
@@ -35,7 +43,7 @@ class Listing extends StatelessWidget {
                           name: state.contactsList[index].name,
                           phone: state.contactsList[index].phone,
                           bloodGroup: state.contactsList[index].bloodGroup,
-                          distanceInKm: state.contactsList[index].distanceInKm,
+                          distance: state.contactsList[index].distanceFromUser,
                         );
                       },
                       itemCount:
@@ -47,7 +55,13 @@ class Listing extends StatelessWidget {
             default:
               return Builder(
                 builder: (context) {
-                  context.read<ContactListingCubit>().populateContacts();
+                  context.read<ContactListingCubit>().populateContacts(
+                        searchFilter: SearchFilter(
+                          contactSearchMode: ContactSearchMode.offline,
+                          bloodGroup:
+                              context.read<FilterCubit>().state.bloodGroup,
+                        ),
+                      );
                   return const CircularProgressIndicator();
                   // return ElevatedButton(
                   //   onPressed: () {
@@ -62,6 +76,6 @@ class Listing extends StatelessWidget {
           }
         },
       ),
-    );
+    ));
   }
 }

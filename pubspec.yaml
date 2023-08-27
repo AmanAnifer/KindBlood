@@ -38,7 +38,6 @@ dependencies:
   cupertino_icons: ^1.0.2
   equatable: ^2.0.5
   fpdart: ^0.6.0
-  flutter_contacts: ^1.1.6
   json_annotation: ^4.8.0
   flutter_bloc: ^8.1.2
   get_it: ^7.2.0
@@ -50,6 +49,7 @@ dependencies:
     # path: /home/fgoo/Sources/Flutter_Repos/ConditionalParentWidget
   go_router: ^7.1.1
   url_launcher: ^6.1.11
+
 
 dev_dependencies:
   flutter_test:

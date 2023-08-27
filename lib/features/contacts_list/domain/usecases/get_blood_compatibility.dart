@@ -9,12 +9,12 @@ BloodCompatibility getBloodCompatibility({
       bloodCanReceiveCompatibilityMap[receiver]!;
   if (currentReceiverCompatibilityMap.contains(donor)) {
     if (receiver == donor) {
-      return BloodCompatibility.compatibleSame;
+      return const Compatible();
     } else {
-      return BloodCompatibility.compatibleDifferent;
+      return const CompatibleButDifferent();
     }
   } else {
-    return BloodCompatibility.incompatible;
+    return const Incompatible();
   }
 }
 
@@ -42,8 +42,9 @@ final bloodCanGiveCompatibilityMap = <BloodGroup, List<BloodGroup>>{
     BloodGroup.ABPositive,
     BloodGroup.ABNegative,
   ],
-  BloodGroup.ONegative: BloodGroup.values
-    ..remove(BloodGroup.Other), // Everyone except other special cases
+  BloodGroup.ONegative: BloodGroup.values.toList()
+    ..remove(BloodGroup.Other)
+    ..remove(BloodGroup.Unknown), // Everyone except other special cases
   BloodGroup.BNegative: [
     BloodGroup.BPositive,
     BloodGroup.BNegative,
@@ -77,8 +78,9 @@ final bloodCanReceiveCompatibilityMap = <BloodGroup, List<BloodGroup>>{
     BloodGroup.OPositive,
     BloodGroup.ONegative,
   ],
-  BloodGroup.ABPositive: BloodGroup.values
-    ..remove(BloodGroup.Other), // Everyone except other special cases
+  BloodGroup.ABPositive: BloodGroup.values.toList()
+    ..remove(BloodGroup.Other)
+    ..remove(BloodGroup.Unknown), // Everyone except other special cases
   BloodGroup.ANegative: [
     BloodGroup.ANegative,
     BloodGroup.ONegative,

@@ -118,7 +118,7 @@ class _EditingInfoState extends State<EditingInfo> {
                         (group) => DropdownMenuItem(
                           value: group,
                           child: Text(
-                            getBloodGroupAcronym(group),
+                            getBloodGroupAcronym(group) ?? "?",
                           ),
                         ),
                       )
@@ -154,7 +154,7 @@ class _EditingInfoState extends State<EditingInfo> {
                           border: const OutlineInputBorder(),
                         ),
                         validator: (value) {
-                          if (kDebugMode) {
+                          if (kDebugMode || kProfileMode) {
                             return null;
                           } else if (value == null || value.isEmpty) {
                             return "Location is required";

@@ -1,4 +1,5 @@
 import 'package:kindblood/features/contacts_list/presentation/cubit/contact_listing/contact_listing_cubit.dart';
+import 'package:kindblood/features/contacts_list/presentation/cubit/filter_widgets/filter_cubit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kindblood/features/contacts_list/presentation/pages/pages_barrel.dart';
 import 'package:kindblood/features/settings/presentation/pages/settings_page.dart';
@@ -37,7 +38,11 @@ class Routes {
                   GoRoute(
                     path: contactViewScreen,
                     builder: (context, state) {
-                      var args = state.extra as (int, ContactListingCubit);
+                      var args = state.extra as (
+                        int,
+                        ContactListingCubit,
+                        FilterCubit
+                      );
                       return ContactViewPage(args: args);
                     },
                   ),

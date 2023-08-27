@@ -3,18 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:kindblood/core/entities/blood_group.dart';
 import 'package:kindblood/features/contacts_list/presentation/cubit/contact_listing/contact_listing_cubit.dart';
 import 'package:kindblood/features/contacts_list/presentation/cubit/contact_view/contact_view_cubit.dart';
+import '../cubit/filter_widgets/filter_cubit.dart';
 import '../../injection_container.dart';
 import '../../../../core/widgets/blood_icon.dart';
+import '../../../../core/widgets/select_blood_group.dart' as blood_select;
 import '../../../../core/widgets/location_icon.dart';
+import '../../domain/entities/search_filters.dart';
 
 class ContactViewPage extends StatefulWidget {
   final int contactIndex;
   final ContactListingCubit _contactListingCubit;
+  final FilterCubit _filterCubit;
   ContactViewPage({
     super.key,
-    required (int, ContactListingCubit) args,
+    required (int, ContactListingCubit, FilterCubit) args,
   })  : contactIndex = args.$1,
-        _contactListingCubit = args.$2;
+        _contactListingCubit = args.$2,
+        _filterCubit = args.$3;
 
   @override
   State<ContactViewPage> createState() => _ContactViewPageState();
@@ -28,8 +33,11 @@ class _ContactViewPageState extends State<ContactViewPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: widget._contactListingCubit,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider.value(value: widget._contactListingCubit),
+        BlocProvider.value(value: widget._filterCubit),
+      ],
       child: BlocProvider(
         create: (context) => sl<ContactViewCubit>(),
         child: Builder(
@@ -46,8 +54,8 @@ class _ContactViewPageState extends State<ContactViewPage> {
               var bloodGroup = localContactListingState
                       .contactsList[widget.contactIndex].bloodGroup ??
                   BloodGroup.Unknown;
-              var distanceInKm = localContactListingState
-                  .contactsList[widget.contactIndex].distanceInKm;
+              var distanceFromUser = localContactListingState
+                  .contactsList[widget.contactIndex].distanceFromUser;
               var locationGeoHash = localContactListingState
                   .contactsList[widget.contactIndex].locationGeohash;
               return Material(
@@ -83,7 +91,16 @@ class _ContactViewPageState extends State<ContactViewPage> {
                             context.read<ContactViewCubit>().endEdit();
                             context
                                 .read<ContactListingCubit>()
-                                .populateContacts();
+                                .populateContacts(
+                                  searchFilter: SearchFilter(
+                                    contactSearchMode:
+                                        ContactSearchMode.offline,
+                                    bloodGroup: context
+                                        .read<FilterCubit>()
+                                        .state
+                                        .bloodGroup,
+                                  ),
+                                );
                           }
                         },
                         icon: Icon(
@@ -106,9 +123,8 @@ class _ContactViewPageState extends State<ContactViewPage> {
                             borderRadius: BorderRadius.circular(24),
                             onTap: localContactViewState is ContactViewEdit
                                 ? () async {
-                                    var selected =
-                                        await _bloodTypeSelectDialogBuilder(
-                                            context);
+                                    var selected = await blood_select
+                                        .bloodTypeSelectDialogBuilder(context);
                                     if (mounted) {
                                       context
                                           .read<ContactViewCubit>()
@@ -129,8 +145,9 @@ class _ContactViewPageState extends State<ContactViewPage> {
                           ),
                           LocationIcon(
                             isLargeIcon: true,
-                            distanceInKm: localContactListingState
-                                .contactsList[widget.contactIndex].distanceInKm,
+                            distance: localContactListingState
+                                .contactsList[widget.contactIndex]
+                                .distanceFromUser,
                             // callback:
                             //     localContactViewState is ContactViewEdit
                             //         ? () {}
@@ -159,17 +176,14 @@ class _ContactViewPageState extends State<ContactViewPage> {
                         maintainAnimation: true,
                         maintainState: true,
                         visible: localContactViewState is ContactViewReadOnly,
-                        child: CircleAvatar(
-                          child: IconButton(
-                            onPressed: () {
-                              context
-                                  .read<ContactViewCubit>()
-                                  .callNumber(phone);
-                            },
-                            icon: const Icon(
-                              Icons.phone,
-                              // size: 60,
-                            ),
+                        child: IconButton.filled(
+                          // iconSize: 40,
+                          onPressed: () {
+                            context.read<ContactViewCubit>().callNumber(phone);
+                          },
+                          icon: const Icon(
+                            Icons.phone,
+                            size: 50,
                           ),
                         ),
                       ),
@@ -191,33 +205,4 @@ class _ContactViewPageState extends State<ContactViewPage> {
       ),
     );
   }
-}
-
-Future<BloodGroup?> _bloodTypeSelectDialogBuilder(BuildContext context) async {
-  BloodGroup? selectedBloodGroup = await showDialog(
-    context: context,
-    builder: (context) {
-      return Dialog(
-        child: GridView.count(
-          shrinkWrap: true,
-          crossAxisCount: 3,
-          children: BloodGroup.values
-              .map(
-                (bloodGroup) => InkWell(
-                  borderRadius: BorderRadius.circular(24),
-                  onTap: () {
-                    Navigator.of(context).pop(bloodGroup);
-                  },
-                  child: BloodIcon(
-                    isLargeIcon: true,
-                    bloodGroup: bloodGroup,
-                  ),
-                ),
-              )
-              .toList(),
-        ),
-      );
-    },
-  );
-  return selectedBloodGroup;
 }

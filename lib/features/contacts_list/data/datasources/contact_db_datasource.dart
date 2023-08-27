@@ -1,6 +1,7 @@
 import 'package:kindblood/core/entities/blood_group.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import '../../../../core/utils/phone_number_normalise.dart';
+import 'package:kindblood/core/string_constants.dart';
 
 abstract class ContactDataStore {
   Future<void> storeInfo({
@@ -14,7 +15,7 @@ abstract class ContactDataStore {
 
 class HiveContactDataStore implements ContactDataStore {
   final Box box;
-  String contactExtraInfo = "contactExtraInfo";
+
   HiveContactDataStore({required this.box});
 
   Future<void> existsCheck() async {

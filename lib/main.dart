@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       title: "KindBlood",
       darkTheme: ThemeData.from(
           colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.red,
+            seedColor: Colors.green,
             brightness: Brightness.dark,
           ),
           useMaterial3: true),

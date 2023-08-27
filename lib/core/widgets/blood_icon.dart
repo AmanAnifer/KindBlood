@@ -1,52 +1,28 @@
 import 'package:flutter/material.dart';
-import '../entities/blood_compatibility_info.dart';
+import '../entities/blood_compatibility_info.dart' as bci;
 import '../entities/blood_group.dart';
+import '../utils/blood_group_acronym.dart';
 
 class BloodIcon extends StatelessWidget {
   final BloodGroup? bloodGroup;
-  final BloodCompatibility bloodCompatibility;
+  final bci.BloodCompatibility bloodCompatibility;
   final bool isLargeIcon;
   const BloodIcon({
     super.key,
     this.bloodGroup,
-    this.bloodCompatibility = BloodCompatibility.incompatible,
+    bloodCompatibility,
     this.isLargeIcon = false,
-  });
+  }) : bloodCompatibility = const bci.Incompatible();
 
   Color get getBloodCompatibilityColor {
     switch (bloodCompatibility) {
-      case BloodCompatibility.compatibleSame:
+      case bci.CompatibleSame():
         return Colors.yellow.shade700;
-      case BloodCompatibility.compatibleDifferent:
+      case bci.CompatibleButDifferent():
+      case bci.Compatible():
         return Colors.red.shade700;
-      case BloodCompatibility.incompatible:
+      case bci.Incompatible():
         return Colors.grey;
-    }
-  }
-
-  String get getBloodGroupAcronym {
-    switch (bloodGroup) {
-      case BloodGroup.APositive:
-        return "A +ve";
-      case BloodGroup.ANegative:
-        return "A -ve";
-      case BloodGroup.ABPositive:
-        return "AB +ve";
-      case BloodGroup.ABNegative:
-        return "AB -ve";
-      case BloodGroup.BPositive:
-        return "B +ve";
-      case BloodGroup.BNegative:
-        return "B -ve";
-      case BloodGroup.OPositive:
-        return "O +ve";
-      case BloodGroup.ONegative:
-        return "O -ve";
-      case BloodGroup.Other:
-        return "Other";
-      case null:
-      case BloodGroup.Unknown:
-        return "?";
     }
   }
 
@@ -71,7 +47,7 @@ class BloodIcon extends StatelessWidget {
         //   color: getBloodCompatibilityColor,
         // ),
         Text(
-          getBloodGroupAcronym,
+          getBloodGroupAcronym(bloodGroup) ?? "?",
           style: isLargeIcon
               ? Theme.of(context).textTheme.titleLarge
               : Theme.of(context).textTheme.labelMedium,

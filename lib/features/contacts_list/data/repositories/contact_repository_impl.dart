@@ -13,6 +13,7 @@ class ContactInfoRepositoryImpl implements ContactInfoRepository {
   @override
   Future<Either<Failure, List<ContactInfo>>> getAllContacts() async {
     try {
+      // TODO: add contact  caching to speedup
       final allContacts = await contactInfoDataSource.getAllContacts();
       return Right(allContacts);
     } on PermissionDeniedException {

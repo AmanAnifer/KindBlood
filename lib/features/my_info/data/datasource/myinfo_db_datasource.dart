@@ -1,6 +1,7 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import '../model/myinfo_model.dart';
 import 'package:kindblood/core/errors/exceptions.dart';
+import 'package:kindblood/core/string_constants.dart';
 
 abstract class MyInfoDBDatasource {
   void saveMyInfo({required MyInfoModel myInfo});
@@ -8,7 +9,6 @@ abstract class MyInfoDBDatasource {
 }
 
 class HiveMyInfoDBDatasource implements MyInfoDBDatasource {
-  static const String myInfoDBKey = "myInfo";
   final Box box;
   HiveMyInfoDBDatasource({required this.box});
 

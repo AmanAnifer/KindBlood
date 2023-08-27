@@ -1,22 +1,25 @@
 part of 'contact_listing_cubit.dart';
 
 class DisplayContactInfo extends ContactInfo {
-  DisplayContactInfo(
-      {required super.name,
-      required super.phone,
-      super.bloodGroup,
-      super.locationGeohash});
-  factory DisplayContactInfo.fromContactInfo(ContactInfo contactInfo) {
+  final LengthUnit? distanceFromUser;
+  DisplayContactInfo({
+    required super.name,
+    required super.phone,
+    super.bloodGroup,
+    super.locationGeohash,
+    this.distanceFromUser,
+  });
+  factory DisplayContactInfo.fromContactInfo({
+    required ContactInfo contactInfo,
+    LengthUnit? distanceFromUser,
+  }) {
     return DisplayContactInfo(
       name: contactInfo.name,
       phone: contactInfo.phone,
       bloodGroup: contactInfo.bloodGroup,
       locationGeohash: contactInfo.locationGeohash,
+      distanceFromUser: distanceFromUser,
     );
-  }
-  double? get distanceInKm {
-    //TODO: calculate distance between user and contact location
-    return null;
   }
 }
 
