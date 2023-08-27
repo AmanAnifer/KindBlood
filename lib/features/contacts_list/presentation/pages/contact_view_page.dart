@@ -94,7 +94,6 @@ class _ContactViewPageState extends State<ContactViewPage> {
                               );
                         } else if (localContactViewState is ContactViewEdit) {
                           context.read<ContactListingCubit>().updateContactInfo(
-                                // TODO: Phone number unknown
                                 id: contactId,
                                 bloodGroup:
                                     localContactViewState.currentBloodGroup,
@@ -107,7 +106,6 @@ class _ContactViewPageState extends State<ContactViewPage> {
                                     .read<FilterCubit>()
                                     .state
                                     .searchFilter,
-                                // TODO: correct sort state
                                 sortBy: context.read<SortCubit>().state.sortBy,
                                 fromCache: false,
                               );

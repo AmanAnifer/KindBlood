@@ -96,7 +96,7 @@ class _FilterWidgetsState extends State<FilterWidgets> {
                                 );
                           }
                         },
-                        selected: state.showAnonVolunteers ?? true,
+                        selected: state.showAnonVolunteers,
                         label: const Text("Anonymous volunteers"),
                       )
                     ]

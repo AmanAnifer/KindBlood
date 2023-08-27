@@ -9,7 +9,7 @@ import '../../features/my_info/presentation/pages/myinfo_page.dart';
 part "bottom_navigation.dart";
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
-final _shellNavigatorKey = GlobalKey<NavigatorState>();
+// final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
 // class GoRouterRefreshStream extends ChangeNotifier {
 //   GoRouterRefreshStream(Stream<dynamic> stream) {

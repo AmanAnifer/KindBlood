@@ -16,7 +16,7 @@ enum BloodGroup {
   Unknown
 }
 
-BloodGroup BloodGroupfromJson(String json) {
+BloodGroup bloodGroupfromJson(String json) {
   var reverseMap = Map.fromEntries(
     _$BloodGroupEnumMap.entries.map(
       (enumMapEntry) => MapEntry(enumMapEntry.value, enumMapEntry.key),
@@ -29,7 +29,7 @@ BloodGroup BloodGroupfromJson(String json) {
   }
 }
 
-String BloodGroupToJson(BloodGroup bloodGroup) {
+String bloodGroupToJson(BloodGroup bloodGroup) {
   if (_$BloodGroupEnumMap.containsKey(bloodGroup)) {
     return _$BloodGroupEnumMap[bloodGroup]!;
   } else {

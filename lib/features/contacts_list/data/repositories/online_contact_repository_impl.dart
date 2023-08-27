@@ -1,5 +1,5 @@
 import '../../../../core/errors/exceptions.dart';
-import '../models/online_contact_info_model.dart';
+// import '../models/online_contact_info_model.dart';
 import '../../domain/entities/contact_info.dart';
 import '../../../../core/errors/failure.dart';
 import 'package:fpdart/fpdart.dart';
@@ -21,21 +21,21 @@ class OnlineContactInfoRepositoryImpl implements OnlineContactInfoRepository {
       {required OnlineSearchInfo searchInfo, required bool fromCache}) async {
     try {
       final List<OnlineContactInfo> resultContacts;
-      if (fromCache) {
-        resultContacts = await contactInfoCacheSource.getCachedContacts(
-            onlineSearchInfo: searchInfo);
-      } else {
-        resultContacts = await contactInfoDataSource.getSearchResultContacts(
-          searchInfo: searchInfo,
-        );
-        contactInfoCacheSource.cacheContacts(
-          onlineSearchInfo: searchInfo,
-          contactsList: resultContacts
-              .map(
-                  (e) => OnlineContactInfoModel.fromContactInfo(contactInfo: e))
-              .toList(),
-        );
-      }
+      // if (fromCache) {
+      //   resultContacts = await contactInfoCacheSource.getCachedContacts(
+      //       onlineSearchInfo: searchInfo);
+      // } else {
+      resultContacts = await contactInfoDataSource.getSearchResultContacts(
+        searchInfo: searchInfo,
+      );
+      // contactInfoCacheSource.cacheContacts(
+      //   onlineSearchInfo: searchInfo,
+      //   contactsList: resultContacts
+      //       .map(
+      //           (e) => OnlineContactInfoModel.fromContactInfo(contactInfo: e))
+      //       .toList(),
+      // );
+      // }
       return Right(resultContacts);
     } on NetworkException {
       return Left(NetworkFailure());

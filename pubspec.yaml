@@ -54,7 +54,8 @@ dependencies:
   http: ^0.13.6
   path: ^1.8.3
   crypto: ^3.0.3
-
+  kindblood_common:
+    path: /home/fgoo/College Stuff/project/KindBlood/kindblood_common
 
 dev_dependencies:
   flutter_test:

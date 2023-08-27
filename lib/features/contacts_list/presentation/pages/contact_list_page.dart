@@ -69,7 +69,6 @@ class ContactListPageState extends State<ContactListPage> {
                                     .read<FilterCubit>()
                                     .state
                                     .searchFilter,
-                                // TODO: correct sort state
                                 sortBy: context.read<SortCubit>().state.sortBy,
                                 // SearchFilter(
                                 //   contactSearchMode: ContactSearchMode.offline,

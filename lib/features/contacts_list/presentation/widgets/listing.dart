@@ -74,7 +74,7 @@ class Listing extends StatelessWidget {
                           );
                       return const CircularProgressIndicator();
                     } else {
-                      print(state);
+                      // print(state);
                       return const Center(child: Text("Unkown error"));
                     }
                   },
