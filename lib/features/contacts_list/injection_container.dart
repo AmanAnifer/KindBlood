@@ -3,6 +3,7 @@ import 'package:kindblood/features/contacts_list/data/repositories/contact_repos
 import 'package:kindblood/features/contacts_list/domain/repositories/contact_repository.dart';
 import 'package:kindblood/features/contacts_list/domain/usecases/get_contacts.dart';
 import 'package:kindblood/features/contacts_list/domain/usecases/update_contact.dart';
+import 'package:kindblood/features/contacts_list/data/datasources/contact_db_datasource.dart';
 
 import 'presentation/cubit/contact_view/contact_view_cubit.dart';
 import 'package:get_it/get_it.dart';
@@ -20,4 +21,6 @@ Future<void> init() async {
       () => ContactInfoRepositoryImpl(contactInfoDataSource: sl()));
   sl.registerLazySingleton<ContactInfoDataSource>(
       () => ContactInfoDataSourceImpl(dataStore: sl()));
+  sl.registerLazySingleton<ContactDataStore>(
+      () => HiveContactDataStore(box: sl()));
 }

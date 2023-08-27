@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import '../../domain/entities/blood_compatibility_info.dart';
-import '../../../../core/entities/blood_group.dart';
+import '../entities/blood_compatibility_info.dart';
+import '../entities/blood_group.dart';
 
 class BloodIcon extends StatelessWidget {
-  final BloodGroup bloodGroup;
+  final BloodGroup? bloodGroup;
   final BloodCompatibility bloodCompatibility;
   final bool isLargeIcon;
   const BloodIcon({
     super.key,
-    this.bloodGroup = BloodGroup.Other,
+    this.bloodGroup,
     this.bloodCompatibility = BloodCompatibility.incompatible,
     this.isLargeIcon = false,
   });
@@ -44,6 +44,7 @@ class BloodIcon extends StatelessWidget {
         return "O -ve";
       case BloodGroup.Other:
         return "Other";
+      case null:
       case BloodGroup.Unknown:
         return "?";
     }
@@ -52,7 +53,7 @@ class BloodIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Icon(

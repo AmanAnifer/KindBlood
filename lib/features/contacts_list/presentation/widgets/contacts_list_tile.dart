@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:kindblood/features/contacts_list/domain/entities/blood_compatibility_info.dart';
+import 'package:kindblood/core/entities/blood_compatibility_info.dart';
 import '../../../../core/entities/blood_group.dart';
-import 'blood_icon.dart';
+import '../../../../core/widgets/blood_icon.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/contact_listing/contact_listing_cubit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kindblood/core/routing/routes.dart';
-import 'location_icon.dart';
+import '../../../../core/widgets/location_icon.dart';
 
 class ContactListTile extends StatelessWidget {
   final int index;
@@ -36,9 +36,12 @@ class ContactListTile extends StatelessWidget {
             ),
           ),
           subtitle: Text(phone),
-          trailing: BloodIcon(
-            bloodCompatibility: BloodCompatibility.compatibleDifferent,
-            bloodGroup: bloodGroup ?? BloodGroup.Unknown,
+          trailing: SizedBox(
+            width: 50,
+            child: BloodIcon(
+              bloodCompatibility: BloodCompatibility.compatibleDifferent,
+              bloodGroup: bloodGroup ?? BloodGroup.Unknown,
+            ),
           ),
           leading: LocationIcon(distanceInKm: distanceInKm),
           onTap: () {

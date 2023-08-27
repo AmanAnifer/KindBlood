@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 
 class LocationIcon extends StatelessWidget {
   final double? distanceInKm;
+  final String? locationGeohash;
   final bool isLargeIcon;
   const LocationIcon({
     super.key,
     this.distanceInKm,
     this.isLargeIcon = false,
+    this.locationGeohash,
   });
 
   @override
@@ -15,11 +17,11 @@ class LocationIcon extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Icon(
-          Icons.pin_drop,
+          Icons.location_on,
           size: isLargeIcon ? 60 : 0,
         ),
         Text(
-          "${distanceInKm ?? '?'}${isLargeIcon ? ' ' : '\n'}km",
+          "${distanceInKm ?? locationGeohash ?? '?'}${isLargeIcon ? ' ' : '\n'}${(locationGeohash == null) ? 'km' : ''}",
           textAlign: TextAlign.center,
           style: isLargeIcon
               ? Theme.of(context).textTheme.titleLarge

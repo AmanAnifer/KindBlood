@@ -1,6 +1,6 @@
 part of 'myinfo_page_cubit.dart';
 
-abstract class MyInfoPageState {}
+sealed class MyInfoPageState {}
 
 class MyInfoPageFirstTime implements MyInfoPageState {}
 

@@ -45,16 +45,20 @@ class Listing extends StatelessWidget {
                 ],
               );
             default:
-              return Builder(builder: (context) {
-                return ElevatedButton(
-                  onPressed: () {
-                    context.read<ContactListingCubit>().populateContacts();
-                  },
-                  child: const Text(
-                    "Read contacts",
-                  ),
-                );
-              });
+              return Builder(
+                builder: (context) {
+                  context.read<ContactListingCubit>().populateContacts();
+                  return const CircularProgressIndicator();
+                  // return ElevatedButton(
+                  //   onPressed: () {
+                  //     context.read<ContactListingCubit>().populateContacts();
+                  //   },
+                  //   child: const Text(
+                  //     "Read contacts",
+                  //   ),
+                  // );
+                },
+              );
           }
         },
       ),

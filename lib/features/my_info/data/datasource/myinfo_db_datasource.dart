@@ -14,11 +14,12 @@ class HiveMyInfoDBDatasource implements MyInfoDBDatasource {
 
   @override
   Future<MyInfoModel> getMyInfo() async {
-    Map<dynamic, dynamic>? myInfo = box.get(myInfoDBKey);
+    var myInfo = box.get(myInfoDBKey);
     if (myInfo == null) {
       throw NoExistingMyInfoException();
     } else {
-      return MyInfoModel.fromJson(json: myInfo as Map<String, dynamic>);
+      var castedMyInfo = Map<String, dynamic>.from(myInfo);
+      return MyInfoModel.fromJson(json: castedMyInfo);
     }
   }
 

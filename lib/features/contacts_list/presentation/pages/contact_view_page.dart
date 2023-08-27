@@ -4,8 +4,8 @@ import 'package:kindblood/core/entities/blood_group.dart';
 import 'package:kindblood/features/contacts_list/presentation/cubit/contact_listing/contact_listing_cubit.dart';
 import 'package:kindblood/features/contacts_list/presentation/cubit/contact_view/contact_view_cubit.dart';
 import '../../injection_container.dart';
-import '../widgets/blood_icon.dart';
-import '../widgets/location_icon.dart';
+import '../../../../core/widgets/blood_icon.dart';
+import '../../../../core/widgets/location_icon.dart';
 
 class ContactViewPage extends StatefulWidget {
   final int contactIndex;
@@ -179,7 +179,9 @@ class _ContactViewPageState extends State<ContactViewPage> {
                 ),
               );
             } else {
-              return const CircularProgressIndicator();
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
               // return ErrorWidget.withDetails(
               //   message: localContactListingState.toString(),
               // );
