@@ -1,11 +1,8 @@
-import 'package:kindblood/features/contacts_list/data/models/kindblood_note_json.dart';
-import 'package:kindblood/features/contacts_list/domain/entities/blood_group.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../models/contact_info_model.dart';
 import 'package:fast_contacts/fast_contacts.dart' as fcontacts;
 import '../../../../core/errors/exceptions.dart';
 import 'package:kindblood/core/database/contact_db/contact_db_interface.dart';
-import 'dart:convert';
 
 abstract class ContactInfoDataSource {
   Future<List<ContactInfoModel>> getAllContacts();

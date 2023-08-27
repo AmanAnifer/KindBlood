@@ -31,26 +31,26 @@ class FilterWidgets extends StatelessWidget {
         // const TenWidthBox(),
         ActionChip(
           onPressed: () {},
-          label: Text("Blood Type: AB+ve"),
+          label: const Text("Blood Type: AB+ve"),
         ),
         // const TenWidthBox(),
         ActionChip(
           onPressed: () {},
-          label: Text("Mode: Offline"),
+          label: const Text("Mode: Offline"),
         ),
         // const TenWidthBox(),
-        ActionChip(
+        const ActionChip(
           label: Text("Anonymous volunteers"),
         ),
         // const TenWidthBox(),
-        ActionChip(
+        const ActionChip(
           label: Text("Within 1 km"),
         ),
         // const TenWidthBox(),
         ChoiceChip(
           onSelected: (selected) {},
           selected: true,
-          label: Text("Can donate"),
+          label: const Text("Can donate"),
         ),
       ],
     );

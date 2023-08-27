@@ -6,8 +6,6 @@ import 'package:kindblood/features/contacts_list/presentation/cubit/contact_view
 import '../../injection_container.dart';
 import '../widgets/blood_icon.dart';
 import '../widgets/location_icon.dart';
-import 'package:conditional_parent_widget/conditional_parent_widget.dart';
-import '../../domain/entities/blood_group.dart';
 
 class ContactViewPage extends StatefulWidget {
   final int contactIndex;

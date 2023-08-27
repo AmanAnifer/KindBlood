@@ -22,7 +22,7 @@ class Listing extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  FilterWidgets(),
+                  const FilterWidgets(),
 
                   // ),
                   Expanded(

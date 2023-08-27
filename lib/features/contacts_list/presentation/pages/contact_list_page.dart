@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kindblood/features/contacts_list/presentation/cubit/contact_listing/contact_listing_cubit.dart';
 import '../../injection_container.dart';
-import 'package:kindblood/core/utils/blood_group_acronym.dart';
 import '../widgets/listing.dart';
 
 class ContactListPage extends StatelessWidget {

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'core/injection_container.dart' as core_di;
 import 'features/contacts_list/injection_container.dart' as contacts_list_di;
 import './core/routing/routes.dart';
-import 'package:flutter/scheduler.dart' show timeDilation;
 
 void main() async {
   // timeDilation = 3;
