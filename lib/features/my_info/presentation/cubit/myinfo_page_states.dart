@@ -8,8 +8,9 @@ class MyInfoPageLoading implements MyInfoPageState {}
 
 class MyInfoPageLoaded implements MyInfoPageState {
   final MyInfo myInfo;
-
-  MyInfoPageLoaded({required this.myInfo});
+  MyInfoPageLoaded({
+    required this.myInfo,
+  });
 }
 
 class MyInfoPageEdit implements MyInfoPageState {

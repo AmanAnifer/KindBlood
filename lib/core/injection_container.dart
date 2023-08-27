@@ -3,8 +3,10 @@ import 'package:get_it/get_it.dart';
 import 'package:kindblood/core/cubit/my_info_cubit.dart';
 import 'platform/launch_call_interface.dart';
 import 'platform/launch_call_impl.dart';
-import 'string_constants.dart';
+import 'string_constants.dart' as strings;
 import 'entities/myinfo_entity.dart';
+import 'entities/app_settings.dart';
+import 'package:http/http.dart' as http;
 
 MyInfo? getMyInfo() {
   MyInfo? myInfo;
@@ -23,12 +25,27 @@ Future<void> init() async {
   String boxName = "kindblood_db";
   var box = await Hive.openBox(boxName);
   sl.registerLazySingleton(() => box);
-  var myInfoJson = box.get(myInfoDBKey);
+  var myInfoJson = box.get(strings.myInfoDBKey);
   if (myInfoJson != null) {
     final castedMyInfo = Map<String, dynamic>.from(myInfoJson);
     sl.registerSingleton<MyInfo>(MyInfo.fromJson(castedMyInfo));
   }
   sl.registerSingleton<MyInfoCubit>(MyInfoCubit(myInfo: getMyInfo()));
+
+  sl.registerFactory<AppSettings>(
+    () {
+      final appSettingsJson = box.get(strings.appSettingsKey);
+
+      if (appSettingsJson == null) {
+        return AppSettings(
+            onlineContactsEndpoint: Uri.http("192.168.240.1:8100"));
+      } else {
+        var appSettingsCasted = Map<String, dynamic>.from(appSettingsJson);
+        return AppSettings.fromJson(appSettingsCasted);
+      }
+    },
+  );
+  sl.registerLazySingleton<http.Client>(() => http.Client());
   // sl.registerFactory<EitherMyInfoOrFailure>(
   //   () {
   //     var myInfoJson = box.get(myInfoDBKey);

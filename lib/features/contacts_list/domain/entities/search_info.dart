@@ -1,36 +1,88 @@
-import '../../../../core/entities/blood_compatibility_info.dart' as bci;
+import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+import '../../../../core/entities/blood_compatibility_info.dart';
 
 import '../../../../core/entities/blood_group.dart';
 import '../../../../core/entities/length_units.dart';
-import '../../../../core/entities/location_entity.dart' as le;
+import '../../../../core/entities/location_entity.dart';
 
-abstract class SearchInfo {
+part 'search_info.g.dart';
+
+sealed class SearchInfo extends Equatable {
   final BloodGroup bloodGroup;
-  final le.LatLong userLocation;
+  final LatLong userLocation;
   final LengthUnit maxDistance;
-  final bci.BloodCompatibility bloodCompatibility;
-  SearchInfo({
+  final BloodCompatibility bloodCompatibility;
+  const SearchInfo({
     required this.bloodGroup,
     required this.userLocation,
     required this.maxDistance,
-    this.bloodCompatibility = const bci.Compatible(),
+    this.bloodCompatibility = const Compatible(),
   });
+
+  // Map<String, dynamic> toJson() {
+  //   return {
+  //     "SearchInfo": (this).runtimeType.toString(),
+  //     "bloodGroup": BloodGroupToJson(bloodGroup),
+  //     "maxDistance": maxDistance.toJson(),
+  //     "bloodCompatibility": bloodCompatibility.toJson(),
+  //   };
+  // }
+
+  // factory SearchInfo.fromJson(Map<String, dynamic> json) {
+  //   var typeString = json["SearchInfo"];
+  //   switch (typeString) {
+  //     case "OfflineSearchInfo":
+  //       return OfflineSearchInfo(bloodGroup: bloodGroup, userLocation: userLocation, maxDistance: maxDistance);
+  //     case "CompatibleButDifferent":
+  //       return const CompatibleButDifferent();
+  //     case "Incompatible":
+  //     default:
+  //       return const Incompatible();
+  //   }
+  // }
 }
 
 class OfflineSearchInfo extends SearchInfo {
-  OfflineSearchInfo({
+  const OfflineSearchInfo({
     required super.bloodGroup,
     required super.userLocation,
     required super.maxDistance,
+    super.bloodCompatibility,
   });
+
+  @override
+  List<Object?> get props => [
+        bloodGroup,
+        userLocation,
+        maxDistance,
+        bloodCompatibility,
+      ];
 }
 
+@JsonSerializable(anyMap: true, explicitToJson: true)
 class OnlineSearchInfo extends SearchInfo {
-  bool? showAnonVolunteers;
-  OnlineSearchInfo({
+  final bool showAnonVolunteers;
+  const OnlineSearchInfo({
     required super.bloodGroup,
     required super.userLocation,
     required super.maxDistance,
-    this.showAnonVolunteers,
+    super.bloodCompatibility,
+    this.showAnonVolunteers = true,
   });
+
+  factory OnlineSearchInfo.fromJson(Map<String, dynamic> json) =>
+      _$OnlineSearchInfoFromJson(json);
+
+  Map<String, dynamic> toJson() => _$OnlineSearchInfoToJson(this);
+
+  @override
+  List<Object?> get props => [
+        bloodGroup,
+        userLocation,
+        maxDistance,
+        bloodCompatibility,
+        showAnonVolunteers,
+      ];
 }

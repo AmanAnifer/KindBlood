@@ -13,28 +13,27 @@ class Listing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: BlocListener<FilterCubit, FilterState>(
-      listener: (context, state) {
-        context.read<ContactListingCubit>().populateContacts(
-              searchFilter: state.searchFilter,
-            );
-      },
-      child: BlocBuilder<ContactListingCubit, ContactListingState>(
-        builder: (context, state) {
-          switch (state.runtimeType) {
-            case ContactListingLoading:
-              return const CircularProgressIndicator();
-            case ContactListingSuccess:
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const FilterWidgets(),
+      child: BlocListener<FilterCubit, FilterState>(
+        listener: (context, state) {
+          context.read<ContactListingCubit>().populateContacts(
+                searchFilter: state.searchFilter,
+              );
+        },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const FilterWidgets(),
 
-                  // ),
-                  Expanded(
-                    flex: 10,
-                    child: ListView.builder(
+            // ),
+            Expanded(
+              flex: 10,
+              child: BlocBuilder<ContactListingCubit, ContactListingState>(
+                builder: (context, state) {
+                  if (state is ContactListingLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (state is ContactListingSuccess) {
+                    return ListView.builder(
                       key: const PageStorageKey("contact_listing_key"),
                       // cacheExtent: 40,
                       itemBuilder: (context, index) {
@@ -42,33 +41,26 @@ class Listing extends StatelessWidget {
                           displayContactInfo: state.contactsList[index],
                         );
                       },
-                      itemCount:
-                          (state as ContactListingSuccess).contactsList.length,
-                    ),
-                  ),
-                ],
-              );
-            default:
-              return Builder(
-                builder: (context) {
-                  context.read<ContactListingCubit>().populateContacts(
-                        searchFilter:
-                            context.read<FilterCubit>().state.searchFilter,
-                      );
-                  return const CircularProgressIndicator();
-                  // return ElevatedButton(
-                  //   onPressed: () {
-                  //     context.read<ContactListingCubit>().populateContacts();
-                  //   },
-                  //   child: const Text(
-                  //     "Read contacts",
-                  //   ),
-                  // );
+                      itemCount: state.contactsList.length,
+                    );
+                  } else if (state is ContactListingError) {
+                    return Center(child: Text(state.errorMessage));
+                  } else if (state is ContactListingInitial) {
+                    context.read<ContactListingCubit>().populateContacts(
+                          searchFilter:
+                              context.read<FilterCubit>().state.searchFilter,
+                        );
+                    return const CircularProgressIndicator();
+                  } else {
+                    print(state);
+                    return const Center(child: Text("Unkown error"));
+                  }
                 },
-              );
-          }
-        },
+              ),
+            ),
+          ],
+        ),
       ),
-    ));
+    );
   }
 }

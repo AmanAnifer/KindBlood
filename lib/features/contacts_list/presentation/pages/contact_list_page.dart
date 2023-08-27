@@ -43,6 +43,7 @@ class ContactListPageState extends State<ContactListPage> {
                 create: (context) => ContactListingCubit(
                   getContacts: sl(),
                   updateContact: sl(),
+                  getOnlineContacts: sl(),
                   myInfo: state.myInfo,
                 ),
               ),

@@ -10,6 +10,8 @@ MyInfoState getCorrectMyInfoState(MyInfo? myInfo) {
       : MyInfoExists(myInfo: myInfo);
 }
 
+// This is only for globally accessing MyInfo, no saving or connection to persistant storage
+
 class MyInfoCubit extends Cubit<MyInfoState> {
   MyInfoCubit({MyInfo? myInfo}) : super(getCorrectMyInfoState(myInfo));
 

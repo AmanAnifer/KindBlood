@@ -13,7 +13,7 @@ class DisplayContactInfo extends OfflineContactInfo {
     this.distanceFromUser,
   });
   factory DisplayContactInfo.fromContactInfo({
-    required OfflineContactInfo contactInfo,
+    required ContactInfo contactInfo,
     LengthUnit? distanceFromUser,
     bci.BloodCompatibility? bloodCompatibility,
   }) {
@@ -40,7 +40,10 @@ class ContactListingInitial extends ContactListingState {}
 
 class ContactListingLoading extends ContactListingState {}
 
-class ContactListingError extends ContactListingState {}
+class ContactListingError extends ContactListingState {
+  final String errorMessage;
+  const ContactListingError({required this.errorMessage});
+}
 
 class ContactListingDenied extends ContactListingState {}
 

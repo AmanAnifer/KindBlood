@@ -1,3 +1,9 @@
+import 'package:kindblood/features/contacts_list/data/datasources/online_contact_info_cache_source.dart';
+import 'package:kindblood/features/contacts_list/data/datasources/online_contact_info_datasource.dart';
+import 'package:kindblood/features/contacts_list/data/repositories/online_contact_repository_impl.dart';
+import 'package:kindblood/features/contacts_list/domain/repositories/online_contact_repository.dart';
+import 'package:kindblood/features/contacts_list/domain/usecases/get_online_contacts.dart';
+
 import 'data/datasources/offline_contact_info_datasource.dart';
 import 'data/repositories/offline_contact_repository_impl.dart';
 import 'domain/repositories/offline_contact_repository.dart';
@@ -26,4 +32,24 @@ Future<void> init() async {
       () => HiveOfflineContactInfoCacheSource(box: sl()));
   sl.registerLazySingleton<OfflineContactDataStore>(
       () => HiveOfflineContactDataStore(box: sl()));
+
+  sl.registerSingleton<OnlineContactInfoDataSource>(
+    HTTPOnlineContactInfoDataSourceImpl(
+      httpClient: sl(),
+      appSettings: sl(),
+    ),
+  );
+  sl.registerLazySingleton<OnlineContactInfoCacheSource>(
+      () => HiveOnlineContactInfoCacheSource(box: sl()));
+  sl.registerLazySingleton<OnlineContactInfoRepository>(
+    () => OnlineContactInfoRepositoryImpl(
+      contactInfoDataSource: sl(),
+      contactInfoCacheSource: sl(),
+    ),
+  );
+  sl.registerLazySingleton(
+    () => GetOnlineContacts(
+      contactInfoRepository: sl(),
+    ),
+  );
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kindblood/features/my_info/presentation/cubit/myinfo_upload_cubit.dart';
 import '../../../../core/entities/myinfo_entity.dart';
 import '../../../../core/routing/routes.dart';
 import '../cubit/myinfo_page_cubit.dart';
@@ -26,8 +27,15 @@ class _MyInfoPageState extends State<MyInfoPage> {
   late EditingInfoInputControllers editingInputControllers;
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => MyInfoPageCubit(myInfoUsecase: sl()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => MyInfoPageCubit(myInfoUsecase: sl()),
+        ),
+        BlocProvider(
+          create: (context) => MyInfoUploadCubit(myInfoUsecase: sl()),
+        ),
+      ],
       child: BlocBuilder<MyInfoPageCubit, MyInfoPageState>(
         builder: (context, state) {
           var localState = state;
@@ -35,9 +43,38 @@ class _MyInfoPageState extends State<MyInfoPage> {
             appBar: (localState is MyInfoPageLoaded)
                 ? AppBar(
                     actions: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.upload),
+                      BlocBuilder<MyInfoUploadCubit, MyInfoUploadState>(
+                        builder: (context, state) {
+                          print(state.runtimeType);
+                          if (state is MyInfoUploadInitial) {
+                            // If we reach here, it mean MyInfo exists, so
+                            // set uploadable
+                            context.watch<MyInfoUploadCubit>().setUploadable();
+                          }
+                          return IconButton(
+                            onPressed: (state is MyInfoUploadable ||
+                                    state is MyInfoUploadError)
+                                ? () {
+                                    var myInfoLocalState =
+                                        context.read<MyInfoCubit>().state;
+                                    if (myInfoLocalState is MyInfoExists) {
+                                      context
+                                          .read<MyInfoUploadCubit>()
+                                          .uploadMyInfo(
+                                            myInfo: myInfoLocalState.myInfo,
+                                          );
+                                    }
+                                  }
+                                : null,
+                            icon: switch (state.runtimeType) {
+                              MyInfoUploadable => const Icon(Icons.upload),
+                              MyInfoUploadComplete => const Icon(Icons.done),
+                              MyInfoUploading =>
+                                const CircularProgressIndicator(),
+                              _ => const Icon(Icons.upload),
+                            },
+                          );
+                        },
                       ),
                       IconButton(
                         onPressed: () {
@@ -106,9 +143,9 @@ class _MyInfoPageState extends State<MyInfoPage> {
                         locationCoordinates: editingInputControllers.latLong!,
                         bloodGroup: editingInputControllers.bloodGroup!,
                         /*
-                              Won't reach here unless bloodGroup and locationCoordinates 
-                              are validated as not null so no problem with null check
-                              */
+                                        Won't reach here unless bloodGroup and locationCoordinates 
+                                        are validated as not null so no problem with null check
+                                        */
                       );
                       context
                           .read<MyInfoPageCubit>()

@@ -1,10 +1,30 @@
 import 'package:equatable/equatable.dart';
 
-abstract class LengthUnit with EquatableMixin {
+sealed class LengthUnit with EquatableMixin {
   final double value;
   String get unitSuffixInSI;
   double get lengthInMeters;
   const LengthUnit({required this.value});
+
+  factory LengthUnit.fromJson(Map<String, dynamic> json) {
+    var lengthUnitType = json["LengthUnit"];
+    switch (lengthUnitType) {
+      case "Meter":
+        return Meter(value: json["value"]);
+      case "KiloMeter":
+        return KiloMeter(value: json["value"]);
+      case "InfiniteMeter":
+      default:
+        return const InfiniteMeter();
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "LengthUnit": (this).runtimeType.toString(),
+      "value": value,
+    };
+  }
 
   @override
   String toString() {
@@ -42,5 +62,12 @@ class InfiniteMeter extends LengthUnit {
   @override
   String toString() {
     return "no limit";
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      "LengthUnit": (this).runtimeType.toString(),
+    };
   }
 }

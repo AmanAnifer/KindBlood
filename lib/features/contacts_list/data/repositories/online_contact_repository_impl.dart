@@ -22,12 +22,14 @@ class OnlineContactInfoRepositoryImpl implements OnlineContactInfoRepository {
     try {
       final List<OnlineContactInfo> resultContacts;
       if (fromCache) {
-        resultContacts = await contactInfoCacheSource.getCachedContacts();
+        resultContacts = await contactInfoCacheSource.getCachedContacts(
+            onlineSearchInfo: searchInfo);
       } else {
         resultContacts = await contactInfoDataSource.getSearchResultContacts(
           searchInfo: searchInfo,
         );
         contactInfoCacheSource.cacheContacts(
+          onlineSearchInfo: searchInfo,
           contactsList: resultContacts
               .map(
                   (e) => OnlineContactInfoModel.fromContactInfo(contactInfo: e))

@@ -1,5 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:kindblood/core/errors/failure.dart';
+import 'package:kindblood/features/contacts_list/domain/usecases/get_online_contacts.dart';
 import '../../../../../core/entities/location_entity.dart';
 import '../../../../../core/entities/myinfo_entity.dart';
 import '../../../../../core/entities/blood_compatibility_info.dart' as bci;
@@ -17,10 +19,12 @@ part 'contact_listing_state.dart';
 class ContactListingCubit extends Cubit<ContactListingState> {
   final GetOfflineContacts getContacts;
   final UpdateOfflineContact updateContact;
+  final GetOnlineContacts getOnlineContacts;
   final MyInfo myInfo;
   ContactListingCubit({
     required this.getContacts,
     required this.updateContact,
+    required this.getOnlineContacts,
     required this.myInfo,
   }) : super(ContactListingInitial());
 
@@ -54,7 +58,9 @@ class ContactListingCubit extends Cubit<ContactListingState> {
         fromCache: fromCache);
     retrievedContacts.fold(
       (failure) {
-        emit(ContactListingError());
+        emit(const ContactListingError(
+            errorMessage:
+                "Contacts permission denied. Please allow contacts permission"));
       },
       (contactsList) {
         emit(
@@ -92,7 +98,55 @@ class ContactListingCubit extends Cubit<ContactListingState> {
   void populateContactsOnline(
       {required SearchFilter searchFilter, required bool fromCache}) async {
     emit(ContactListingLoading());
-    emit(const ContactListingSuccess(contactsList: []));
+    final retrievedContacts = await getOnlineContacts.getSearchResultContacts(
+        searchInfo: OnlineSearchInfo(
+          userLocation: searchFilter.userLocation,
+          bloodGroup: searchFilter.bloodGroup,
+          maxDistance: searchFilter.maxDistance,
+          showAnonVolunteers: searchFilter.showAnonVolunteers,
+        ),
+        fromCache: fromCache);
+    retrievedContacts.fold(
+      (failure) {
+        if (failure is NetworkFailure) {
+          emit(const ContactListingError(
+              errorMessage: "Network error, please check your network"));
+        } else {
+          emit(const ContactListingError(
+              errorMessage: "An unknown error occurred"));
+        }
+      },
+      (contactsList) {
+        emit(
+          ContactListingSuccess(
+            contactsList: contactsList.map(
+              (e) {
+                LengthUnit? distance;
+                bci.BloodCompatibility? bloodCompatibility;
+                if (e.locationCoordinates != null) {
+                  distance = getDistanceBetweenTwoLatLongs(
+                    from: searchFilter.userLocation,
+                    to: e.locationCoordinates!,
+                  );
+                }
+                if (e.bloodGroup != null) {
+                  bloodCompatibility = getBloodCompatibility(
+                    receiver: searchFilter.bloodGroup,
+                    donor: e.bloodGroup!,
+                  );
+                }
+
+                return DisplayContactInfo.fromContactInfo(
+                  contactInfo: e,
+                  distanceFromUser: distance,
+                  bloodCompatibility: bloodCompatibility,
+                );
+              },
+            ).toList(),
+          ),
+        );
+      },
+    );
   }
 
   DisplayContactInfo? getContactByPhoneNumber({required String phone}) {

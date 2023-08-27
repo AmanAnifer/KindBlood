@@ -2,6 +2,7 @@ import 'package:fpdart/fpdart.dart';
 
 import '../../../../core/entities/myinfo_entity.dart';
 import '../../../../core/errors/failure.dart';
+import '../../../../core/errors/success.dart';
 import '../repositories/myinfo_repository.dart';
 
 class MyInfoUsecase {
@@ -15,5 +16,10 @@ class MyInfoUsecase {
 
   Future<Either<Failure, MyInfo>> getMyInfo() {
     return myInfoRepository.getMyInfo();
+  }
+
+  Future<Either<Failure, Success>> uploadMyInfo(
+      {required MyInfo myInfo}) async {
+    return myInfoRepository.uploadMyInfo(myInfo: myInfo);
   }
 }

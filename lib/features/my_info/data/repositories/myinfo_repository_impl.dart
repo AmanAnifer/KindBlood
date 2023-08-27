@@ -1,4 +1,6 @@
 import 'package:fpdart/fpdart.dart';
+import 'package:kindblood/core/errors/success.dart';
+import 'package:kindblood/features/my_info/data/datasource/myinfo_upload_datasource.dart';
 
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/errors/failure.dart';
@@ -11,7 +13,11 @@ import '../../domain/repositories/myinfo_repository.dart';
 
 class MyInfoRepositoryImpl implements MyInfoRepository {
   final MyInfoDBDatasource myInfoDBDatasource;
-  MyInfoRepositoryImpl({required this.myInfoDBDatasource});
+  final MyInfoUploadDatasource myInfoUploadDatasource;
+  MyInfoRepositoryImpl({
+    required this.myInfoDBDatasource,
+    required this.myInfoUploadDatasource,
+  });
 
   @override
   Future<Either<Failure, MyInfo>> getMyInfo() async {
@@ -28,5 +34,16 @@ class MyInfoRepositoryImpl implements MyInfoRepository {
     myInfoDBDatasource.saveMyInfo(
       myInfo: MyInfoModel.fromMyInfo(myInfo: myInfo),
     );
+  }
+
+  @override
+  Future<Either<Failure, Success>> uploadMyInfo(
+      {required MyInfo myInfo}) async {
+    try {
+      var result = await myInfoUploadDatasource.uploadMyInfo(myInfo: myInfo);
+      return Either.right(result);
+    } on NetworkException {
+      return Either.left(NetworkFailure());
+    }
   }
 }
