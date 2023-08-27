@@ -12,11 +12,11 @@ class GetOfflineContacts {
     required this.contactInfoRepository,
   });
 
-  Future<Either<Failure, List<OfflineContactInfo>>> getAllContacts() async {
+  Future<Either<Failure, List<ContactInfo>>> getAllContacts() async {
     return contactInfoRepository.getAllContacts(fromCache: true);
   }
 
-  Future<Either<Failure, List<OfflineContactInfo>>> getSearchResultContacts(
+  Future<Either<Failure, List<ContactInfo>>> getSearchResultContacts(
       {required SearchInfo searchInfo, required bool fromCache}) async {
     /*
     It will first honour fromCache flag but if its giving failure then
@@ -31,49 +31,15 @@ class GetOfflineContacts {
     return allContacts.fold(
       (l) => Either.left(l),
       (r) {
-        List<OfflineContactInfo> filteredContacts = [];
-
-        // Bloodgroup filtering
-        if (searchInfo.bloodGroup == BloodGroup.Unknown) {
-          filteredContacts = r;
-        } else {
-          for (var contact in r) {
-            if (getBloodCompatibility(
-              receiver: searchInfo.bloodGroup,
-              donor: contact.bloodGroup ?? BloodGroup.Unknown,
-            ) is Compatible) {
-              filteredContacts.add(contact);
-            }
-          }
-        }
-
-        // Max distance filtering
-        filteredContacts = filteredContacts.filter((contact) {
-          final contactLocation = contact.locationCoordinates;
-          if (contactLocation == null) {
-            if (searchInfo.maxDistance is InfiniteMeter) {
-              // If 'within' is no limit then we want to return everything
-              return true;
-            } else {
-              return false;
-            }
-          } else {
-            final distance = getDistanceBetweenTwoLatLongs(
-                from: searchInfo.userLocation, to: contactLocation);
-            return (distance.lengthInMeters >
-                        searchInfo.maxDistance.lengthInMeters &&
-                    searchInfo.maxDistance is! InfiniteMeter)
-                // If 'within' is no limit then we want to return everything
-                ? false
-                : true;
-            // if (distance.lengthInMeters >
-            //     searchInfo.maxDistance.lengthInMeters) {
-            //   return false;
-            // } else {
-            //   return true;
-            // }
-          }
-        }).toList();
+        final filterUtil = ContactFilterUtil();
+        List<ContactInfo> filteredContacts = r
+            .filter(
+              (contact) => filterUtil.runAllFilters(
+                contact: contact,
+                searchInfo: searchInfo,
+              ),
+            )
+            .toList();
 
         return Either.right(filteredContacts);
       },

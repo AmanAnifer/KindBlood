@@ -51,7 +51,7 @@ class ContactListingCubit extends Cubit<ContactListingState> {
   }) async {
     emit(ContactListingLoading());
     final retrievedContacts = await getOfflineContacts.getSearchResultContacts(
-        searchInfo: OfflineSearchInfo(
+        searchInfo: SearchInfo(
           userLocation: searchFilter.userLocation,
           bloodGroup: searchFilter.bloodGroup,
           maxDistance: searchFilter.maxDistance,
@@ -64,88 +64,32 @@ class ContactListingCubit extends Cubit<ContactListingState> {
                 "Contacts permission denied. Please allow contacts permission"));
       },
       (contactsList) {
+        var contactComparator = ContactComparator(sortBy: sortBy);
         emit(
           ContactListingSuccess(
-            contactsList: contactsList.map(
-              (e) {
-                LengthUnit? distance;
-                BloodCompatibility? bloodCompatibility;
-                if (e.locationCoordinates != null) {
-                  distance = getDistanceBetweenTwoLatLongs(
-                    from: searchFilter.userLocation,
-                    to: e.locationCoordinates!,
-                  );
-                }
-                if (e.bloodGroup != null) {
-                  bloodCompatibility = getBloodCompatibility(
-                    receiver: searchFilter.bloodGroup,
-                    donor: e.bloodGroup!,
-                  );
-                }
-
-                return DisplayContactInfo.fromContactInfo(
-                  contactInfo: e,
-                  distanceFromUser: distance,
-                  bloodCompatibility: bloodCompatibility,
-                );
-              },
-            ).toList()
-              ..sort(
-                (a, b) {
-                  int compareNum;
-                  switch (sortBy.sortByColumn) {
-                    case SortByColumn.distance:
-                      if (a.distanceFromUser != null &&
-                          b.distanceFromUser != null) {
-                        compareNum = a.distanceFromUser!.lengthInMeters
-                            .compareTo(b.distanceFromUser!.lengthInMeters);
-                      } else {
-                        if (a.distanceFromUser == null) {
-                          compareNum = 1;
-                        } else if (b.distanceFromUser == null) {
-                          compareNum = -1;
-                        } else {
-                          compareNum = 0;
-                        }
-                      }
-                    case SortByColumn.bloodGroup:
-                      if (a.bloodCompatibility == b.bloodCompatibility) {
-                        compareNum = 0;
-                      } else if (a.bloodCompatibility is CompatibleSame) {
-                        compareNum = -1;
-                      } else if (b.bloodCompatibility is CompatibleSame) {
-                        compareNum = 1;
-                      } else if (a.bloodCompatibility
-                          is CompatibleButDifferent) {
-                        compareNum = -1;
-                      } else if (b.bloodCompatibility
-                          is CompatibleButDifferent) {
-                        compareNum = 1;
-                      } else {
-                        compareNum = 0;
-                      }
-                  }
-                  return (sortBy.order == Order.best ? 1 : -1) * compareNum;
-                },
-              ),
-          ),
+              contactsList: contactsList
+                  .map(
+                    (e) => getContactInfoWithContext(
+                      contact: e,
+                      searchInfo: searchFilter.searchInfo,
+                    ),
+                  )
+                  .toList()
+                ..sort(contactComparator.comparator)),
         );
       },
     );
   }
 
-  void populateContactsOnline(
-      {required SearchFilter searchFilter,
-      required SortBy sortBy,
-      required bool fromCache}) async {
+  void populateContactsOnline({
+    required SearchFilter searchFilter,
+    required SortBy sortBy,
+    required bool fromCache,
+  }) async {
     emit(ContactListingLoading());
     final retrievedContacts = await getOnlineContacts.getSearchResultContacts(
-        searchInfo: OnlineSearchInfo(
-          userLocation: searchFilter.userLocation,
-          bloodGroup: searchFilter.bloodGroup,
-          maxDistance: searchFilter.maxDistance,
-          showAnonVolunteers: searchFilter.showAnonVolunteers,
-        ),
+        searchInfo: searchFilter.searchInfo,
+        sortBy: sortBy,
         fromCache: fromCache);
     retrievedContacts.fold(
       (failure) {
@@ -160,42 +104,20 @@ class ContactListingCubit extends Cubit<ContactListingState> {
       (contactsList) {
         emit(
           ContactListingSuccess(
-            contactsList: contactsList.map(
-              (e) {
-                LengthUnit? distance;
-                BloodCompatibility? bloodCompatibility;
-                if (e.locationCoordinates != null) {
-                  distance = getDistanceBetweenTwoLatLongs(
-                    from: searchFilter.userLocation,
-                    to: e.locationCoordinates!,
-                  );
-                }
-                if (e.bloodGroup != null) {
-                  bloodCompatibility = getBloodCompatibility(
-                    receiver: searchFilter.bloodGroup,
-                    donor: e.bloodGroup!,
-                  );
-                }
-
-                return DisplayContactInfo.fromContactInfo(
-                  contactInfo: e,
-                  distanceFromUser: distance,
-                  bloodCompatibility: bloodCompatibility,
-                );
-              },
-            ).toList(),
+            contactsList: contactsList,
           ),
         );
       },
     );
   }
 
-  DisplayContactInfo? getContactByPhoneNumber({required String phone}) {
+  ContactInfoWithSearchInfoContext? getContactByPhoneNumber(
+      {required String phone}) {
     var localState = state;
     if (localState is ContactListingSuccess) {
       try {
         return localState.contactsList
-            .firstWhere((element) => element.phone == phone);
+            .firstWhere((element) => element.contactInfo.phoneNumber == phone);
       } on (StateError,) {
         return null;
       }

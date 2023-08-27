@@ -17,7 +17,7 @@ class ContactListTile extends StatelessWidget {
   // final BloodGroup? bloodGroup;
   // final bci.BloodCompatibility? bloodCompatibility;
   // final LengthUnit? distance;
-  final DisplayContactInfo displayContactInfo;
+  final ContactInfoWithSearchInfoContext displayContactInfo;
   // const ContactListTile({
   //   super.key,
   //   required this.index,
@@ -36,21 +36,22 @@ class ContactListTile extends StatelessWidget {
     return BlocBuilder<ContactListingCubit, ContactListingState>(
       builder: (context, state) {
         return ListTile(
-          key: PageStorageKey(displayContactInfo.id),
+          key: PageStorageKey(displayContactInfo.contactInfo.id),
           title: Hero(
-            tag: displayContactInfo.id,
+            tag: displayContactInfo.contactInfo.id,
             child: Material(
               type: MaterialType.transparency,
               //TODO : unkonwn name
-              child: Text(displayContactInfo.name ?? ""),
+              child: Text(displayContactInfo.contactInfo.name ?? ""),
             ),
           ),
-          subtitle: Text(displayContactInfo.phone ?? ""),
+          subtitle: Text(displayContactInfo.contactInfo.phoneNumber ?? ""),
           trailing: SizedBox(
             width: 50,
             child: BloodIcon(
               bloodCompatibility: displayContactInfo.bloodCompatibility,
-              bloodGroup: displayContactInfo.bloodGroup ?? BloodGroup.Unknown,
+              bloodGroup: displayContactInfo.contactInfo.bloodGroup ??
+                  BloodGroup.Unknown,
             ),
           ),
           leading: SizedBox(

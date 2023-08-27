@@ -49,9 +49,9 @@ dependencies:
     # path: /home/fgoo/Sources/Flutter_Repos/ConditionalParentWidget
   go_router: ^7.1.1
   url_launcher: ^6.1.11
-  location_picker_flutter_map: ^1.2.1
+  location_picker_flutter_map: ^1.2.2
   get_it_mixin: ^4.2.0
-  http: ^0.13.6
+  http: ^1.1.0
   path: ^1.8.3
   crypto: ^3.0.3
   kindblood_common:

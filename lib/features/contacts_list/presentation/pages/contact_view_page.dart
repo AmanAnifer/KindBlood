@@ -13,14 +13,14 @@ import '../../../../core/utils/optimal_viewing_lengthunit.dart';
 import '../../../../core/widgets/location_selection_page.dart';
 
 class ContactViewPage extends StatefulWidget {
-  final DisplayContactInfo displayContactInfo;
+  final ContactInfoWithSearchInfoContext displayContactInfo;
   final ContactListingCubit _contactListingCubit;
   final FilterCubit _filterCubit;
   final SortCubit _sortCubit;
   ContactViewPage({
     super.key,
     required (
-      DisplayContactInfo,
+      ContactInfoWithSearchInfoContext,
       ContactListingCubit,
       FilterCubit,
       SortCubit
@@ -50,10 +50,10 @@ class _ContactViewPageState extends State<ContactViewPage> {
         BlocProvider(
           create: (context) => ContactViewCubit(
               launchCall: sl(),
-              bloodGroup:
-                  widget.displayContactInfo.bloodGroup ?? BloodGroup.Unknown,
+              bloodGroup: widget.displayContactInfo.contactInfo.bloodGroup ??
+                  BloodGroup.Unknown,
               locationCoordinates:
-                  widget.displayContactInfo.locationCoordinates),
+                  widget.displayContactInfo.contactInfo.locationCoordinates),
         ),
       ],
       child: Builder(
@@ -63,9 +63,9 @@ class _ContactViewPageState extends State<ContactViewPage> {
               context.watch<ContactListingCubit>().state;
 
           if (localContactListingState is ContactListingSuccess) {
-            var contactId = widget.displayContactInfo.id;
-            var name = widget.displayContactInfo.name;
-            var phone = widget.displayContactInfo.phone;
+            var contactId = widget.displayContactInfo.contactInfo.id;
+            var name = widget.displayContactInfo.contactInfo.name;
+            var phone = widget.displayContactInfo.contactInfo.phoneNumber;
             // var bloodGroup =
             //     widget.displayContactInfo.bloodGroup ?? BloodGroup.Unknown;
             // var distanceFromUser = widget.displayContactInfo.distanceFromUser;
@@ -74,49 +74,69 @@ class _ContactViewPageState extends State<ContactViewPage> {
               child: Scaffold(
                 appBar: AppBar(
                   actions: [
-                    Visibility(
-                      visible: localContactViewState is ContactViewReadOnly,
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.download,
-                        ),
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        if (localContactViewState is ContactViewReadOnly) {
-                          context.read<ContactViewCubit>().editDetail(
-                                editedBloodGroup:
-                                    localContactViewState.currentBloodGroup,
-                                editedLocationCoordinates: localContactViewState
-                                    .currentLocationCoordinates,
-                              );
-                        } else if (localContactViewState is ContactViewEdit) {
-                          context.read<ContactListingCubit>().updateContactInfo(
-                                id: contactId,
-                                bloodGroup:
-                                    localContactViewState.currentBloodGroup,
-                                locationCoordinates: localContactViewState
-                                    .currentLocationCoordinates,
-                              );
-                          context.read<ContactViewCubit>().endEdit();
-                          context.read<ContactListingCubit>().populateContacts(
-                                searchFilter: context
-                                    .read<FilterCubit>()
-                                    .state
-                                    .searchFilter,
-                                sortBy: context.read<SortCubit>().state.sortBy,
-                                fromCache: false,
-                              );
-                        }
-                      },
-                      icon: Icon(
-                        localContactViewState is ContactViewReadOnly
-                            ? Icons.edit
-                            : Icons.save,
-                      ),
-                    )
+                    // If contact is online, then the list is empty, since no
+                    // operations are allowed on it
+                    ...(widget.displayContactInfo.contactInfo
+                                .contactSourceType ==
+                            ContactSourceType.online)
+                        ? []
+                        : [
+                            Visibility(
+                              visible: (localContactViewState
+                                  is ContactViewReadOnly),
+                              child: IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.download,
+                                ),
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                if (localContactViewState
+                                    is ContactViewReadOnly) {
+                                  context.read<ContactViewCubit>().editDetail(
+                                        editedBloodGroup: localContactViewState
+                                            .currentBloodGroup,
+                                        editedLocationCoordinates:
+                                            localContactViewState
+                                                .currentLocationCoordinates,
+                                      );
+                                } else if (localContactViewState
+                                    is ContactViewEdit) {
+                                  context
+                                      .read<ContactListingCubit>()
+                                      .updateContactInfo(
+                                        id: contactId,
+                                        bloodGroup: localContactViewState
+                                            .currentBloodGroup,
+                                        locationCoordinates:
+                                            localContactViewState
+                                                .currentLocationCoordinates,
+                                      );
+                                  context.read<ContactViewCubit>().endEdit();
+                                  context
+                                      .read<ContactListingCubit>()
+                                      .populateContacts(
+                                        searchFilter: context
+                                            .read<FilterCubit>()
+                                            .state
+                                            .searchFilter,
+                                        sortBy: context
+                                            .read<SortCubit>()
+                                            .state
+                                            .sortBy,
+                                        fromCache: false,
+                                      );
+                                }
+                              },
+                              icon: Icon(
+                                localContactViewState is ContactViewReadOnly
+                                    ? Icons.edit
+                                    : Icons.save,
+                              ),
+                            )
+                          ],
                   ],
                 ),
                 body: Center(

@@ -73,7 +73,7 @@ class Listing extends StatelessWidget {
                                 context.read<FilterCubit>().state.searchFilter,
                             sortBy: context.read<SortCubit>().state.sortBy,
                           );
-                      return const CircularProgressIndicator();
+                      return const Center(child: CircularProgressIndicator());
                     } else {
                       // print(state);
                       return const Center(child: Text("Unkown error"));

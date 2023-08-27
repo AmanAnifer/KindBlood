@@ -9,6 +9,8 @@
 .history
 .svn/
 migrate_working_dir/
+blood-type-compatibility-chart.jpg
+compatibility
 
 # IntelliJ related
 *.iml

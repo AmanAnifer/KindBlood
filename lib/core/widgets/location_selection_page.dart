@@ -14,11 +14,15 @@ class LocationSelection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlutterLocationPicker(
+      onError: (e) => print("!!!!!!!!!!$e"),
       // showSearchBar: false,
       initPosition: startPosition == null
           ? null
           : LatLong(startPosition!.latitude, startPosition!.longitude),
-      showContributorBadgeForOSM: true,
+      // showContributorBadgeForOSM: true,
+      // showLocationController: false,
+      // showCurrentLocationPointer: false,
+
       trackMyPosition: false,
       initZoom: 11,
       minZoomLevel: 1,

@@ -16,16 +16,21 @@ class OnlineContactInfoRepositoryImpl implements OnlineContactInfoRepository {
   });
 
   @override
-  Future<Either<Failure, List<OnlineContactInfo>>> getSearchResultContacts(
-      {required OnlineSearchInfo searchInfo, required bool fromCache}) async {
+  Future<Either<Failure, List<ContactInfoWithSearchInfoContext>>>
+      getSearchResultContacts({
+    required SearchInfo searchInfo,
+    required SortBy sortBy,
+    required bool fromCache,
+  }) async {
     try {
-      final List<OnlineContactInfo> resultContacts;
+      final List<ContactInfoWithSearchInfoContext> resultContacts;
       // if (fromCache) {
       //   resultContacts = await contactInfoCacheSource.getCachedContacts(
       //       onlineSearchInfo: searchInfo);
       // } else {
       resultContacts = await contactInfoDataSource.getSearchResultContacts(
         searchInfo: searchInfo,
+        sortBy: sortBy,
       );
       // contactInfoCacheSource.cacheContacts(
       //   onlineSearchInfo: searchInfo,

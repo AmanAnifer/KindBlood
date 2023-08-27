@@ -34,7 +34,7 @@ class _FilterWidgetsState extends State<FilterWidgets> {
             }
           },
           child: ConditionalParentWidget(
-            condition: false,
+            condition: true,
             parentBuilder: (child) {
               return Padding(
                 padding: const EdgeInsets.all(0.0),

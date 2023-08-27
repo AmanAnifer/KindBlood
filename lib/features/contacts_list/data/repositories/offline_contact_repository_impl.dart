@@ -6,7 +6,6 @@ import '../../../../core/errors/failure.dart';
 import '../../domain/repositories/offline_contact_repository.dart';
 import '../datasources/offline_contact_info_cache_source.dart';
 import '../datasources/offline_contact_info_datasource.dart';
-import '../models/offline_contact_info_model.dart';
 
 class OfflineContactInfoRepositoryImpl implements OfflineContactInfoRepository {
   final OfflineContactInfoDataSource contactInfoDataSource;
@@ -17,19 +16,16 @@ class OfflineContactInfoRepositoryImpl implements OfflineContactInfoRepository {
   });
 
   @override
-  Future<Either<Failure, List<OfflineContactInfo>>> getAllContacts(
+  Future<Either<Failure, List<ContactInfo>>> getAllContacts(
       {required bool fromCache}) async {
     try {
-      final List<OfflineContactInfo> allContacts;
+      final List<ContactInfo> allContacts;
       if (fromCache) {
         allContacts = await contactInfoCacheSource.getCachedContacts();
       } else {
         allContacts = await contactInfoDataSource.getAllContacts();
         contactInfoCacheSource.cacheContacts(
-          contactsList: allContacts
-              .map((e) =>
-                  OfflineContactInfoModel.fromContactInfo(contactInfo: e))
-              .toList(),
+          contactsList: allContacts,
         );
       }
       return Right(allContacts);

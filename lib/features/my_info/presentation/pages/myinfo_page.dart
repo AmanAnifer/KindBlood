@@ -87,7 +87,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
               if (localState is MyInfoPageFirstTime) {
                 // TODO: cleaner permission handling
                 Permission.locationWhenInUse.request();
-                return const Text("Melcowe to KindBlood");
+                return const Text("Welcome to KindBlood");
               } else if (localState is MyInfoPageLoading) {
                 return const CircularProgressIndicator();
               } else if (localState is MyInfoPageLoaded) {

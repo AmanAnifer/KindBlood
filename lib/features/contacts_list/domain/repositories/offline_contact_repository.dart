@@ -3,6 +3,6 @@ import 'package:fpdart/fpdart.dart';
 import '../../../../core/errors/failure.dart';
 
 abstract class OfflineContactInfoRepository {
-  Future<Either<Failure, List<OfflineContactInfo>>> getAllContacts(
+  Future<Either<Failure, List<ContactInfo>>> getAllContacts(
       {required bool fromCache});
 }

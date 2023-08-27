@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../features/contacts_list/presentation/pages/pages_barrel.dart';
 import '../../features/settings/presentation/pages/settings_page.dart';
 import '../../features/my_info/presentation/pages/myinfo_page.dart';
+import 'package:kindblood_common/core_entities.dart';
 part "bottom_navigation.dart";
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -110,7 +111,7 @@ class Routes {
                     path: contactViewScreen,
                     builder: (context, state) {
                       var args = state.extra as (
-                        DisplayContactInfo,
+                        ContactInfoWithSearchInfoContext,
                         ContactListingCubit,
                         FilterCubit,
                         SortCubit,
