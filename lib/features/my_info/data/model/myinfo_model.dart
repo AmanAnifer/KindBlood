@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:kindblood_common/core_entities.dart';
+
 part 'myinfo_model.g.dart';
 
 @JsonSerializable(explicitToJson: true, anyMap: true)

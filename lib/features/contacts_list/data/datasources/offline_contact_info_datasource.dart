@@ -1,7 +1,8 @@
-import 'package:permission_handler/permission_handler.dart';
-import '../models/offline_contact_info_model.dart';
 import 'package:fast_contacts/fast_contacts.dart' as fcontacts;
+import 'package:permission_handler/permission_handler.dart';
+
 import '../../../../core/errors/exceptions.dart';
+import '../models/offline_contact_info_model.dart';
 import 'offline_contact_db_datasource.dart';
 
 abstract class OfflineContactInfoDataSource {

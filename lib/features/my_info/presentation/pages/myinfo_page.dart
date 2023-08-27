@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kindblood/features/my_info/presentation/cubit/myinfo_upload_cubit.dart';
+import '../cubit/myinfo_upload_cubit.dart';
 import 'package:kindblood_common/core_entities.dart';
 import '../cubit/myinfo_page_cubit.dart';
 import '../../injection_container.dart';

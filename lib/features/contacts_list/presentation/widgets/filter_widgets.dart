@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:conditional_parent_widget/conditional_parent_widget.dart';
-import 'package:kindblood/core/cubit/my_info_cubit.dart';
+import '../../../../core/cubit/my_info_cubit.dart';
 import 'package:kindblood_common/core_entities.dart';
 
 import '../cubit/filter_widgets/filter_cubit.dart';

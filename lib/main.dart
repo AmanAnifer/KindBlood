@@ -1,10 +1,11 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'core/cubit/my_info_cubit.dart';
 import 'core/injection_container.dart' as core_di;
+import 'core/routing/routes.dart';
 import 'features/contacts_list/injection_container.dart' as contacts_list_di;
 import 'features/my_info/injection_container.dart' as myinfo_di;
-import 'core/routing/routes.dart';
-import 'core/cubit/my_info_cubit.dart';
 
 void main() async {
   // timeDilation = 3;

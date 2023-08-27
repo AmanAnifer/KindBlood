@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../cubit/sort_widgets/sort_cubit.dart';
-import 'sort_widget.dart';
+
 import '../cubit/contact_listing/contact_listing_cubit.dart';
-import 'filter_widgets.dart';
-import 'contacts_list_tile.dart';
 import '../cubit/filter_widgets/filter_cubit.dart';
+import '../cubit/sort_widgets/sort_cubit.dart';
+import 'contacts_list_tile.dart';
+import 'filter_widgets.dart';
+import 'sort_widget.dart';
 
 class Listing extends StatelessWidget {
   const Listing({

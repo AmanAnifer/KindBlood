@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kindblood_common/core_entities.dart';
+
 import '../utils/blood_group_acronym.dart';
 
 class BloodIcon extends StatelessWidget {

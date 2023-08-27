@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:kindblood_common/core_entities.dart';
+
 import '../../../../core/widgets/blood_icon.dart';
 import '../../../../core/widgets/location_icon.dart';
 

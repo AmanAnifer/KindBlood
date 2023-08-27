@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kindblood/features/contacts_list/presentation/cubit/sort_widgets/sort_cubit.dart';
+import '../../features/contacts_list/presentation/cubit/sort_widgets/sort_cubit.dart';
 import '../../features/contacts_list/presentation/cubit/contact_listing/contact_listing_cubit.dart';
 import '../../features/contacts_list/presentation/cubit/filter_widgets/filter_cubit.dart';
 import 'package:go_router/go_router.dart';

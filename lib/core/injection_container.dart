@@ -1,6 +1,6 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:get_it/get_it.dart';
-import 'package:kindblood/core/cubit/my_info_cubit.dart';
+import 'cubit/my_info_cubit.dart';
 import 'platform/launch_call_interface.dart';
 import 'platform/launch_call_impl.dart';
 import 'string_constants.dart' as strings;

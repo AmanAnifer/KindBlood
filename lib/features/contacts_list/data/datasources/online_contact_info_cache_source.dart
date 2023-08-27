@@ -1,10 +1,12 @@
-import '../models/online_contact_info_model.dart';
-import '../../../../core/string_constants.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import '../../../../core/errors/exceptions.dart';
-import 'package:crypto/crypto.dart';
-import 'package:kindblood_common/core_entities.dart';
 import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:kindblood_common/core_entities.dart';
+
+import '../../../../core/errors/exceptions.dart';
+import '../../../../core/string_constants.dart';
+import '../models/online_contact_info_model.dart';
 
 abstract class OnlineContactInfoCacheSource {
   Future<List<OnlineContactInfoModel>> getCachedContacts({

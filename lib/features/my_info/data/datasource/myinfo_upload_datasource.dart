@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:kindblood/core/entities/app_settings.dart';
+import '../../../../core/entities/app_settings.dart';
 import 'package:kindblood_common/core_entities.dart';
-import 'package:kindblood/core/errors/exceptions.dart';
-import 'package:kindblood/core/errors/success.dart';
+import '../../../../core/errors/exceptions.dart';
+import '../../../../core/errors/success.dart';
 import 'package:http/http.dart';
 
 abstract class MyInfoUploadDatasource {

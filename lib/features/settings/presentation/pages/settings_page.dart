@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:kindblood/core/entities/app_settings.dart';
+import '../../../../core/entities/app_settings.dart';
 import '../cubit/settings_cubit.dart';
-import 'package:kindblood/core/injection_container.dart';
+import '../../../../core/injection_container.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});

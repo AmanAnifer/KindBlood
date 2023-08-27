@@ -1,5 +1,6 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:kindblood_common/core_entities.dart';
+
 import '../../../../core/errors/failure.dart';
 import '../../../../core/errors/success.dart';
 import '../repositories/myinfo_repository.dart';

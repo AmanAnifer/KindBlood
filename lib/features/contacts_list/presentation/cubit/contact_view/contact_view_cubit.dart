@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../core/platform/launch_call_interface.dart';
 import 'package:kindblood_common/core_entities.dart';
+
+import '../../../../../core/platform/launch_call_interface.dart';
 
 part 'contact_view_state.dart';
 

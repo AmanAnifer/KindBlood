@@ -1,6 +1,7 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import '../../../../core/string_constants.dart';
 import 'package:kindblood_common/core_entities.dart';
+
+import '../../../../core/string_constants.dart';
 
 abstract class OfflineContactDataStore {
   Future<void> storeInfo({

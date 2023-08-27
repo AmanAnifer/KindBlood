@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kindblood_common/core_entities.dart';
-import 'package:kindblood/features/contacts_list/presentation/cubit/sort_widgets/sort_cubit.dart';
+import '../cubit/sort_widgets/sort_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SortWidget extends StatelessWidget {

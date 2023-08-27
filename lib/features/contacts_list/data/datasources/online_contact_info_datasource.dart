@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:kindblood/core/entities/app_settings.dart';
+import '../../../../core/entities/app_settings.dart';
 
 import '../models/online_contact_info_model.dart';
 import '../../../../core/errors/exceptions.dart';

@@ -1,13 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:kindblood/core/errors/failure.dart';
-import 'package:kindblood/features/contacts_list/domain/usecases/get_online_contacts.dart';
+import '../../../../../core/errors/failure.dart';
+import '../../../domain/usecases/get_online_contacts.dart';
 import 'package:kindblood_common/core_entities.dart';
 import '../../../domain/usecases/get_offline_contacts.dart';
 import '../../../domain/usecases/update_offline_contact.dart';
-import '../../../domain/usecases/calculate_distance.dart';
-import '../../../domain/usecases/get_blood_compatibility.dart';
-
+import 'package:kindblood_common/utils.dart';
 part 'contact_listing_state.dart';
 
 class ContactListingCubit extends Cubit<ContactListingState> {

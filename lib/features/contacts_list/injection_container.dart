@@ -1,17 +1,17 @@
-import 'package:kindblood/features/contacts_list/data/datasources/online_contact_info_cache_source.dart';
-import 'package:kindblood/features/contacts_list/data/datasources/online_contact_info_datasource.dart';
-import 'package:kindblood/features/contacts_list/data/repositories/online_contact_repository_impl.dart';
-import 'package:kindblood/features/contacts_list/domain/repositories/online_contact_repository.dart';
-import 'package:kindblood/features/contacts_list/domain/usecases/get_online_contacts.dart';
+import 'package:get_it/get_it.dart';
 
-import 'data/datasources/offline_contact_info_datasource.dart';
-import 'data/repositories/offline_contact_repository_impl.dart';
-import 'domain/repositories/offline_contact_repository.dart';
-import 'domain/usecases/get_offline_contacts.dart';
-import 'domain/usecases/update_offline_contact.dart';
 import 'data/datasources/offline_contact_db_datasource.dart';
 import 'data/datasources/offline_contact_info_cache_source.dart';
-import 'package:get_it/get_it.dart';
+import 'data/datasources/offline_contact_info_datasource.dart';
+import 'data/datasources/online_contact_info_cache_source.dart';
+import 'data/datasources/online_contact_info_datasource.dart';
+import 'data/repositories/offline_contact_repository_impl.dart';
+import 'data/repositories/online_contact_repository_impl.dart';
+import 'domain/repositories/offline_contact_repository.dart';
+import 'domain/repositories/online_contact_repository.dart';
+import 'domain/usecases/get_offline_contacts.dart';
+import 'domain/usecases/get_online_contacts.dart';
+import 'domain/usecases/update_offline_contact.dart';
 
 final sl = GetIt.instance;
 

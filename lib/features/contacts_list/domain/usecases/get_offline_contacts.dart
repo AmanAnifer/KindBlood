@@ -1,11 +1,10 @@
+import 'package:fpdart/fpdart.dart';
 import 'package:kindblood_common/core_entities.dart';
+import 'package:kindblood_common/utils.dart';
+
+import '../../../../core/errors/failure.dart';
 // import '../../../../core/entities/length_units.dart';
 import '../repositories/offline_contact_repository.dart';
-import 'package:fpdart/fpdart.dart';
-import '../../../../core/errors/failure.dart';
-import 'get_blood_compatibility.dart';
-// import '../../../../core/entities/blood_group.dart';
-import 'calculate_distance.dart';
 
 class GetOfflineContacts {
   final OfflineContactInfoRepository contactInfoRepository;
