@@ -4,7 +4,6 @@ import 'package:kindblood/features/contacts_list/domain/repositories/contact_rep
 import 'package:kindblood/features/contacts_list/domain/usecases/get_contacts.dart';
 import 'package:kindblood/features/contacts_list/domain/usecases/update_contact.dart';
 
-import 'presentation/cubit/contact_listing/contact_listing_cubit.dart';
 import 'presentation/cubit/contact_view/contact_view_cubit.dart';
 import 'package:get_it/get_it.dart';
 

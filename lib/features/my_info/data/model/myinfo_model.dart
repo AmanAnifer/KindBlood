@@ -1,4 +1,4 @@
-import '../../domain/entities/myinfo.dart';
+import '../../../../core/entities/myinfo_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:kindblood/core/entities/blood_group.dart';
 
@@ -25,6 +25,7 @@ class MyInfoModel extends MyInfo {
       phoneNumber: myInfo.phoneNumber,
       bloodGroup: myInfo.bloodGroup,
       locationGeohash: myInfo.locationGeohash,
+      lastDonateDate: myInfo.lastDonateDate,
     );
   }
 }

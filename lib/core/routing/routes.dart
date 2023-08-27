@@ -2,6 +2,7 @@ import 'package:kindblood/features/contacts_list/presentation/cubit/contact_list
 import 'package:go_router/go_router.dart';
 import 'package:kindblood/features/contacts_list/presentation/pages/pages_barrel.dart';
 import 'package:kindblood/features/settings/presentation/pages/settings_page.dart';
+import 'package:kindblood/features/my_info/presentation/pages/myinfo_page.dart';
 import 'package:flutter/material.dart';
 
 part "bottom_navigation.dart";
@@ -15,7 +16,7 @@ class Routes {
   // static const String contactViewScreen = "/listing/contact";
   static const String contactViewScreen = "contact";
   static final GoRouter _router = GoRouter(
-    initialLocation: listingScreen,
+    initialLocation: myInfoScreen,
     navigatorKey: _rootNavigatorKey,
     routes: [
       StatefulShellRoute.indexedStack(
@@ -58,7 +59,7 @@ class Routes {
             routes: [
               GoRoute(
                 path: myInfoScreen,
-                builder: (context, state) => const SettingsPage(),
+                builder: (context, state) => const MyInfoPage(),
               ),
             ],
           ),

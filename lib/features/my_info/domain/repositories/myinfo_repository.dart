@@ -1,4 +1,4 @@
-import '../entities/myinfo.dart';
+import '../../../../core/entities/myinfo_entity.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:kindblood/core/errors/failure.dart';
 

@@ -1,23 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'myinfo_model.dart';
+part of 'myinfo_entity.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-MyInfoModel _$MyInfoModelFromJson(Map<String, dynamic> json) => MyInfoModel(
+MyInfo _$MyInfoFromJson(Map<String, dynamic> json) => MyInfo(
       name: json['name'] as String,
       phoneNumber: json['phoneNumber'] as String,
-      bloodGroup: $enumDecode(_$BloodGroupEnumMap, json['bloodGroup']),
       locationGeohash: json['locationGeohash'] as String,
+      bloodGroup: $enumDecode(_$BloodGroupEnumMap, json['bloodGroup']),
       lastDonateDate: json['lastDonateDate'] == null
           ? null
           : DateTime.parse(json['lastDonateDate'] as String),
     );
 
-Map<String, dynamic> _$MyInfoModelToJson(MyInfoModel instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$MyInfoToJson(MyInfo instance) => <String, dynamic>{
       'name': instance.name,
       'phoneNumber': instance.phoneNumber,
       'locationGeohash': instance.locationGeohash,

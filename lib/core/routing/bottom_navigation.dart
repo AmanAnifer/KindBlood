@@ -16,6 +16,11 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
       label: "Contacts",
     ),
     CustomBottomNavigationBarItem(
+      initialLocation: Routes.myInfoScreen,
+      icon: Icon(Icons.person),
+      label: "My Info",
+    ),
+    CustomBottomNavigationBarItem(
       initialLocation: Routes.settingsScreen,
       icon: Icon(Icons.settings),
       label: "Settings",
