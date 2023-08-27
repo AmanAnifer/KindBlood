@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kindblood/features/contacts_list/presentation/cubit/contact_listing_cubit.dart';
+import 'package:kindblood/features/contacts_list/presentation/cubit/contact_listing/contact_listing_cubit.dart';
+import './filter_widgets.dart';
+import './contacts_list_tile.dart';
 
 class Listing extends StatelessWidget {
   const Listing({
@@ -9,57 +11,52 @@ class Listing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: BlocBuilder<ContactListingCubit, ContactListingState>(
-      builder: (context, state) {
-        switch (state.runtimeType) {
-          case ContactListingLoading:
-            return const CircularProgressIndicator();
-          case ContactListingSuccess:
-            return ListView.builder(
-              // cacheExtent: 40,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(state.contactsList[index].name ?? "Unknown"),
-                  subtitle: Text(state.contactsList[index].phone),
-                  trailing:
-                      // Text(state.contactsList[index].bloodGroup.toString()),
-                      Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        size: 30,
-                        Icons.water_drop,
-                        // color: Colors.redAccent.shade700,
-                        color: Colors.yellow.shade700,
-                      ),
-                      Text(
-                        // getBloodGroupAcronym(
-                        //   state.contactsList[index].bloodGroup,
-                        // ),
-                        "AB +ve",
-                        style: Theme.of(context).textTheme.labelMedium,
-                      ),
-                    ],
+    return Center(
+      child: BlocBuilder<ContactListingCubit, ContactListingState>(
+        builder: (context, state) {
+          switch (state.runtimeType) {
+            case ContactListingLoading:
+              return const CircularProgressIndicator();
+            case ContactListingSuccess:
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  FilterWidgets(),
+
+                  // ),
+                  Expanded(
+                    flex: 10,
+                    child: ListView.builder(
+                      // cacheExtent: 40,
+                      itemBuilder: (context, index) {
+                        return ContactListTile(
+                          name: state.contactsList[index].name,
+                          phone: state.contactsList[index].phone,
+                          bloodGroup: state.contactsList[index].bloodGroup,
+                          distanceInKm: state.contactsList[index].distanceInKm,
+                        );
+                      },
+                      itemCount:
+                          (state as ContactListingSuccess).contactsList.length,
+                    ),
                   ),
-                  leading:
-                      Text(state.contactsList[index].locationGeohash ?? "? km"),
-                );
-              },
-              itemCount: (state as ContactListingSuccess).contactsList.length,
-            );
-          default:
-            return Builder(builder: (context) {
-              return ElevatedButton(
-                onPressed: () {
-                  context.read<ContactListingCubit>().populateContacts();
-                },
-                child: const Text(
-                  "Read contacts",
-                ),
+                ],
               );
-            });
-        }
-      },
-    ));
+            default:
+              return Builder(builder: (context) {
+                return ElevatedButton(
+                  onPressed: () {
+                    context.read<ContactListingCubit>().populateContacts();
+                  },
+                  child: const Text(
+                    "Read contacts",
+                  ),
+                );
+              });
+          }
+        },
+      ),
+    );
   }
 }

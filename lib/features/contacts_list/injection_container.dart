@@ -3,7 +3,7 @@ import 'package:kindblood/features/contacts_list/data/repositories/contact_repos
 import 'package:kindblood/features/contacts_list/domain/repositories/contact_repository.dart';
 import 'package:kindblood/features/contacts_list/domain/usecases/get_contacts.dart';
 
-import 'presentation/cubit/contact_listing_cubit.dart';
+import 'presentation/cubit/contact_listing/contact_listing_cubit.dart';
 
 import 'package:get_it/get_it.dart';
 
