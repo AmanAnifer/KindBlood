@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:go_router/go_router.dart';
+import 'package:kindblood/core/routing/routes.dart';
+import '../widgets/text_with_leading_icon.dart';
 import '../../../../core/cubit/my_info_cubit.dart';
 import '../../injection_container.dart';
 import '../cubit/contact_listing/contact_listing_cubit.dart';
@@ -58,33 +60,35 @@ class ContactListPageState extends State<ContactListPage> {
               appBar: AppBar(
                 title: const Text("KindBlood"),
                 actions: [
-                  Builder(
-                    builder: (context) {
-                      return IconButton(
-                        icon: const Icon(
-                          Icons.refresh,
-                        ),
-                        onPressed: () {
+                  PopupMenuButton(
+                    itemBuilder: (context) => [
+                      PopupMenuItem(
+                        onTap: () {
                           context.read<ContactListingCubit>().populateContacts(
                                 searchFilter: context
                                     .read<FilterCubit>()
                                     .state
                                     .searchFilter,
                                 sortBy: context.read<SortCubit>().state.sortBy,
-                                // SearchFilter(
-                                //   contactSearchMode: ContactSearchMode.offline,
-                                //   bloodGroup:
-                                //       context.read<FilterCubit>().state.bloodGroup,
-                                //   userLocation:
-                                //       context.read<FilterCubit>().state.userLocation,
-
-                                // ),
                                 fromCache: false,
                               );
                         },
-                      );
-                    },
-                  )
+                        child: const TextWithLeadingIcon(
+                          icon: Icon(Icons.refresh),
+                          text: Text("Refresh listing"),
+                        ),
+                      ),
+                      PopupMenuItem(
+                        onTap: () {
+                          context.push(Routes.settingsScreen);
+                        },
+                        child: const TextWithLeadingIcon(
+                          icon: Icon(Icons.settings),
+                          text: Text("Settings"),
+                        ),
+                      )
+                    ],
+                  ),
                 ],
               ),
               body: const Listing(),

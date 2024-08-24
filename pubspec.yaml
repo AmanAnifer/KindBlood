@@ -41,7 +41,7 @@ dependencies:
   json_annotation: ^4.8.1
   flutter_bloc: ^8.1.2
   get_it: ^7.2.0
-  fast_contacts: ^3.0.3
+  fast_contacts: ^4.0.0
   permission_handler: ^10.4.2
   hive_flutter: ^1.1.0
   conditional_parent_widget: 

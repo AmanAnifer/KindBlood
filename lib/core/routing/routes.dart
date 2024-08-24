@@ -33,6 +33,7 @@ class Routes {
   static const String listingScreen = "/";
   static const String settingsScreen = "/settings";
   static const String myInfoScreen = "/myInfo";
+  static const String feedScreen = "/feed";
   // static const String contactViewScreen = "/listing/contact";
   static const String contactViewScreen = "contact";
   // final Stream<dynamic> cubitStream;
@@ -129,6 +130,16 @@ class Routes {
               GoRoute(
                 path: myInfoScreen,
                 builder: (context, state) => const MyInfoPage(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            navigatorKey: GlobalKey<NavigatorState>(),
+            routes: [
+              GoRoute(
+                // TODO: add feed screen
+                path: feedScreen,
+                builder: (context, state) => const SettingsPage(),
               ),
             ],
           ),

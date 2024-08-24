@@ -84,9 +84,9 @@ const tabs = [
     label: "My Info",
   ),
   CustomBottomNavigationBarItem(
-    initialLocation: Routes.settingsScreen,
-    icon: Icon(Icons.settings),
-    label: "Settings",
+    initialLocation: Routes.feedScreen,
+    icon: Icon(Icons.newspaper),
+    label: "News",
   ),
 ];
 
